@@ -130,7 +130,7 @@
                                                   Create
                                               </button>
                                               <button type="reset" id="btnReset" class="btn btn-secondary" @click="resetForm()">
-                                                  Reset
+                                                  Clear
                                               </button>
                                           </div>
                                       </form>
@@ -169,10 +169,10 @@
                                           </div>
                                           <br />
                                           <div class="form-group text-center">
-                                              <button type="submit" id="btnSubmit" class="btn btn-success">
+                                              <button type="submit" id="btnUpdate" class="btn btn-success">
                                                   Update
                                               </button>
-                                              <button type="reset" id="btnReset" class="btn btn-secondary">
+                                              <button type="reset" id="btnCancel" class="btn btn-secondary">
                                                   Cancel
                                               </button>
                                           </div>
@@ -278,7 +278,7 @@ export default {
           if (sessionLogin == null || sessionLogin != response.data.username) {
             this.$router.push({ name: "Login" });
           } else {
-            //this.admin = response.data;
+            this.admin = response.data;
             this.adminSession = response.data;
             //console.log(response.data);
           }
@@ -432,7 +432,13 @@ export default {
             this.getAllAccountAdmin();
             console.log(data);
           }
-        })
+        }).then(
+            this.admin.username = "",
+            this.admin.fullname = "",
+            this.admin.email = "",
+            this.admin.phonenumber = "",
+            this.admin.password = ""
+          )
         .catch((error) => console.log(error));
     },
     getAllAccountAdmin: function () {
@@ -465,10 +471,6 @@ export default {
         .get(API_URL + "adminInfo?admin=" + username)
         .then((response) => {
             //this.admin = response.data;
-          if(this.adminSession.username == this.admin.username){
-            console.log(this.adminSession.username + " and " + this.admin.username);
-            this.errorValidation.push("Cannot delete! This account is activing!");
-          }
             this.admin = response.data;
             //console.log(response.data);
         })
@@ -492,40 +494,47 @@ export default {
         })
         .then((response) => {
           let data = response.data;
-          if (data.code == 202) {
+          if (data.code == 402) {
             this.errorValidation.push("Username already exist!");
             console.log(data);
-          } else if (data.code == 200) {
+          } else if (data.code == 400) {
+            this.isCreateNew = true;
+            this.isUpdate = false;
+            this.isDelete = false;
             this.getAllAccountAdmin();
             console.log(data);
           }
-        })
+        }).then(
+            this.admin.username = "",
+            this.admin.fullname = "",
+            this.admin.email = "",
+            this.admin.phonenumber = "",
+            this.admin.password = ""
+          )
         .catch((error) => console.log(error));
     },
     deleteAdminAccount: function (username) {
+      this.errorValidation = [];
       axios
         .get(API_URL + "adminInfo?admin=" + username)
         .then((response) => {
-            //this.admin = response.data;
-          // if(this.adminSession.username == this.admin.username){
-          //   console.log(this.adminSession.username + " and " + this.admin.username);
-          //   this.errorValidation.push("Cannot delete! This account is activing!");
-          // }
-            this.admin = response.data;
+          this.admin = response.data;
+          if(this.adminSession.username == this.admin.username){
+            console.log(this.adminSession.username + " and " + this.admin.username);
+            this.errorValidation.push("Cannot delete! This account is activing!");
+          } else {
+            this.isCreateNew = true;
+            this.isUpdate = false;
+            this.isDelete = true;
+          }
             //console.log(response.data);
         })
         .catch(function (error) {
           console.log(error);
         });
-        this.isCreateNew = true;
-        this.isUpdate = false;
-        this.isDelete = true;
     },
     comfirmDeleteAdminAccount: function () {
       this.errorValidation=[];
-      this.isCreateNew = true;
-      this.isUpdate = false;
-      this.isDelete = false;
       axios
           .post(API_URL + "delete", {
             username: this.admin.username,
@@ -536,17 +545,26 @@ export default {
           })
           .then((response) => {
             let data = response.data;
-            if (data.code == 402) {
+            if (data.code == 302) {
               this.errorValidation.push("Username not exist!");
               console.log(data);
-            } else if (data.code == 400) {
+            } else if (data.code == 300) {
+              this.isCreateNew = true;
+              this.isUpdate = false;
+              this.isDelete = false;
               this.getAllAccountAdmin();
-              console.log(data);
+              //console.log(data);
             }
-          })
+          }).then(
+            this.admin.username = "",
+            this.admin.fullname = "",
+            this.admin.email = "",
+            this.admin.phonenumber = "",
+            this.admin.password = ""
+          )
           .catch((error) => console.log(error));
     }
-  },
+  }
 };
 </script>
 <style>
