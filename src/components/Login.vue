@@ -152,4 +152,8 @@ h1 {
   color: red;
   margin-left: 100px;
 }
+
+label {
+  font-weight: bold;
+}
 </style>

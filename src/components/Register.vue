@@ -271,4 +271,31 @@ h1 {
   color: red;
   margin-left: 100px;
 }
+
+label {
+  font-weight: bold;
+}
+
+@media (max-width: 1366px) {
+  .register {
+    height: 100%;
+    font-size: 1rem;
+  }
+  h1{
+    font-size: 1.9rem;
+  }
+  .btn{
+    height: auto;
+  }
+  input{
+    height: 35px;
+  }
+  #form-register {
+  margin-top: 5vh;
+  padding: 10vh 0 20vh 0;
+  width: 90%;
+  height: 90%;
+
+}
+}
 </style>

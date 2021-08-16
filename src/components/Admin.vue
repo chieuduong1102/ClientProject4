@@ -39,14 +39,14 @@
                   </a>
                   <a href="#" @click="showFeedback()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="comment-alt" /> Feedback</li>
+                          <li><fa-icon class="icon" icon="comment-alt" /> Feedback & Rating</li>
                       </div>
                   </a>
                   <router-link to="Login" id="router-logout">
-                      <div class="item router-logout">
+                      <div class="item router-logout" @click="logout()">
                           <li>
                               <fa-icon class="icon" icon="power-off" />
-                              <span @click="logout()">
+                              <span>
                                   Logout
                               </span>
                           </li>
@@ -437,7 +437,8 @@ export default {
             this.admin.fullname = "",
             this.admin.email = "",
             this.admin.phonenumber = "",
-            this.admin.password = ""
+            this.admin.password = "",
+            this.admin.comfirmPassword = ""
           )
         .catch((error) => console.log(error));
     },
@@ -509,7 +510,8 @@ export default {
             this.admin.fullname = "",
             this.admin.email = "",
             this.admin.phonenumber = "",
-            this.admin.password = ""
+            this.admin.password = "",
+            this.admin.comfirmPassword = ""
           )
         .catch((error) => console.log(error));
     },
@@ -560,7 +562,8 @@ export default {
             this.admin.fullname = "",
             this.admin.email = "",
             this.admin.phonenumber = "",
-            this.admin.password = ""
+            this.admin.password = "",
+            this.admin.comfirmPassword = ""
           )
           .catch((error) => console.log(error));
     }
@@ -723,6 +726,10 @@ input {
 
 table tr td {
   vertical-align: middle;
+}
+
+label {
+  font-weight: bold;
 }
 
 </style>
