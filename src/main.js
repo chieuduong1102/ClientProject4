@@ -14,10 +14,15 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(fas)
 Vue.component('fa-icon', FontAwesomeIcon)
 
+// datatable
+import { VuejsDatatableFactory } from 'vuejs-datatable';
+Vue.use( VuejsDatatableFactory );
+
 //vue router
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 import routes from "./router/router"
+import vuetify from './plugins/vuetify'
 const router = new VueRouter({
   mode: 'history',
   routes
@@ -27,5 +32,6 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
-  render: h => h(App),
+  vuetify,
+  render: h => h(App)
 }).$mount('#app')

@@ -291,11 +291,10 @@ label {
     height: 35px;
   }
   #form-register {
-  margin-top: 5vh;
-  padding: 10vh 0 20vh 0;
-  width: 90%;
-  height: 90%;
-
-}
+    margin-top: 5vh;
+    padding: 10vh 0 20vh 0;
+    width: 90%;
+    height: 90%;
+  } 
 }
 </style>

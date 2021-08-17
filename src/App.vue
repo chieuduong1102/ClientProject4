@@ -6,16 +6,15 @@
 
 <script>
 
-//import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
+
   components: {
+ 
+  },
 
-  }
-}
+  data: () => ({
+    //
+  }),
+};
 </script>
-
-<style>
-
-</style>

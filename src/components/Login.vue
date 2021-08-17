@@ -118,9 +118,7 @@ export default {
   width: 60%;
   margin: 0 auto 20px auto;
 }
-#btnSubmit {
-  width: 180px;
-}
+
 
 .container {
   height: 100vh;
@@ -141,6 +139,7 @@ h1 {
   -moz-box-shadow: 0px 0px 46px -20px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 46px -20px rgba(0, 0, 0, 0.75);
 }
+
 .btn {
   border-radius: 23px;
   width: 150px;
