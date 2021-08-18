@@ -296,6 +296,10 @@ export default {
 /* Toggle Styles */
 
 .admin {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
 #img-branch {
@@ -360,6 +364,7 @@ export default {
 }
 
 .router-logout {
+
 }
 
 .router-logout:hover {
