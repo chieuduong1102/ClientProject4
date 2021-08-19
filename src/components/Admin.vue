@@ -73,7 +73,7 @@
                       </div>
                   </div>
               </div>
-              <div class="container-fluid content">
+              <div class="container-fluid content" id="body-content">
                   <div class="row">
                       <div class="col-md-12">
                           <div class="content-detail" v-show="this.isShowHome">
@@ -151,7 +151,7 @@ export default {
       axios
         .get(API_URL + "admin/adminInfo?admin=" + this.adminSession.username)
         .then((response) => {
-          if (sessionLogin == null || sessionLogin != response.data.username) {
+          if (sessionLogin == null || sessionLogin != response.data.username || response.data.username == null) {
             this.$router.push({ name: "Login" });
           } else {
             this.admin = response.data;
@@ -160,6 +160,7 @@ export default {
           }
         })
         .catch(function (error) {
+          this.$router.push({ name: "Login" });
           console.log(error);
         });
     },
@@ -321,6 +322,7 @@ export default {
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+
 }
 
 #content {
