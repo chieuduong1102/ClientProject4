@@ -7,7 +7,7 @@ const routes = [
   { path: '/Login', component: Login, name:'Login' },
   { path: '/Register', component: Register, name:'Register' },
   { path: '/Admin', component: Admin, name:'Admin' },
-  { path: '/Home', component: Home, name:'Home'},
+  { path: '/Home', component: Home, name:'Home'}
 ]
   
   export default routes;

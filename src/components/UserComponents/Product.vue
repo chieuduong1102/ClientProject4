@@ -427,6 +427,6 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped src="../../assets/css/bootstrap.min.css">
+/* @import "../../assets/css/bootstrap.min.css"; */
 </style>

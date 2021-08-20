@@ -115,7 +115,7 @@ a{transition: all .3s linear;}
 	font-weight: bold;
 }
 input[type="text"] { 
-	border: none;
+	/* border: none; */
 }
 *:focus {
 	outline: 0;
@@ -1008,14 +1008,18 @@ ul#nav_menu li div.home-page-3 {
 .home2_service_info{
 	margin: 35px 0px 35px 0px;
 }
+
 .service_list:hover{
-	background: #222222;
+	background: none;
+	box-shadow: inset 570px 0 0 0 #dfe6e9;
 }
+
 .service_list:hover h2{
-	color:#fff
+	color:rgb(0, 0, 0)
 }
+
 .service_list:hover h3{
-	color:#fff
+	color:rgb(0, 0, 0)
 }
 .service_list{
 	text-align: center;

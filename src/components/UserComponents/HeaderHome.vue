@@ -6,16 +6,16 @@
 						<!--Start logo area -->
 						<div class="logo logo_border"> 
 							<a href="">
-								<img src="../../assets/full-logo_min.png" alt="" />
+								<img src="../../assets/full-logo_min.png" class="img-fluid"  alt="" />
 							</a>
 						</div>
 						<!--End logo area -->
 					</div>
 					<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 						<div class="home2_contact_info">
-							<div class="contact_info_text">
+							<!-- <div class="contact_info_text">
 								<p>Contact us: (1 223) 334 3434, (555) 732-253-8715</p>
-							</div>
+							</div> -->
 							<!--Start Account area -->
 							<div class="account_card_area account_cart_home2"> 
 								<ul id="account_nav">
