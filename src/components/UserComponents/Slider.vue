@@ -27,7 +27,6 @@
 </template>
 <script>
 export default {
-  el: "#slider",
   data() {
     return {
       sliderImages: [
