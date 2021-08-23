@@ -5,6 +5,7 @@
         <div class="product_list">
           <div class="single_product">
             <a href="product.html" target="main">
+              <br />
               <figure>
                 <img
                   src="../../../assets/css/img/product/pr1.png"
@@ -13,20 +14,27 @@
             ></a>
             <div class="product_details">
               <h2>Beauty Calla Lily Bouquety</h2>
-              <p>
-                <span class="popular_price">$10.00</span>
-              </p>
-              <div class="product_rating">
-                <div class="star_icon">
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star"></i>
-                  <i class="fa fa-star-half-o"></i>
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    <span class="popular_price">$10.00</span>
+                  </p>
+                </div>
+                <div class=" col-md-6 product_rating">
+                  <div class="star_icon">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                  </div>
                 </div>
                 <div class="product_button">
                   <div class="cart_details">
-                    <a href="cart.html">Add to cart</a>
+                    <a href="cart.html" class="btn btn-primary" style="padding-top: 13px">
+                      <fa-icon icon="shopping-cart" /> Add to cart</a
+                    >
+                    <br />
                   </div>
                 </div>
               </div>
