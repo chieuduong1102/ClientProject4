@@ -11,7 +11,7 @@
               alt="logo"
             />
             <br />
-            <h4>HO BOOKSTORE</h4>
+            <h4 id="text-branch">HO BOOKSTORE</h4>
             <br />
             <p>
               Let us tenderly and kindly cherish, therefore, the means of
@@ -108,6 +108,7 @@
                     ><a href=""> Payment methods and invoicing </a>
                   </li>
                 </ul>
+                <br><br>
                 <div class="input-group rounded">
                   <input
                     type="email"
@@ -233,32 +234,27 @@ export default {
 
 <style scoped>
 .footer_area {
-  background-image: linear-gradient(
-    to top,
-    #bdc2e8 0%,
-    #bdc2e8 1%,
-    #e6dee9 100%
-  );
+  background: #252525;
+  color: #d2dae2 !important;
 }
 
-.feature_newsletter > p,
-h4 {
-  color: black !important;
-}
 
 .footer_bottom_area > div > p {
-  color: rgba(65, 60, 60, 0.657);
+  color: rgba(136, 127, 127, 0.657);
+}
+
+#text-branch{
+  color: #ff7979;
 }
 
 .address-store {
-  color: black;
   font-size: 1rem;
 }
 
 .service-support {
   margin-top: 40px;
   padding-left: 80px;
-  color: black;
+  color: #d2dae2 !important;
 }
 
 .tilte-s-s {
@@ -268,14 +264,14 @@ h4 {
 
 .service-support > ul > li > a {
   text-decoration: none;
-  color: black;
+  color: #d2dae2 !important;
   cursor: pointer;
   font-size: 1.1rem;
 }
 
 .service-support > ul > li > a:hover {
   padding-left: 10px;
-  color: rgb(2, 0, 98);
+  color: #ff7979 !important;
   font-weight: 500;
 }
 

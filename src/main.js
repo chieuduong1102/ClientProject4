@@ -11,6 +11,9 @@ Vue.use(Antd);
 import AxiosPlugin from 'vue-axios-cors';
 Vue.use(AxiosPlugin)
 
+//
+import StarRating from 'vue-star-rating'
+Vue.component('vue-star-rating', StarRating)
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -37,5 +40,6 @@ Vue.config.productionTip = false
 new Vue({
   router,
   vuetify,
+  StarRating,
   render: h => h(App)
 }).$mount('#app')

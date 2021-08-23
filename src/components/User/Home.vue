@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <div class="home">
     <HeaderHome />
     <Slider />
-
-    <div class="container text-center" style="width: 80%; margin auto">
-      <Branch />
-      <br />
-      <Product />
+    <div class="container-fluid homeProduct">
+      <div class="container text-center" style="width: 80%; margin auto; background-color: white">
+        <Branch />
+        <br />
+        <Product />
+      </div>
     </div>
     <FooterHome />
   </div>
@@ -40,4 +41,7 @@ export default {
 @import "../../assets/css/font-awesome.min.css";
 @import "../../assets/css/meanmenu.min.css";
 @import "../../assets/css/responsive.css";
+.homeProduct{
+  /* background-color: #d1d8e08f; */
+}
 </style>
