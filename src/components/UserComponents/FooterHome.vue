@@ -71,19 +71,19 @@
                 </p>
                 <ul>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> Terms of use</a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> Privacy policy </a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> About us</a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> Chain bookstore </a>
                   </li>
                 </ul>
@@ -92,19 +92,19 @@
                 </p>
                 <ul>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> Exchange - return - refund policy</a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> Wholesale customer policy </a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> Shipping method</a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="angle-right"></fa-icon
+                    <fa-icon icon="clipboard"></fa-icon
                     ><a href=""> Payment methods and invoicing </a>
                   </li>
                 </ul>
