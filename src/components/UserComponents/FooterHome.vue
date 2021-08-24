@@ -316,12 +316,12 @@ export default {
 
 .btn{
 	border-radius: 20px;
-	background-color: rgb(160, 28, 28);
+	background-color: rgb(241, 179, 179);
 	width: 100px;
-	color: rgb(255, 255, 255);
+	color: rgb(0, 0, 0);
 	font-size: 1rem;
 }
 .btn:hover{
-	background-color: rgb(255, 2, 2);	
+	background-color: #ff7979;	
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
-  <div class="header-navbar">
+  <div class="header-navbar" >
     <section class="ftco-section">
-      <div class="container-fluid px-md-5">
-        <div class="row justify-content-between">
-          <div class="col-md-12 order-md-last">
+      <div class="container-fluid px-md-5" style="background-color: white;">
+        <div class="row justify-content-between" >
+          <div class="col-md-12 order-md-last" >
             <div class="row">
               <div class="col-md-4 text-center">
                 <a class="navbar-brand" href="index.html">
@@ -25,7 +25,7 @@
                     aria-describedby="search-addon"
                   />
                   <button type="submit" class="input-group-text border-0 btn btn-danger" id="search-addon">
-                    <fa-icon icon="search" /> Search
+                    <fa-icon icon="search" />
                   </button>
                 </div>
               </div>
@@ -85,7 +85,7 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav m-auto">
               <li class="nav-item active">
-                <a href="#" class="nav-link">Home</a>
+                <a href="#" class="nav-link" @mouseover="display=false">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -95,18 +95,20 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  @mouseover="display=true"
+
                   >Page</a
                 >
-                <div class="dropdown-menu" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" href="#">Page 1</a>
-                  <a class="dropdown-item" href="#">Page 2</a>
-                  <a class="dropdown-item" href="#">Page 3</a>
-                  <a class="dropdown-item" href="#">Page 4</a>
+                <div class="dropdown-menu show" @mouseleave="display=false" v-if="display" aria-labelledby="dropdown04">
+                  <a class="dropdown-item" aria-expanded href="#">Page 1</a>
+                  <a class="dropdown-item" aria-expanded href="#">Page 2</a>
+                  <a class="dropdown-item" aria-expanded href="#">Page 3</a>
+                  <a class="dropdown-item" aria-expanded href="#">Page 4</a>
                 </div>
               </li>
-              <li class="nav-item"><a href="#" class="nav-link">Work</a></li>
-              <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
-              <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+              <li class="nav-item"><a href="#" @mouseover="display=false" class="nav-link" >Work</a></li>
+              <li class="nav-item"><a href="#" @mouseover="display=false" class="nav-link" >Blog</a></li>
+              <li class="nav-item"><a href="#" @mouseover="display=false" class="nav-link" >Contact</a></li>
             </ul>
           </div>
         </div>
@@ -117,7 +119,9 @@
 </template>
 
 <script>
+
 export default {
+  
   data() {
     return {
       display: false
@@ -10838,7 +10842,7 @@ h5,
   }
 }
 .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
-  font-size: 11px;
+  font-size: 1.1rem;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   padding-left: 20px;
@@ -10858,7 +10862,7 @@ h5,
   display: block;
   width: 0;
   height: 2px;
-  background: #ff0000;
+  background: #ff7979;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -10870,9 +10874,15 @@ h5,
     transition: none;
   }
 }
+
 .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
-  color: #ff0000;
+  color: #ff7979;
 }
+
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link:focus {
+  color: #ff7979;
+}
+
 .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover:before {
   width: 100%;
 }
@@ -10902,12 +10912,12 @@ h5,
   border-radius: 4px;
 }
 .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item {
-  font-size: 12px;
+  font-size: 1.2rem;
   color: #000;
 }
 .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:hover,
 .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:focus {
-  background: #ff0000;
+  background: #ff7979;
   color: #fff;
 }
 @media (max-width: 991.98px) {
@@ -10938,7 +10948,7 @@ h5,
   }
 }
 .ftco-navbar-light .navbar-nav > .nav-item.active > a {
-  color: #ff0000;
+  color: #ffffff;
 }
 @media (max-width: 991.98px) {
   .ftco-navbar-light .navbar-nav > .nav-item.active > a {
@@ -11043,19 +11053,38 @@ h5,
 
 #input-home-search{
   margin-top: 25px;
-  border: 2px solid #252525;
-  border-radius: 0px !important;
-  border-bottom-left-radius: 4px !important;
-  border-top-left-radius: 4px !important;
+  border: none;
+  border-bottom: 2px solid #ff7979;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
   padding-left: 20px;
   font-size: 1.1rem;
+  background: none;
+}
+
+#input-home-search:focus{
+    background: none !important;;
 }
 
 #search-addon{
     margin-top: 25px;
     height: 50px;
-    background-color: #252525;
+    border: solid 2px #ff7979 !important;
+    background: none !important;
+    color: #ff7979 !important;
+    width: 50px;
+    border-radius: 25px;
+    color: white;
+    padding-left: 16px;
+    margin-left: -20px;
 }
+
+#search-addon:hover{
+  background: #ff7979 !important;
+  color: #ffffff !important;
+}
+
+
 .a-header{
   font-size: 1.1rem;
   color: black;

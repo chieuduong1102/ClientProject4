@@ -14,7 +14,7 @@
       <div v-for="sliderImage in sliderImages" :key="sliderImage.src">
         <div class="slider_banner_single">
           <div class="slider_banner_one">
-              <img :src="sliderImage.src" />
+              <img :src="sliderImage.src" class="img-fluid" />
           </div>
           <div class="slide_banner_text">
 								<a href="#"><h4>{{ sliderImage.button }}</h4></a>
@@ -39,6 +39,11 @@ export default {
           src: "https://wallpaperaccess.com/full/124400.jpg",
           button: "React Now",
           title: "React now discount 15%"
+        },
+                {
+          src: "https://images6.alphacoders.com/310/thumb-1920-310018.jpg",
+          button: null,
+          title: null
         },
       ],
     };
