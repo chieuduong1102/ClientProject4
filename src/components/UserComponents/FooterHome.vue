@@ -322,6 +322,7 @@ export default {
 	font-size: 1rem;
 }
 .btn:hover{
-	background-color: #ff7979;	
+	background-color: #ff7979;
+  font-weight: bold;	
 }
 </style>

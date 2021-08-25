@@ -1,6 +1,6 @@
 <template>
   <div class="feedback">
-    <h1>{{ book.imageList }}</h1>
+    <h1>Feedback</h1>
   </div>
 </template>
 <script>

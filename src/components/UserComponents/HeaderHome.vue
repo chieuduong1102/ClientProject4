@@ -52,6 +52,11 @@
                         <v-icon style="color: #45aaf2">mdi-twitter</v-icon>
                       </v-btn>
                     </td>
+                    <td>
+                      <v-btn class="mx" fab small color="red">
+                        <v-icon style="color: #eb4d4b">mdi-shopping</v-icon>
+                      </v-btn>
+                    </td>
                     <td><a href="" class="a-header"><fa-icon icon="user" /> Account</a></td>
                     <td><a href="" class="a-header"><fa-icon icon="sign-in-alt" /> Sign in</a></td>
                   </tr>

@@ -83,7 +83,7 @@
                               <h1>Category</h1>
                           </div>
                           <div class="content-detail" v-show="this.isShowProduct">
-                              <h1>Product</h1>
+                              <Product />
                           </div>
                           <div class="content-detail" v-show="this.isShowOrders">
                               <h1>Orders</h1>
@@ -105,6 +105,7 @@
   </div>
 </template>
 <script>
+import Product from "./AdminComponnents/Product.vue";
 import Feedback from "./AdminComponnents/Feedback.vue";
 import AdminAccount from "./AdminComponnents/AdminAcount.vue";
 import UserAccount from "./AdminComponnents/UserAccount.vue";
@@ -112,6 +113,7 @@ import axios from "axios";
 const API_URL = "http://localhost:8088/";
 export default {
   components: {
+    Product,
     AdminAccount,
     UserAccount,
     Feedback
