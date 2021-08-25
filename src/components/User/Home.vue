@@ -41,7 +41,4 @@ export default {
 @import "../../assets/css/font-awesome.min.css";
 @import "../../assets/css/meanmenu.min.css";
 @import "../../assets/css/responsive.css";
-.homeProduct{
-  /* background-color: #d1d8e08f; */
-}
 </style>

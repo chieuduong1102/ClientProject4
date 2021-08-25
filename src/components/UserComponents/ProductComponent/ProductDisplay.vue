@@ -1,7 +1,7 @@
 <template>
+  <router-link to="Product">
   <div class="product_details">
-    <a href="product.html" target="main">
-      <figure style="width: 250px;height: 300px; margin: 10px auto 10px auto">
+      <figure style="width: 250px;height: 320px; margin: 10px auto 10px auto">
         <!-- <img src="../../../assets/css/img/product/pr1.png" alt="" /> -->
         <img :src="nameFile" class="img-fluid" alt="" />
         <!-- <v-app id="inspire" style="height: 300px">
@@ -30,7 +30,6 @@
           </v-carousel>
         </v-app> -->
       </figure>
-    </a>
     <h2 class="title-book">{{ titleBook }}</h2>
     <div class="row price-rating">
       <div class="col-md-6">
@@ -48,6 +47,7 @@
       </div>
     </div>
   </div>
+    </router-link>
 </template>
 
 <script>
