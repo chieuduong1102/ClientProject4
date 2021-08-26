@@ -172,7 +172,7 @@ export default {
   },
   methods: {
     displayImg() {
-      return require("@/assets/css/img/product/" + this.imgShow);
+      //return require("@/assets/css/img/product/" + this.imgShow);
     },
     setImgShow(imgName) {
       this.imgShow = imgName;

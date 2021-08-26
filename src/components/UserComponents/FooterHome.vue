@@ -37,6 +37,7 @@
               has home delivery.
               <table id="tableMXH">
                 <tr>
+                  <td>Connect:</td>
                   <td>
                     <v-btn class="mx" fab small>
                       <v-icon style="color: #3867d6">mdi-facebook</v-icon>
@@ -79,8 +80,7 @@
                     ><a href=""> Privacy policy </a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> About us</a>
+                    <fa-icon icon="clipboard"></fa-icon><a href=""> About us</a>
                   </li>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
@@ -108,16 +108,21 @@
                     ><a href=""> Payment methods and invoicing </a>
                   </li>
                 </ul>
-                <br><br>
+                <br /><br />
                 <div class="input-group rounded">
                   <input
                     type="email"
-                    class="form-control rounded" id="input-register-notify"
+                    class="form-control rounded"
+                    id="input-register-notify"
                     placeholder="Enter your email to receive notifications from HO"
                     aria-label="Register"
                     aria-describedby="search-addon"
                   />
-                  <button type="submit" class="input-group-text border-0 btn btn-danger" id="search-addon">
+                  <button
+                    type="submit"
+                    class="input-group-text border-0 btn btn-danger"
+                    id="search-addon"
+                  >
                     Register
                   </button>
                 </div>
@@ -238,12 +243,11 @@ export default {
   color: #d2dae2 !important;
 }
 
-
 .footer_bottom_area > div > p {
   color: rgba(136, 127, 127, 0.657);
 }
 
-#text-branch{
+#text-branch {
   color: #ff7979;
 }
 
@@ -309,31 +313,30 @@ export default {
   width: auto;
 }
 
-#input-register-notify{
-	border-top-left-radius: 20px !important;
-	border-bottom-left-radius: 20px !important;
+#input-register-notify {
+  border-top-left-radius: 20px !important;
+  border-bottom-left-radius: 20px !important;
 }
 
-.btn{
-	border-radius: 20px;
-	background-color: rgb(241, 179, 179);
-	width: 100px;
-	color: rgb(0, 0, 0);
-	font-size: 1rem;
+.btn {
+  border-radius: 20px;
+  background-color: rgb(241, 179, 179);
+  width: 100px;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
 }
-.btn:hover{
-	background-color: #ff7979;
-  font-weight: bold;	
+.btn:hover {
+  background-color: #ff7979;
+  font-weight: bold;
 }
-#search-addon{
+#search-addon {
   color: white !important;
   height: 39px !important;
 }
 
-#search-addon:hover{
+#search-addon:hover {
   background-color: #eb4d4b;
   color: black !important;
   font-weight: normal !important;
 }
-
 </style>
