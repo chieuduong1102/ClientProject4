@@ -1,6 +1,6 @@
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
-import Admin from '../components/Admin.vue'
+import Admin from '../components/AdminManagement/Admin.vue'
 import Home from '../components/User/Home.vue'
 import ProductDetail from '../components/User/ProductDetail.vue'
 

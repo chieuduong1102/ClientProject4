@@ -4,7 +4,7 @@
           <!-- Sidebar -->
           <div id="sidebar">
               <header>
-                  <img src="../assets/full-logo.png" class="img-fluid" id="img-branch" alt="logo" />
+                  <img src="../../assets/full-logo.png" class="img-fluid" id="img-branch" alt="logo" />
               </header>
               <ul class="nav">
                   <a href="#" @click="showHome()">
@@ -105,10 +105,10 @@
   </div>
 </template>
 <script>
-import Product from "./AdminComponnents/Product.vue";
-import Feedback from "./AdminComponnents/Feedback.vue";
-import AdminAccount from "./AdminComponnents/AdminAcount.vue";
-import UserAccount from "./AdminComponnents/UserAccount.vue";
+import Product from "../AdminComponnents/Product.vue";
+import Feedback from "../AdminComponnents/Feedback.vue";
+import AdminAccount from "../AdminComponnents/AdminAcount.vue";
+import UserAccount from "../AdminComponnents/UserAccount.vue";
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 export default {
@@ -310,7 +310,7 @@ export default {
 }
 
 #div-logout {
-  background-image: url(../assets/bg-header-admin.png);
+  background-image: url(../../assets/bg-header-admin.png);
   background-repeat: no-repeat, repeat;
   background-size: cover;
   height: 10vh;
