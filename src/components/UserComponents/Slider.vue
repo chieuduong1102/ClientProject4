@@ -16,8 +16,8 @@
           <div class="slider_banner_one">
               <img :src="sliderImage.src" class="img-fluid" />
           </div>
-          <div class="slide_banner_text">
-								<a href="#"><h4>{{ sliderImage.button }}</h4></a>
+          <div class="slide_banner_text" >
+								<a href="#" v-show="sliderImage.button != null"><h4>{{ sliderImage.button }}</h4></a>
 								<h3>{{ sliderImage.title }}</h3>
 							</div>
         </div>
