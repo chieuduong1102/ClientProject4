@@ -1,9 +1,9 @@
 <template>
   <div class="header-navbar" >
     <section class="ftco-section">
-      <div class="container-fluid px-md-5" style="background-color: white;">
-        <div class="row justify-content-between" >
-          <div class="col-md-12 order-md-last" >
+      <div class="container-fluid px-md-5" style="background-color: white">
+        <div class="row justify-content-between">
+          <div class="col-md-12 order-md-last">
             <div class="row">
               <div class="col-md-4 text-center">
                 <a class="navbar-brand" href="index.html">
@@ -19,12 +19,17 @@
                 <div class="input-group rounded">
                   <input
                     type="email"
-                    class="form-control rounded" id="input-home-search"
+                    class="form-control rounded"
+                    id="input-home-search"
                     placeholder="What're you searching for...?"
                     aria-label="Register"
                     aria-describedby="search-addon"
                   />
-                  <button type="submit" class="input-group-text border-0 btn btn-danger" id="search-addon">
+                  <button
+                    type="submit"
+                    class="input-group-text border-0 btn btn-danger"
+                    id="search-addon"
+                  >
                     <fa-icon icon="search" />
                   </button>
                 </div>
@@ -54,11 +59,82 @@
                     </td>
                     <td>
                       <v-btn class="mx" fab small color="red">
-                        <v-icon style="color: #eb4d4b">mdi-shopping</v-icon>
+                        <v-icon style="color: #eb4d4b" @mouseover="displaySmallCart=true;" >mdi-shopping</v-icon>
+                        <div id="amount-product">{{ amountProduct }}</div>
                       </v-btn>
+                      <div id="shopping-cart-small" v-show="displaySmallCart" @mouseleave="displaySmallCart=false;">
+                        <div class="shopping-cart-item">
+                          <table>
+                            <tr>
+                              <td style="width: 100px">
+                                <img
+                                  src="https://cdn-amz.fado.vn/images/I/51364NhwLoL.jpg"
+                                  class="img-fluid img-product"
+                                  alt=""
+                                />
+                              </td>
+                              <td style="width: 150px">
+                                Le Petit Prince
+                                <br />
+                                Count:
+                                <input
+                                  type="number"
+                                  class="input-count-item-cart"
+                                  v-model="amountItem"
+                                />
+                              </td>
+                              <td style="width: 30px">
+                                <fa-icon
+                                  icon="trash"
+                                  class="icon-delete-item-cart"
+                                />
+                              </td>
+                            </tr>
+                          </table>
+                          <hr style="width: 90%; margin: auto" />
+                        </div>
+                        <div class="shopping-cart-item">
+                          <table>
+                            <tr>
+                              <td style="width: 100px">
+                                <img
+                                  src="https://ejoy-english.com/blog/wp-content/uploads/2018/03/dd-372x600.jpg"
+                                  class="img-fluid img-product"
+                                  alt=""
+                                />
+                              </td>
+                              <td style="width: 150px">
+                                To kill a mocking bird
+                                <br />
+                                Count:
+                                <input
+                                  type="number"
+                                  class="input-count-item-cart"
+                                  v-model="amountItem"
+                                />
+                              </td>
+                              <td style="width: 30px; color">
+                                <fa-icon
+                                  icon="trash"
+                                  class="icon-delete-item-cart"
+                                />
+                              </td>
+                            </tr>
+                          </table>
+                          <hr style="width: 90%; margin: auto" />
+                        </div>
+                      </div>
                     </td>
-                    <td><a href="" class="a-header"><fa-icon icon="user" /> Account</a></td>
-                    <td><a href="" class="a-header"><fa-icon icon="sign-in-alt" /> Sign in</a></td>
+                    <td>
+                      <a href="" class="a-header"
+                        ><fa-icon icon="user" /> Account</a
+                      >
+                    </td>
+                    <td>
+                      <a href="" class="a-header"
+                        ><fa-icon icon="sign-in-alt" /> Sign in</a
+                      >
+                    </td>
                   </tr>
                 </table>
               </div>
@@ -90,7 +166,9 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav m-auto">
               <li class="nav-item active">
-                <a href="#" class="nav-link" @mouseover="display=false">Home</a>
+                <a href="#" class="nav-link" @mouseover="display = false"
+                  >Home</a
+                >
               </li>
               <li class="nav-item dropdown">
                 <a
@@ -100,20 +178,36 @@
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
-                  @mouseover="display=true"
-
+                  @mouseover="display = true"
                   >Page</a
                 >
-                <div class="dropdown-menu show" @mouseleave="display=false" v-if="display" aria-labelledby="dropdown04">
+                <div
+                  class="dropdown-menu show"
+                  @mouseleave="display = false"
+                  v-if="display"
+                  aria-labelledby="dropdown04"
+                >
                   <a class="dropdown-item" aria-expanded href="#">Page 1</a>
                   <a class="dropdown-item" aria-expanded href="#">Page 2</a>
                   <a class="dropdown-item" aria-expanded href="#">Page 3</a>
                   <a class="dropdown-item" aria-expanded href="#">Page 4</a>
                 </div>
               </li>
-              <li class="nav-item"><a href="#" @mouseover="display=false" class="nav-link" >Work</a></li>
-              <li class="nav-item"><a href="#" @mouseover="display=false" class="nav-link" >Blog</a></li>
-              <li class="nav-item"><a href="#" @mouseover="display=false" class="nav-link" >Contact</a></li>
+              <li class="nav-item">
+                <a href="#" @mouseover="display = false" class="nav-link"
+                  >Work</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="#" @mouseover="display = false" class="nav-link"
+                  >Blog</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="#" @mouseover="display = false" class="nav-link"
+                  >Contact</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -124,21 +218,21 @@
 </template>
 
 <script>
-
 export default {
-  
   data() {
     return {
-      display: false
+      display: false,
+      displaySmallCart: false,
+      amountProduct: 2,
+      amountItem: 1,
     };
   },
-  methods:{
+  methods: {
     toggleDropdown() {
-      this.display = !this.display
-    }
-  }
+      this.display = !this.display;
+    },
+  },
 };
-
 </script>
 
 <style scoped>
@@ -11052,11 +11146,11 @@ h5,
 #tableMXH tr td {
   padding: 10px;
 }
-.mx{
+.mx {
   border-radius: 20px;
 }
 
-#input-home-search{
+#input-home-search {
   margin-top: 25px;
   border: none;
   border-bottom: 2px solid #ff7979;
@@ -11067,34 +11161,79 @@ h5,
   background: none;
 }
 
-#input-home-search:focus{
-    background: none !important;;
+#input-home-search:focus {
+  background: none !important;
 }
 
-#search-addon{
-    margin-top: 25px;
-    height: 50px;
-    border: solid 2px #ff7979 !important;
-    background: none !important;
-    color: #ff7979 !important;
-    width: 50px;
-    border-radius: 25px;
-    color: white;
-    padding-left: 16px;
-    margin-left: -20px;
+#search-addon {
+  margin-top: 25px;
+  height: 50px;
+  border: solid 2px #ff7979 !important;
+  background: none !important;
+  color: #ff7979 !important;
+  width: 50px;
+  border-radius: 25px;
+  color: white;
+  padding-left: 16px;
+  margin-left: -20px;
 }
 
-#search-addon:hover{
+#search-addon:hover {
   background: #ff7979 !important;
   color: #ffffff !important;
 }
 
-
-.a-header{
+.a-header {
   font-size: 1.1rem;
   color: black;
 }
-.a-header:hover{
+.a-header:hover {
   color: #dc3545;
+}
+
+#amount-product {
+  font-weight: bold;
+  padding: 2px 5px 2px 5px;
+  margin: -20px -20px 0px 0px;
+  border-radius: 10px;
+  background: #eb4d4b;
+  color: rgb(255, 255, 255);
+}
+#shopping-cart-small {
+  margin-top: 5px;
+  width: 280px;
+  height: auto;
+  position: absolute;
+  background: white;
+  z-index: 1000;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+}
+.shopping-cart-item {
+  width: 270px;
+  margin: 5px 0px 0px 5px;
+  height: auto;
+  display: inline-block;
+}
+.shopping-cart-item:hover{
+  background: #ecf0f1;
+}
+.icon-delete-item-cart {
+  color: black;
+  cursor: pointer;
+}
+
+.icon-delete-item-cart:hover {
+  color: #eb4d4b;
+  cursor: pointer;
+}
+
+.input-count-item-cart {
+  margin-left: 5px;
+  padding-left: 3px;
+  width: 40px;
+  background: white;
 }
 </style>
