@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeaderHome />
-    <div class="breadcrumbs_area">
+    <div class="breadcrumbs_area" style="width: 80% !important; margin: auto;">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -21,7 +21,7 @@
     </div>
     <!-- End breadcrumbs area -->
     <!-- Start preview Product details area -->
-    <div class="blog_single_view_area">
+    <div class="blog_single_view_area" style="width: 80% !important; margin: auto;">
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -36,7 +36,7 @@
                       title="Lorem ipsum dolor sit amet"
                     >
                       <transition name="fade-in" mode="out-in">
-                        <img :src="displayImg()" :key="displayImg()" alt="" />
+                        <img :src="displayImg()" :key="displayImg()" style="width: 330px;" class="img-fluid" alt="" />
                       </transition>
                     </a>
                   </div>
@@ -154,6 +154,7 @@
       </div>
     </div>
     <Branch />
+    <br>
     <FooterHome />
   </div>
 </template>

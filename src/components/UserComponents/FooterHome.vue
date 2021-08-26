@@ -325,4 +325,15 @@ export default {
 	background-color: #ff7979;
   font-weight: bold;	
 }
+#search-addon{
+  color: white !important;
+  height: 39px !important;
+}
+
+#search-addon:hover{
+  background-color: #eb4d4b;
+  color: black !important;
+  font-weight: normal !important;
+}
+
 </style>

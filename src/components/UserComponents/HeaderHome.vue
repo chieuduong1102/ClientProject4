@@ -1,12 +1,12 @@
 <template>
-  <div class="header-navbar" >
+  <div class="header-navbar">
     <section class="ftco-section">
       <div class="container-fluid px-md-5" style="background-color: white">
         <div class="row justify-content-between">
           <div class="col-md-12 order-md-last">
             <div class="row">
               <div class="col-md-4 text-center">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="Home">
                   <img
                     src="../../assets/full-logo.png"
                     class="img-fluid"
@@ -38,31 +38,47 @@
                 <table id="tableMXH">
                   <tr>
                     <td>
+                      <a href="#">
                       <v-btn class="mx" fab small>
                         <v-icon style="color: #3867d6">mdi-facebook</v-icon>
                       </v-btn>
+                      </a>
                     </td>
                     <td>
+                      <a href="#">
                       <v-btn class="mx" fab small>
                         <v-icon style="color: #eb3b5a">mdi-youtube</v-icon>
                       </v-btn>
+                      </a>
                     </td>
                     <td>
+                      <a href="#">
                       <v-btn class="mx" fab small>
                         <v-icon style="color: #8854d0">mdi-instagram</v-icon>
                       </v-btn>
+                      </a>
                     </td>
                     <td>
+                      <a href="#">
                       <v-btn class="mx" fab small color="red">
                         <v-icon style="color: #45aaf2">mdi-twitter</v-icon>
                       </v-btn>
+                      </a>
                     </td>
                     <td>
                       <v-btn class="mx" fab small color="red">
-                        <v-icon style="color: #eb4d4b" @mouseover="displaySmallCart=true;" >mdi-shopping</v-icon>
+                        <v-icon
+                          style="color: #eb4d4b"
+                          @mouseover="displaySmallCart = true"
+                          >mdi-shopping</v-icon
+                        >
                         <div id="amount-product">{{ amountProduct }}</div>
                       </v-btn>
-                      <div id="shopping-cart-small" v-show="displaySmallCart" @mouseleave="displaySmallCart=false;">
+                      <div
+                        id="shopping-cart-small"
+                        v-show="displaySmallCart"
+                        @mouseleave="displaySmallCart = false"
+                      >
                         <div class="shopping-cart-item">
                           <table>
                             <tr>
@@ -166,8 +182,13 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav m-auto">
               <li class="nav-item active">
-                <a href="#" class="nav-link" @mouseover="display = false"
+                <a href="Home" class="nav-link" @mouseover="display = false"
                   >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a href="#" @mouseover="display = false" class="nav-link"
+                  >Shop</a
                 >
               </li>
               <li class="nav-item dropdown">
@@ -179,7 +200,7 @@
                   aria-haspopup="true"
                   aria-expanded="false"
                   @mouseover="display = true"
-                  >Page</a
+                  >Category</a
                 >
                 <div
                   class="dropdown-menu show"
@@ -195,17 +216,12 @@
               </li>
               <li class="nav-item">
                 <a href="#" @mouseover="display = false" class="nav-link"
-                  >Work</a
+                  >NEWS</a
                 >
               </li>
               <li class="nav-item">
                 <a href="#" @mouseover="display = false" class="nav-link"
-                  >Blog</a
-                >
-              </li>
-              <li class="nav-item">
-                <a href="#" @mouseover="display = false" class="nav-link"
-                  >Contact</a
+                  >About us</a
                 >
               </li>
             </ul>
@@ -11217,7 +11233,7 @@ h5,
   height: auto;
   display: inline-block;
 }
-.shopping-cart-item:hover{
+.shopping-cart-item:hover {
   background: #ecf0f1;
 }
 .icon-delete-item-cart {
