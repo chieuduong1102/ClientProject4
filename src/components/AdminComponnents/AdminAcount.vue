@@ -230,7 +230,7 @@ export default {
         .get(API_URL + "admin/getAllAdmin")
         .then((response) => {
           this.listAdmin = response.data;
-          console.log(response.data);
+          //console.log(response.data);
         })
         .catch((error) => console.log(error));
     },

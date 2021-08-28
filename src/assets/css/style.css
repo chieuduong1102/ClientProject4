@@ -920,16 +920,7 @@ ul#nav_menu li div.home-page-3 {
 	font-size: 18px;
 }
 
-.product_details {
-	text-align: center;
-	border-radius: 10px;
-	cursor: pointer;
-	-webkit-box-shadow: 0px 0px 20px -13px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 20px -13px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 20px -13px rgba(0,0,0,0.75);
-}
-
-.product_details .regular_price {
+.regular_price {
 	color: #898989;
 	text-decoration: line-through;
 	font-size: 14px;
@@ -937,7 +928,7 @@ box-shadow: 0px 0px 20px -13px rgba(0,0,0,0.75);
 	margin-right: 10px
 }
 
-.product_details .popular_price {
+.popular_price {
 	color: #ff343b;
 	font-size: 16px;
 	font-weight: 600;
