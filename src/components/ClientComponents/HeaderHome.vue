@@ -149,10 +149,10 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav m-auto">
               <li class="nav-item active">
-                <a href="Home" class="nav-link" @mouseover="display = false">Home</a>
+                <a href="HomePage" class="nav-link" @mouseover="display = false">Home</a>
               </li>
               <li class="nav-item">
-                <a href="#" @mouseover="display = false" class="nav-link">Shop</a>
+                <a href="Shop" @mouseover="display = false" class="nav-link">Shop</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @mouseover="display = true">Category</a>

@@ -28,7 +28,7 @@
             <div class="my_tabs">
               <div class="tab-content tab_content_style">
                 <div class="tab-pane in active">
-                  <div class="blog_tabs">
+                  <div class="blog_tabs" style="padding-left: 110px">
                     <a
                       class="fancybox"
                       href="#"
@@ -172,7 +172,7 @@ export default {
   },
   methods: {
     displayImg() {
-      //return require("@/assets/css/img/product/" + this.imgShow);
+      return require("@/assets/css/img/product/" + this.imgShow);
     },
     setImgShow(imgName) {
       this.imgShow = imgName;
