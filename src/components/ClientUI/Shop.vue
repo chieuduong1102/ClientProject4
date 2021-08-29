@@ -168,11 +168,6 @@
                     ><span><i class="fa fa-th"></i></span
                   ></a>
                 </li>
-                <li>
-                  <a data-toggle="tab" href="#tab2"
-                    ><span><i class="fa fa-th-list"></i></span
-                  ></a>
-                </li>
               </ul>
               <div class="limiter">
                 <label>Show</label>
