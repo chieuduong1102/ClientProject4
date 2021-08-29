@@ -5,6 +5,7 @@
       <hr />
       <div class="row" v-show="this.isCreateNew">
         <h2>Create Book</h2>
+        <h3>{{ book.bid }}</h3>
         <form action="" @submit.prevent="createBook()">
           <div class="row">
             <div class="col-md-3">
@@ -20,7 +21,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationTitle=''"
+                  @keydown="validationTitle = ''"
                   v-model="book.titleBook"
                   placeholder="Title"
                 />
@@ -37,7 +38,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationAuthor=''"
+                  @keydown="validationAuthor = ''"
                   v-model="book.author"
                   placeholder="Author"
                 />
@@ -54,7 +55,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationManufacture=''"
+                  @keydown="validationManufacture = ''"
                   v-model="book.manufacture"
                   placeholder="Manufacture"
                 />
@@ -71,7 +72,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationPublishingCompany=''"
+                  @keydown="validationPublishingCompany = ''"
                   v-model="book.publishingCompany"
                   placeholder="Publishing Company"
                 />
@@ -88,7 +89,7 @@
                 <input
                   type="number"
                   class="form-control"
-                  @change="validationYearPublishing=''"
+                  @change="validationYearPublishing = ''"
                   v-model="book.yearPublish"
                   placeholder="Year Publishing"
                 />
@@ -107,7 +108,7 @@
                 <input
                   type="date"
                   class="form-control"
-                  @change="validationDateSale=''"
+                  @change="validationDateSale = ''"
                   v-model="book.dateSale"
                 />
               </div>
@@ -133,7 +134,10 @@
                 <select
                   class="form-select form-control"
                   v-model="category"
-                  @change="changeCategory(category);validationCategoryName=''"
+                  @change="
+                    changeCategory(category);
+                    validationCategoryName = '';
+                  "
                   aria-label="status"
                 >
                   <option disabled value="">--Select Category--</option>
@@ -204,7 +208,7 @@
                 <input
                   type="file"
                   ref="imageUploaderCreate"
-                  @change="handleFileChange();"
+                  @change="handleFileChange()"
                   class="form-control"
                   multiple
                 />
@@ -251,7 +255,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationTitle=''"
+                  @keydown="validationTitle = ''"
                   v-model="book.titleBook"
                   placeholder="Title"
                 />
@@ -268,7 +272,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationAuthor=''"
+                  @keydown="validationAuthor = ''"
                   v-model="book.author"
                   placeholder="Author"
                 />
@@ -285,7 +289,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationManufacture=''"
+                  @keydown="validationManufacture = ''"
                   v-model="book.manufacture"
                   placeholder="Manufacture"
                 />
@@ -302,7 +306,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  @keydown="validationPublishingCompany=''"
+                  @keydown="validationPublishingCompany = ''"
                   v-model="book.publishingCompany"
                   placeholder="Publishing Company"
                 />
@@ -319,7 +323,7 @@
                 <input
                   type="number"
                   class="form-control"
-                  @change="validationYearPublishing=''"
+                  @change="validationYearPublishing = ''"
                   v-model="book.yearPublish"
                   placeholder="Year Publishing"
                 />
@@ -338,7 +342,7 @@
                 <input
                   type="date"
                   class="form-control"
-                  @change="validationDateSale=''"
+                  @change="validationDateSale = ''"
                   v-model="book.dateSale"
                 />
               </div>
@@ -364,7 +368,10 @@
                 <select
                   class="form-select form-control"
                   v-model="category"
-                  @change="changeCategory(category);validationCategoryName=''"
+                  @change="
+                    changeCategory(category);
+                    validationCategoryName = '';
+                  "
                   aria-label="status"
                 >
                   <option disabled value="">--Select Category--</option>
@@ -435,7 +442,7 @@
                 <input
                   type="file"
                   ref="imageUploaderUpdate"
-                  @change="handleFileChange();"
+                  @change="handleFileChange()"
                   class="form-control"
                   multiple
                 />
@@ -456,7 +463,12 @@
                 <button
                   type="reset"
                   class="btn btn-secondary"
-                  @click="resetValidation(); isCreateNew=true; isUpdate=false; isDelete=false;"
+                  @click="
+                    resetValidation();
+                    isCreateNew = true;
+                    isUpdate = false;
+                    isDelete = false;
+                  "
                 >
                   Cancel
                 </button>
@@ -535,6 +547,11 @@ export default {
           })
           .then((response) => {
             console.log(response.data);
+            var bid = 0;
+            bid = response.data.bid;
+            console.log("BookID: " +bid);
+            this.createCategory(bid);
+            this.createImage(bid);
           })
           .catch((error) => console.log(error));
       }
@@ -584,8 +601,8 @@ export default {
       if (!this.book.categoryName.includes(category)) {
         this.book.categoryName.push(category);
         this.categorySelected.categoryName = category;
+        console.log(this.categorySelected);
         this.listCategorySelected.push(this.categorySelected);
-        console.log(this.book.categoryName);
       }
     },
     removeCategory: function (category) {
@@ -630,9 +647,9 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    createCategory: function(){
+    createCategory: function(bid){
           axios
-          .post(API_URL + "bookcategory/create?bid=1", 
+          .post(API_URL + "bookcategory/create?bid="+bid , 
             this.listCategorySelected
           )
           .then((response) => {
@@ -738,7 +755,6 @@ option {
 }
 .btn-x:hover {
   color: black;
-  font-weight: bold;
   cursor: pointer;
 }
 .detail-error-validation {
