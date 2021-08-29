@@ -14,11 +14,11 @@
 </template>
 
 <script>
-import Slider from "../UserComponents/Slider.vue";
-import Product from "../UserComponents/Product.vue";
-import HeaderHome from "../UserComponents/HeaderHome.vue";
-import FooterHome from "../UserComponents/FooterHome.vue";
-import Branch from "../UserComponents/Branch.vue";
+import Slider from "../ClientComponents/Slider.vue";
+import Product from "../ClientComponents/Product.vue";
+import HeaderHome from "../ClientComponents/HeaderHome.vue";
+import FooterHome from "../ClientComponents/FooterHome.vue";
+import Branch from "../ClientComponents/Branch.vue";
 
 export default {
   data() {

@@ -239,7 +239,7 @@ export default {
         .get(API_URL + "user/getAllUser")
         .then((response) => {
           this.listUser = response.data;
-          console.log(response.data);
+          //console.log(response.data);
         })
         .catch((error) => console.log(error));
     },

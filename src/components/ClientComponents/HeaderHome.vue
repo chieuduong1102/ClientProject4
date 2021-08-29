@@ -27,43 +27,64 @@
                       <div id="amount-product">{{ amountProduct }}</div>
                     </v-btn>
                     <div id="shopping-cart-small" v-show="displaySmallCart" @mouseleave="displaySmallCart = false">
-                      <div class="shopping-cart-item">
-                        <table>
-                          <tr>
-                            <td style="width: 100px;">
-                              <img src="https://cdn-amz.fado.vn/images/I/51364NhwLoL.jpg" class="img-fluid img-product" alt="" />
-                            </td>
-                            <td style="width: 150px;">
-                              Le Petit Prince
-                              <br />
-                              Count:
-                              <input type="number" class="input-count-item-cart" v-model="amountItem" />
-                            </td>
-                            <td style="width: 30px;">
-                              <fa-icon icon="trash" class="icon-delete-item-cart" />
-                            </td>
-                          </tr>
-                        </table>
-                        <hr style="width: 90%; margin: 2px auto 2px auto;" />
-                      </div>
-                      <div class="shopping-cart-item">
-                        <table>
-                          <tr>
-                            <td style="width: 100px;">
-                              <img src="https://ejoy-english.com/blog/wp-content/uploads/2018/03/dd-372x600.jpg" class="img-fluid img-product" alt="" />
-                            </td>
-                            <td style="width: 150px;">
-                              To kill a mocking bird
-                              <br />
-                              Count:
-                              <input type="number" class="input-count-item-cart" v-model="amountItem" />
-                            </td>
-                            <td style="width: 30px; color">
-                              <fa-icon icon="trash" class="icon-delete-item-cart" />
-                            </td>
-                          </tr>
-                        </table>
-                        <hr style="width: 90%; margin: 2px auto 2px auto;" />
+                      <div class="items-in-cart">
+                        <div class="shopping-cart-item">
+                          <table>
+                            <tr>
+                              <td style="width: 100px;">
+                                <img src="https://cdn-amz.fado.vn/images/I/51364NhwLoL.jpg" class="img-fluid img-product" alt="" />
+                              </td>
+                              <td style="width: 150px;">
+                                Le Petit Prince
+                                <br />
+                                Count:
+                                <input type="number" class="input-count-item-cart" v-model="amountItem" />
+                              </td>
+                              <td style="width: 30px;">
+                                <fa-icon icon="trash" class="icon-delete-item-cart" />
+                              </td>
+                            </tr>
+                          </table>
+                          <hr style="width: 90%; margin: 2px auto 2px auto;" />
+                        </div>
+                        <div class="shopping-cart-item">
+                          <table>
+                            <tr>
+                              <td style="width: 100px;">
+                                <img src="https://ejoy-english.com/blog/wp-content/uploads/2018/03/dd-372x600.jpg" class="img-fluid img-product" alt="" />
+                              </td>
+                              <td style="width: 150px;">
+                                To kill a mocking bird
+                                <br />
+                                Count:
+                                <input type="number" class="input-count-item-cart" v-model="amountItem" />
+                              </td>
+                              <td style="width: 30px; color">
+                                <fa-icon icon="trash" class="icon-delete-item-cart" />
+                              </td>
+                            </tr>
+                          </table>
+                          <hr style="width: 90%; margin: 2px auto 2px auto;" />
+                        </div>
+                        <div class="shopping-cart-item">
+                          <table>
+                            <tr>
+                              <td style="width: 100px;">
+                                <img src="https://ejoy-english.com/blog/wp-content/uploads/2018/03/dd-372x600.jpg" class="img-fluid img-product" alt="" />
+                              </td>
+                              <td style="width: 150px;">
+                                To kill a mocking bird
+                                <br />
+                                Count:
+                                <input type="number" class="input-count-item-cart" v-model="amountItem" />
+                              </td>
+                              <td style="width: 30px; color">
+                                <fa-icon icon="trash" class="icon-delete-item-cart" />
+                              </td>
+                            </tr>
+                          </table>
+                          <hr style="width: 90%; margin: 2px auto 2px auto;" />
+                        </div>
                       </div>
                       <button class="btn btn-danger" style="width: 90%; margin-bottom: 5px;">
                         Checkout
@@ -128,10 +149,10 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav m-auto">
               <li class="nav-item active">
-                <a href="Home" class="nav-link" @mouseover="display = false">Home</a>
+                <a href="HomePage" class="nav-link" @mouseover="display = false">Home</a>
               </li>
               <li class="nav-item">
-                <a href="#" @mouseover="display = false" class="nav-link">Shop</a>
+                <a href="Shop" @mouseover="display = false" class="nav-link">Shop</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @mouseover="display = true">Category</a>
@@ -11144,7 +11165,7 @@ h5,
 #shopping-cart-small {
   margin-top: 5px;
   width: 280px;
-  height: auto;
+  height: 500px;
   position: absolute;
   background: white;
   z-index: 1000;
@@ -11177,5 +11198,32 @@ h5,
   padding-left: 3px;
   width: 40px;
   background: white;
+}
+
+.items-in-cart{
+  overflow: auto;
+  overflow-x: hidden;
+  width: 280px;
+  height: 440px;
+  margin-bottom: 10px;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #eb4d4b; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c32a27; 
 }
 </style>

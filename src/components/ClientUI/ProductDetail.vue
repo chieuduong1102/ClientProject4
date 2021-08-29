@@ -160,9 +160,9 @@
 </template>
 
 <script>
-import HeaderHome from "../UserComponents/HeaderHome.vue";
-import FooterHome from "../UserComponents/FooterHome.vue";
-import Branch from "../UserComponents/Branch.vue";
+import HeaderHome from "../ClientComponents/HeaderHome.vue";
+import FooterHome from "../ClientComponents/FooterHome.vue";
+import Branch from "../ClientComponents/Branch.vue";
 
 export default {
   data() {

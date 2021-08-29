@@ -208,10 +208,10 @@
 </template>
 
 <script>
-import HeaderHome from "../UserComponents/HeaderHome.vue";
-import FooterHome from "../UserComponents/FooterHome.vue";
-import ShopProduct from "../UserComponents/ProductComponent/ShopProduct.vue";
-import Branch from "../UserComponents/Branch.vue";
+import HeaderHome from "../ClientComponents/HeaderHome.vue";
+import FooterHome from "../ClientComponents/FooterHome.vue";
+import ShopProduct from "../ClientComponents/ProductComponent/ShopProduct.vue";
+import Branch from "../ClientComponents/Branch.vue";
 import VueRangeSlider from "vue-range-component";
 import "vue-range-component/dist/vue-range-slider.css";
 
