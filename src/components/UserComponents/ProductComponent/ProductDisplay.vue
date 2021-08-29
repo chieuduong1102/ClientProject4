@@ -1,5 +1,5 @@
 <template>
-  <router-link to="Product">
+  <a href="ProductDetail">
   <div class="product_details">
       <figure style="width: 250px;height: 320px; margin: 10px auto 10px auto">
         <!-- <img src="../../../assets/css/img/product/pr1.png" alt="" /> -->
@@ -47,7 +47,7 @@
       </div>
     </div>
   </div>
-    </router-link>
+    </a>
 </template>
 
 <script>
