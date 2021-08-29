@@ -502,10 +502,7 @@ export default {
         listImg: [],
       },
       category: "",
-      categorySelected: {
-        categoryName: ""
-      },
-      listCategorySelected : [],
+      listCategorySelected: [],
       listCategory: [],
       errorValidation: [],
       validationTitle: "",
@@ -528,29 +525,33 @@ export default {
       this.validationForm();
       if (this.validationForm().length == 0) {
         axios
-          .post(API_URL + "book/create", {
-            titleBook: this.book.titleBook,
-            author: this.book.author,
-            manufacture: this.book.manufacture,
-            publishingCompany: this.book.publishingCompany,
-            yearPublish: this.book.yearPublish,
-            dateSale: this.book.dateSale,
-            price: this.book.price,
-            description: this.book.description,
-            status: this.book.status,
-            imageList: [],
-            bookcategoryList: [],
-          },
-          { headers: {
-            "Content-Type": "application/json",
-          },
-          })
+          .post(
+            API_URL + "book/create",
+            {
+              titleBook: this.book.titleBook,
+              author: this.book.author,
+              manufacture: this.book.manufacture,
+              publishingCompany: this.book.publishingCompany,
+              yearPublish: this.book.yearPublish,
+              dateSale: this.book.dateSale,
+              price: this.book.price,
+              description: this.book.description,
+              status: this.book.status,
+              imageList: [],
+              bookcategoryList: [],
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
           .then((response) => {
             console.log(response.data);
             var bid = 0;
             bid = response.data.bid;
-            console.log("BookID: " +bid);
-            this.createCategory(bid);
+            console.log("BookID: " + bid);
+            this.createCategoryOfBook(bid);
             this.createImage(bid);
           })
           .catch((error) => console.log(error));
@@ -590,7 +591,7 @@ export default {
           this.validationImages = "Image size is too big!";
           this.errorValidation.push(this.validationImages);
         } else {
-          this.validationImages = '';
+          this.validationImages = "";
           this.book.listImg.push(this.$refs.imageUploaderCreate.files[index]);
         }
         console.log();
@@ -600,9 +601,7 @@ export default {
     changeCategory: function (category) {
       if (!this.book.categoryName.includes(category)) {
         this.book.categoryName.push(category);
-        this.categorySelected.categoryName = category;
-        console.log(this.categorySelected);
-        this.listCategorySelected.push(this.categorySelected);
+        console.log(this.book.categoryName);
       }
     },
     removeCategory: function (category) {
@@ -610,11 +609,6 @@ export default {
         this.book.categoryName.indexOf(category.categoryName),
         1
       );
-      this.listCategorySelected.splice(
-        this.listCategorySelected.indexOf(category.categoryName),
-        1
-      );
-      console.log(this.listCategorySelected);
     },
     createImage: function (bid) {
       let fd = new FormData();
@@ -631,7 +625,6 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-          this.book.listImg = [];
         })
         .catch((error) => console.log(error));
     },
@@ -647,15 +640,25 @@ export default {
         })
         .catch((error) => console.log(error));
     },
-    createCategory: function(bid){
-          axios
-          .post(API_URL + "bookcategory/create?bid="+bid , 
-            this.listCategorySelected
-          )
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => console.log(error));
+    createCategoryOfBook: function (bid) {
+      this.listCategorySelected = [];
+      for (let index = 0; index < this.book.categoryName.length; index++) {
+        let catSelected = {
+          categoryName: this.book.categoryName[index],
+        };
+        this.listCategorySelected.push(catSelected);
+      }
+      console.log(bid);
+      console.log(this.listCategorySelected);
+      axios
+        .post(
+          API_URL + "bookcategory/create?bid=" + bid,
+          this.listCategorySelected
+        )
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
     },
     validationForm: function () {
       this.errorValidation = [];
@@ -673,7 +676,8 @@ export default {
       }
 
       if (this.book.publishingCompany == "") {
-        this.validationPublishingCompany = "Publishing Company must not be empty!";
+        this.validationPublishingCompany =
+          "Publishing Company must not be empty!";
         this.errorValidation.push(this.validationPublishingCompany);
       }
 
@@ -718,6 +722,34 @@ export default {
         (this.validationPrice = ""),
         (this.validationStatus = ""),
         (this.validationImages = "");
+    },
+    resetData: function () {
+      (this.book.bid = ""),
+        (this.book.titleBook = ""),
+        (this.book.author = ""),
+        (this.book.manufacture = ""),
+        (this.book.publishingCompany = ""),
+        (this.book.yearPublish = 0),
+        (this.book.dateSale = ""),
+        (this.book.categoryName = []),
+        (this.book.price = 0),
+        (this.book.description = ""),
+        (this.book.status = 0),
+        //(this.book.listImg = []),
+        //(this.category = ""),
+        (this.listCategorySelected = []),
+        //(this.listCategory = []),
+        (this.errorValidation = []),
+        (this.validationTitle = ""),
+        (this.validationAuthor = ""),
+        (this.validationManufacture = ""),
+        (this.validationPublishingCompany = ""),
+        (this.validationYearPublishing = ""),
+        (this.validationDateSale = ""),
+        (this.validationCategoryName = ""),
+        (this.validationPrice = ""),
+        (this.validationStatus = ""),
+        (this.validationImages = "")
     },
   },
   mounted() {
