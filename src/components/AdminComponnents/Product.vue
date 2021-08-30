@@ -208,7 +208,7 @@
                 <input
                   type="file"
                   ref="imageUploaderCreate"
-                  @change="handleFileChange()"
+                  @change="handleFileChangeCreate()"
                   class="form-control"
                   multiple
                 />
@@ -240,7 +240,7 @@
       </div>
       <div class="row" v-show="this.isUpdate">
         <h2>Update Book Information</h2>
-        <form action="" @submit.prevent="updateBook()">
+        <form action="" @submit.prevent="comfirmUpdateBook()">
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
@@ -442,7 +442,7 @@
                 <input
                   type="file"
                   ref="imageUploaderUpdate"
-                  @change="handleFileChange()"
+                  @change="handleFileChangeUpdate()"
                   class="form-control"
                   multiple
                 />
@@ -459,7 +459,7 @@
               </div>
               <br />
               <center>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-success">Update</button>
                 <button
                   type="reset"
                   class="btn btn-secondary"
@@ -477,6 +477,125 @@
           </div>
         </form>
       </div>
+      <br />
+      <div class="row">
+        <div class="col-md-12">
+          <h2>List Book</h2>
+          <div
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+            v-show="this.isDelete"
+          >
+            Do you want delete Book:
+            <strong>{{ book.title }}</strong> ?
+            <button
+              class="btn btn-success"
+              style="width: 45px; height: 45px"
+              @click="comfirmDeleteBook(book)"
+            >
+              <fa-icon id="ic-yes" icon="check"></fa-icon>
+            </button>
+            <button
+              class="btn btn-danger"
+              style="width: 45px; height: 45px"
+              @click="isDelete = false"
+            >
+              <fa-icon id="ic-close" icon="times"></fa-icon>
+            </button>
+          </div>
+          <v-app id="inspire">
+            <v-card>
+              <v-card-title>
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field>
+              </v-card-title>
+              <v-data-table
+                :headers="headers"
+                :items="this.listBook"
+                :search="search"
+              >
+                <template v-slot:item="row">
+                  <tr>
+                    <td>{{ row.item.titleBook }}</td>
+                    <td>{{ row.item.author }}</td>
+                    <td>{{ row.item.manufacture }}</td>
+                    <td>{{ row.item.publishingCompany }}</td>
+                    <td>{{ row.item.yearPublish }}</td>
+                    <td>{{ row.item.dateSale }}</td>
+                    <td>
+                      <span
+                        v-for="(cat, index) in row.item.bookcategoryList"
+                        :key="index"
+                        >{{ cat.cid.categoryName }},
+                      </span>
+                    </td>
+                    <td>{{ row.item.price }} $</td>
+                    <td>{{ formatStatus(row.item.status) }}</td>
+                    <!-- <td>{{ row.item.listImg }}</td> -->
+                    <td>
+                      <div class="row">
+                        <div
+                          class="col-md-4"
+                          v-for="(img, index) in row.item.imageList"
+                          :key="index"
+                        >
+                          <img
+                            :src="img.nameFile"
+                            class="img-fluid"
+                            style="margin: 5px"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <v-btn
+                        class="mx-2"
+                        fab
+                        dark
+                        small
+                        color="blue"
+                        @click="findBook(row.item.bid)"
+                      >
+                        <v-icon dark>mdi-information</v-icon>
+                      </v-btn>
+                    </td>
+                    <td>
+                      <v-btn
+                        class="mx-2"
+                        fab
+                        dark
+                        small
+                        color="green"
+                        @click="updateBook(row.item.bid)"
+                      >
+                        <v-icon dark>mdi-pencil</v-icon>
+                      </v-btn>
+                    </td>
+                    <td>
+                      <v-btn
+                        class="mx-2"
+                        fab
+                        dark
+                        small
+                        color="red"
+                        @click="deleteBook(row.item.bid)"
+                      >
+                        <v-icon dark>mdi-delete</v-icon>
+                      </v-btn>
+                    </td>
+                  </tr>
+                </template>
+              </v-data-table>
+            </v-card>
+          </v-app>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -487,6 +606,27 @@ const API_URL = "http://localhost:8088/";
 export default {
   data() {
     return {
+      search: "",
+      headers: [
+        {
+          text: "Title",
+          align: "start",
+          filterable: false,
+          value: "titleBook",
+        },
+        { text: "Author", value: "author" },
+        { text: "Manufacture", value: "manufacture" },
+        { text: "Publish Company", value: "publishingCompany" },
+        { text: "Year Publish", value: "yearPublish" },
+        { text: "Date Sale", value: "dateSale" },
+        { text: "Category", value: "categoryName" },
+        { text: "Price", value: "price" },
+        { text: "Status", value: "status" },
+        { text: "Image", value: "listImg" },
+        { text: "Detail" },
+        { text: "Update" },
+        { text: "Delete" },
+      ],
       book: {
         bid: "",
         titleBook: "",
@@ -501,6 +641,7 @@ export default {
         status: 0,
         listImg: [],
       },
+      listBook: [],
       category: "",
       listCategorySelected: [],
       listCategory: [],
@@ -521,6 +662,14 @@ export default {
     };
   },
   methods: {
+    getAllBook: function () {
+      axios
+        .get(API_URL + "book/getAllBook")
+        .then((response) => {
+          this.listBook = response.data;
+        })
+        .catch((error) => console.log(error));
+    },
     createBook: function () {
       this.validationForm();
       if (this.validationForm().length == 0) {
@@ -550,14 +699,41 @@ export default {
             console.log(response.data);
             var bid = 0;
             bid = response.data.bid;
-            console.log("BookID: " + bid);
             this.createCategoryOfBook(bid);
             this.createImage(bid);
           })
+          .then(
+            this.getAllBook()
+          )
           .catch((error) => console.log(error));
       }
     },
-    updateBook: function () {
+    deleteBook: function () {},
+    comfirmDeleteBook: function () {},
+    updateBook: function (bid) {
+      this.errorValidation = [];
+      axios
+        .get(API_URL + "book/bookInfo?bid=" + bid)
+        .then((response) => {
+          //this.admin = response.data;
+          this.book = response.data;
+          console.log(response.data);
+          let listCategoryRes = [];
+          this.book.categoryName=[];
+          listCategoryRes = response.data.bookcategoryList;
+          for (let index = 0; index < listCategoryRes.length; index++) {
+            this.changeCategory(listCategoryRes[index].cid.categoryName);  
+          }
+          console.log(this.book.categoryName);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      this.isCreateNew = false;
+      this.isUpdate = true;
+      this.isDelete = false;
+    },
+    comfirmUpdateBook: function () {
       this.validationForm();
       if (this.validationForm().length == 0) {
         axios
@@ -579,7 +755,19 @@ export default {
           .catch((error) => console.log(error));
       }
     },
-    handleFileChange: function () {
+    changeCategory: function (category) {
+      if (!this.book.categoryName.includes(category)) {
+        this.book.categoryName.push(category);
+        console.log(this.book.categoryName);
+      }
+    },
+    removeCategory: function (category) {
+      this.book.categoryName.splice(
+        this.book.categoryName.indexOf(category.categoryName),
+        1
+      );
+    },
+    handleFileChangeCreate: function () {
       this.errorValidation = [];
       this.book.listImg = [];
       for (
@@ -594,21 +782,26 @@ export default {
           this.validationImages = "";
           this.book.listImg.push(this.$refs.imageUploaderCreate.files[index]);
         }
-        console.log();
       }
       console.log(this.book.listImg);
     },
-    changeCategory: function (category) {
-      if (!this.book.categoryName.includes(category)) {
-        this.book.categoryName.push(category);
-        console.log(this.book.categoryName);
+    handleFileChangeUpdate: function () {
+      this.errorValidation = [];
+      this.book.listImg = [];
+      for (
+        let index = 0;
+        index < this.$refs.imageUploaderUpdate.files.length;
+        index++
+      ) {
+        if (this.$refs.imageUploaderUpdate.files[index].size > 1048576) {
+          this.validationImages = "Image size is too big!";
+          this.errorValidation.push(this.validationImages);
+        } else {
+          this.validationImages = "";
+          this.book.listImg.push(this.$refs.imageUploaderUpdate.files[index]);
+        }
       }
-    },
-    removeCategory: function (category) {
-      this.book.categoryName.splice(
-        this.book.categoryName.indexOf(category.categoryName),
-        1
-      );
+      console.log(this.book.listImg);
     },
     createImage: function (bid) {
       let fd = new FormData();
@@ -625,6 +818,8 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
+          this.resetData();
+          this.book.listImg = [];
         })
         .catch((error) => console.log(error));
     },
@@ -636,7 +831,7 @@ export default {
           for (let index = 0; index < list.length; index++) {
             this.listCategory.push(list[index].categoryName);
           }
-          console.log(this.listCategory);
+          //console.log(this.listCategory);
         })
         .catch((error) => console.log(error));
     },
@@ -737,7 +932,7 @@ export default {
         (this.book.status = 0),
         //(this.book.listImg = []),
         //(this.category = ""),
-        (this.listCategorySelected = []),
+        //(this.listCategorySelected = []),
         //(this.listCategory = []),
         (this.errorValidation = []),
         (this.validationTitle = ""),
@@ -749,11 +944,23 @@ export default {
         (this.validationCategoryName = ""),
         (this.validationPrice = ""),
         (this.validationStatus = ""),
-        (this.validationImages = "")
+        (this.validationImages = "");
+    },
+    formatStatus: function (stt) {
+      if (stt == 1) {
+        return "Disabled";
+      } else if (stt == 2) {
+        return "Active";
+      } else if (stt == 3) {
+        return "Comming soon";
+      } else {
+        return "NULL";
+      }
     },
   },
   mounted() {
     this.getAllCategory();
+    this.getAllBook();
   },
 };
 </script>
@@ -768,6 +975,9 @@ label {
 }
 .form-select,
 option {
+  cursor: pointer;
+}
+input[type="date"] {
   cursor: pointer;
 }
 .display-selected {
