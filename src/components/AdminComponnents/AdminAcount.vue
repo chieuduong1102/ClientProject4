@@ -5,34 +5,54 @@
       <div class="row">
           <div class="col-md-4" v-show="this.isCreateNew">
               <h2>Create New</h2>
-              <div class="alert alert-danger" role="alert" v-if="errorValidation.length">
-                  <li v-for="(error, index) in errorValidation" :key="index">
-                      {{ error }}
-                  </li>
-              </div>
+              <div class="alert alert-danger" role="alert" v-show="errorSubmit.length"><fa-icon icon="exclamation-circle" /> {{ errorSubmit }}</div>
               <form id="formCreateAdminAccount" @submit.prevent="createAdminAccount()">
                   <div class="form-group">
                       <label for="fullname"><fa-icon icon="address-card" /> Fullname</label>
+                      <div class="detail-error-validation" v-show="validationFullname.length">
+                          <span><fa-icon icon="exclamation-circle" /></span>
+                          <span> {{ validationFullname }} </span>
+                      </div>
                       <input type="text" class="form-control" id="fullnameAdmin" name="fullname" v-model="admin.fullname" placeholder="Fullname" />
                   </div>
                   <div class="form-group">
                       <label for="email"><fa-icon icon="envelope" /> Email</label>
+                      <div class="detail-error-validation" v-show="validationEmail.length">
+                          <span><fa-icon icon="exclamation-circle" /></span>
+                          <span> {{ validationEmail }} </span>
+                      </div>
                       <input type="email" class="form-control" id="emailAdmin" name="email" v-model="admin.email" placeholder="Email" />
                   </div>
                   <div class="form-group">
                       <label for="userName"><fa-icon icon="user" /> Username</label>
+                      <div class="detail-error-validation" v-show="validationUsername.length">
+                          <span><fa-icon icon="exclamation-circle" /></span>
+                          <span> {{ validationUsername }} </span>
+                      </div>
                       <input type="text" class="form-control" id="usernameAdmin" name="username" v-model="admin.username" placeholder="Username" />
                   </div>
                   <div class="form-group">
                       <label for="password"><fa-icon icon="unlock" /> Password</label>
+                      <div class="detail-error-validation" v-show="validationPassword.length">
+                          <span><fa-icon icon="exclamation-circle" /></span>
+                          <span> {{ validationPassword }} </span>
+                      </div>
                       <input type="password" class="form-control" id="passwordAdmin" name="password" v-model="admin.password" placeholder="Password" />
                   </div>
                   <div class="form-group">
                       <label for="comfirmPassword"><fa-icon icon="lock" /> Comfirm Password</label>
+                      <div class="detail-error-validation" v-show="validationComfirmPassword.length">
+                          <span><fa-icon icon="exclamation-circle" /></span>
+                          <span> {{ validationComfirmPassword }} </span>
+                      </div>
                       <input type="password" class="form-control" id="comfirmPasswordAdmin" name="comfirmPassword" v-model="admin.comfirmPassword" placeholder="Comfirm Password" />
                   </div>
                   <div class="form-group">
                       <label for="phoneNumber"><fa-icon icon="phone-alt" /> Phone Number</label>
+                      <div class="detail-error-validation" v-show="validationPhonenumber.length">
+                          <span><fa-icon icon="exclamation-circle" /></span>
+                          <span> {{ validationPhonenumber }} </span>
+                      </div>
                       <input type="text" class="form-control" id="phoneNumberAdmin" name="phoneNumber" v-model="admin.phonenumber" placeholder="Phonenumber" />
                   </div>
                   <br />
@@ -40,7 +60,7 @@
                       <button type="submit" id="btnSubmitAdmin" class="btn btn-primary">
                           Create
                       </button>
-                      <button type="reset" id="btnResetAdmin" class="btn btn-secondary" @click="resetFormAdmin()">
+                      <button type="reset" id="btnResetAdmin" class="btn btn-secondary" @click="resetFormAdmin(),resetValidation()">
                           Clear
                       </button>
                   </div>
@@ -48,11 +68,7 @@
           </div>
           <div class="col-md-4" v-show="this.isUpdate">
               <h2>Update Information</h2>
-              <div class="alert alert-danger" role="alert" v-if="errorValidation.length">
-                  <li v-for="(error, index) in errorValidation" :key="index">
-                      {{ error }}
-                  </li>
-              </div>
+              <div class="alert alert-danger" role="alert" v-if="errorSubmit.length"><fa-icon icon="exclamation-circle" /> {{ errorSubmit }}</div>
               <form id="formUpdateAdminAccount" @submit.prevent="comfirmUpdateAdminAccount()">
                   <div class="form-group">
                       <label for="fullname"><fa-icon icon="address-card" /> Fullname</label>
@@ -88,6 +104,7 @@
                           id="btnCancelAdmin"
                           class="btn btn-secondary"
                           @click="
+                  resetValidation();
                   isCreateNew = true;
                   isUpdate = false;
                 "
@@ -178,6 +195,13 @@ export default {
       },
       listAdmin: [],
       errorValidation: [],
+      errorSubmit: "",
+      validationFullname: "",
+      validationEmail: "",
+      validationUsername: "",
+      validationPhonenumber: "",
+      validationPassword: "",
+      validationComfirmPassword: "",
       isCreateNew: true,
       isUpdate: false,
       isDelete: false,
@@ -187,43 +211,31 @@ export default {
     this.getAllAdminAccount();
   },
   methods: {
-    resetFormAdmin: function () {
-      this.errorValidation = [];
-      this.admin.username = "";
-      this.admin.fullname = "";
-      this.admin.email = "";
-      this.admin.phonenumber = "";
-      this.admin.password = "";
-    },
     createAdminAccount: function () {
-      this.errorValidation = [];
-      axios
-        .post(API_URL + "admin/create", {
-          username: this.admin.username,
-          fullname: this.admin.fullname,
-          email: this.admin.email,
-          phonenumber: this.admin.phonenumber,
-          password: this.admin.password,
-        })
-        .then((response) => {
-          let data = response.data;
-          if (data.code == 202) {
-            this.errorValidation.push("Username already exist!");
-            console.log(data);
-          } else if (data.code == 200) {
-            this.getAllAdminAccount();
-            console.log(data);
-          }
-        })
-        .then(
-          (this.admin.username = ""),
-          (this.admin.fullname = ""),
-          (this.admin.email = ""),
-          (this.admin.phonenumber = ""),
-          (this.admin.password = ""),
-          (this.admin.comfirmPassword = "")
-        )
-        .catch((error) => console.log(error));
+      this.resetValidation();
+      this.validationForm();
+      if (this.errorValidation.length == 0) {
+        axios
+          .post(API_URL + "admin/create", {
+            username: this.admin.username,
+            fullname: this.admin.fullname,
+            email: this.admin.email,
+            phonenumber: this.admin.phonenumber,
+            password: this.admin.password,
+          })
+          .then((response) => {
+            let data = response.data;
+            if (data.code == 202) {
+              this.errorSubmit = "Username already exist!";
+              console.log(data);
+            } else if (data.code == 200) {
+              this.getAllAdminAccount();
+              console.log(data);
+            }
+          })
+          .catch((error) => console.log(error))
+          .then(this.resetFormAdmin());
+      }
     },
     getAllAdminAccount: function () {
       axios
@@ -235,7 +247,7 @@ export default {
         .catch((error) => console.log(error));
     },
     findAdminAccount: function (username) {
-      this.errorValidation = [];
+      this.resetValidation();
       this.isCreateNew = true;
       this.isUpdate = false;
       this.isDelete = false;
@@ -251,12 +263,13 @@ export default {
         });
     },
     updateAdminAccount: function (username) {
-      this.errorValidation = [];
+      this.resetValidation();
       axios
         .get(API_URL + "admin/adminInfo?admin=" + username)
         .then((response) => {
           //this.admin = response.data;
           this.admin = response.data;
+          this.admin.comfirmPassword = this.admin.password;
           //console.log(response.data);
         })
         .catch(function (error) {
@@ -268,42 +281,38 @@ export default {
       console.log(username);
     },
     comfirmUpdateAdminAccount: function () {
-      this.errorValidation = [];
-      axios
-        .post(API_URL + "admin/update", {
-          username: this.admin.username,
-          fullname: this.admin.fullname,
-          email: this.admin.email,
-          phonenumber: this.admin.phonenumber,
-          password: this.admin.password,
-        })
-        .then((response) => {
-          let data = response.data;
-          if (data.code == 402) {
-            this.errorValidation.push("Username already exist!");
-            console.log(data);
-          } else if (data.code == 400) {
-            this.isCreateNew = true;
-            this.isUpdate = false;
-            this.isDelete = false;
-            this.getAllAdminAccount();
-            console.log(data);
-          }
-        })
-        .then(
-          (this.admin.username = ""),
-          (this.admin.fullname = ""),
-          (this.admin.email = ""),
-          (this.admin.phonenumber = ""),
-          (this.admin.password = ""),
-          (this.admin.comfirmPassword = "")
-        )
-        .catch((error) => console.log(error));
+      //this.resetValidation();
+      this.validationForm();
+      if (this.errorValidation.length == 0) {
+        axios
+          .post(API_URL + "admin/update", {
+            username: this.admin.username,
+            fullname: this.admin.fullname,
+            email: this.admin.email,
+            phonenumber: this.admin.phonenumber,
+            password: this.admin.password,
+          })
+          .then((response) => {
+            let data = response.data;
+            if (data.code == 402) {
+              this.errorSubmit.push("Username already exist!");
+              console.log(data);
+            } else if (data.code == 400) {
+              this.isCreateNew = true;
+              this.isUpdate = false;
+              this.isDelete = false;
+              this.getAllAdminAccount();
+              console.log(data);
+            }
+          })
+          .catch((error) => console.log(error))
+          .then(this.resetFormAdmin());
+      }
     },
     deleteAdminAccount: function (username) {
       let sessionLogin = window.localStorage.getItem("sessionLogin");
       this.adminSession.username = sessionLogin;
-      this.errorValidation = [];
+      this.resetValidation();
       axios
         .get(API_URL + "admin/adminInfo?admin=" + username)
         .then((response) => {
@@ -312,9 +321,7 @@ export default {
             console.log(
               this.adminSession.username + " and " + this.admin.username
             );
-            this.errorValidation.push(
-              "Cannot delete! This account is activing!"
-            );
+            this.errorSubmit = "Cannot delete! This account is activing!";
           } else {
             this.isCreateNew = true;
             this.isUpdate = false;
@@ -324,10 +331,11 @@ export default {
         })
         .catch(function (error) {
           console.log(error);
-        });
+        })
+        .then(this.resetFormAdmin());
     },
     comfirmDeleteAdminAccount: function () {
-      this.errorValidation = [];
+      this.resetValidation();
       axios
         .post(API_URL + "admin/delete", {
           username: this.admin.username,
@@ -339,7 +347,7 @@ export default {
         .then((response) => {
           let data = response.data;
           if (data.code == 302) {
-            this.errorValidation.push("Username not exist!");
+            this.errorSubmit.push("Username not exist!");
             console.log(data);
           } else if (data.code == 300) {
             this.isCreateNew = true;
@@ -349,15 +357,58 @@ export default {
             //console.log(data);
           }
         })
-        .then(
-          (this.admin.username = ""),
-          (this.admin.fullname = ""),
-          (this.admin.email = ""),
-          (this.admin.phonenumber = ""),
-          (this.admin.password = ""),
-          (this.admin.comfirmPassword = "")
-        )
-        .catch((error) => console.log(error));
+        .catch((error) => console.log(error))
+        .then(this.resetFormAdmin());
+    },
+    validationForm: function () {
+      this.errorValidation = [];
+      if (this.admin.username == "") {
+        this.validationUsername = "Username must not be empty!";
+        this.errorValidation.push(this.validationUsername);
+      }
+      if (this.admin.fullname == "") {
+        this.validationFullname = "Fullname must not be empty!";
+        this.errorValidation.push(this.validationFullname);
+      }
+      if (this.admin.email == "") {
+        this.validationEmail = "email must not be empty!";
+        this.errorValidation.push(this.validationEmail);
+      }
+      if (this.admin.phonenumber == "") {
+        this.validationPhonenumber = "phonenumber must not be empty!";
+        this.errorValidation.push(this.validationPhonenumber);
+      }
+      if (this.admin.password == "") {
+        this.validationPassword = "password must not be empty!";
+        this.errorValidation.push(this.validationPassword);
+      }
+      if (this.admin.comfirmPassword == "") {
+        this.validationComfirmPassword = "comfirmPassword must not be empty!";
+        this.errorValidation.push(this.validationComfirmPassword);
+      }
+      if (this.admin.comfirmPassword != this.admin.password) {
+        this.validationComfirmPassword = "ComfirmPassword incorrect!";
+        this.errorValidation.push(this.validationComfirmPassword);
+      }
+    },
+    resetFormAdmin: function () {
+      this.resetValidation();
+      this.admin.username = "";
+      this.admin.fullname = "";
+      this.admin.email = "";
+      this.admin.phonenumber = "";
+      this.admin.password = "";
+      this.admin.comfirmPassword = "";
+    },
+    resetValidation: function () {
+      this.errorValidation = [];
+      (this.errorSubmit = ""),
+        (this.validationFullname = ""),
+        (this.validationEmail = ""),
+        (this.validationUsername = ""),
+        (this.validationPhonenumber = ""),
+        (this.validationPassword = ""),
+        (this.validationComfirmPassword = "");
     },
   },
 };
@@ -373,7 +424,6 @@ input {
   margin-bottom: 10px;
 }
 
-
 table tr td {
   vertical-align: middle;
 }
@@ -381,6 +431,7 @@ table tr td {
 label {
   font-weight: bold;
 }
-
-
+.alert-danger {
+  color: red;
+}
 </style>

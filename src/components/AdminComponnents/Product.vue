@@ -699,8 +699,8 @@ export default {
             console.log(response.data);
             var bid = 0;
             bid = response.data.bid;
-            this.createCategoryOfBook(bid);
             this.createImage(bid);
+            this.createCategoryOfBook(bid);
           })
           .then(
             this.getAllBook()
@@ -744,10 +744,11 @@ export default {
             publishingCompany: this.book.publishingCompany,
             yearPublish: this.book.yearPublish,
             dateSale: this.book.dateSale,
-            categoryName: this.book.categoryName,
             price: this.book.price,
             description: this.book.description,
             status: this.book.status,
+            imageList: [],
+            bookcategoryList: [],
           })
           .then((response) => {
             console.log(response.data);
