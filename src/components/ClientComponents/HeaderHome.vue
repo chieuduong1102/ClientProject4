@@ -22,10 +22,12 @@
                   </div>
                   <div class="col-md-2">
                     <div style="margin-top: 30px;"></div>
+                    <a href="Cart">
                     <v-btn class="mx" fab small color="red">
                       <v-icon style="color: #eb4d4b;" @mouseover="displaySmallCart = true">mdi-shopping</v-icon>
                       <div id="amount-product">{{ amountProduct }}</div>
                     </v-btn>
+                    </a>
                     <div id="shopping-cart-small" v-show="displaySmallCart" @mouseleave="displaySmallCart = false">
                       <div class="items-in-cart">
                         <div class="shopping-cart-item">
@@ -167,7 +169,7 @@
                 <a href="#" @mouseover="display = false" class="nav-link">NEWS</a>
               </li>
               <li class="nav-item">
-                <a href="#" @mouseover="display = false" class="nav-link">About us</a>
+                <a href="AboutUs" @mouseover="display = false" class="nav-link">About us</a>
               </li>
             </ul>
           </div>
