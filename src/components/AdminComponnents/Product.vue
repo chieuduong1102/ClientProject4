@@ -229,7 +229,10 @@
                 <button
                   type="reset"
                   class="btn btn-secondary"
-                  @click="resetValidation()"
+                  @click="
+                    resetValidation();
+                    resetData();
+                  "
                 >
                   Reset
                 </button>
@@ -465,6 +468,7 @@
                   class="btn btn-secondary"
                   @click="
                     resetValidation();
+                    resetData();
                     isCreateNew = true;
                     isUpdate = false;
                     isDelete = false;
@@ -702,9 +706,7 @@ export default {
             this.createImage(bid);
             this.createCategoryOfBook(bid);
           })
-          .then(
-            this.getAllBook()
-          )
+          .then(this.getAllBook())
           .catch((error) => console.log(error));
       }
     },
@@ -719,10 +721,11 @@ export default {
           this.book = response.data;
           console.log(response.data);
           let listCategoryRes = [];
-          this.book.categoryName=[];
+          this.book.categoryName = [];
           listCategoryRes = response.data.bookcategoryList;
           for (let index = 0; index < listCategoryRes.length; index++) {
-            this.changeCategory(listCategoryRes[index].cid.categoryName);  
+            this.category = listCategoryRes[index].cid.categoryName;
+            this.changeCategory(this.category);
           }
           console.log(this.book.categoryName);
         })
@@ -734,12 +737,11 @@ export default {
       this.isDelete = false;
     },
     comfirmUpdateBook: function () {
-      console.log(this.book.bid);
       this.validationForm();
       if (this.validationForm().length == 0) {
         axios
           .post(API_URL + "book/update", {
-            bid : this.book.bid,
+            bid: this.book.bid,
             titleBook: this.book.titleBook,
             author: this.book.author,
             manufacture: this.book.manufacture,
@@ -754,6 +756,8 @@ export default {
           })
           .then((response) => {
             console.log(response.data);
+            this.getAllBook();
+            this.resetData();
           })
           .catch((error) => console.log(error));
       }
@@ -765,10 +769,12 @@ export default {
       }
     },
     removeCategory: function (category) {
+      this.category = "";
       this.book.categoryName.splice(
-        this.book.categoryName.indexOf(category.categoryName),
+        this.book.categoryName.indexOf(category),
         1
       );
+      console.log(this.book.categoryName);
     },
     handleFileChangeCreate: function () {
       this.errorValidation = [];
