@@ -711,7 +711,7 @@ export default {
     deleteBook: function () {},
     comfirmDeleteBook: function () {},
     updateBook: function (bid) {
-      this.errorValidation = [];
+      this.resetValidation();
       axios
         .get(API_URL + "book/bookInfo?bid=" + bid)
         .then((response) => {
@@ -734,10 +734,12 @@ export default {
       this.isDelete = false;
     },
     comfirmUpdateBook: function () {
+      console.log(this.book.bid);
       this.validationForm();
       if (this.validationForm().length == 0) {
         axios
           .post(API_URL + "book/update", {
+            bid : this.book.bid,
             titleBook: this.book.titleBook,
             author: this.book.author,
             manufacture: this.book.manufacture,
@@ -782,6 +784,19 @@ export default {
         } else {
           this.validationImages = "";
           this.book.listImg.push(this.$refs.imageUploaderCreate.files[index]);
+        }
+      }
+      for (
+        let index = 0;
+        index < this.$refs.imageUploaderUpdate.files.length;
+        index++
+      ) {
+        if (this.$refs.imageUploaderUpdate.files[index].size > 1048576) {
+          this.validationImages = "Image size is too big!";
+          this.errorValidation.push(this.validationImages);
+        } else {
+          this.validationImages = "";
+          this.book.listImg.push(this.$refs.imageUploaderUpdate.files[index]);
         }
       }
       console.log(this.book.listImg);
@@ -900,10 +915,10 @@ export default {
         this.errorValidation.push(this.validationStatus);
       }
 
-      if (this.$refs.imageUploaderCreate.files.length < 1) {
-        this.validationImages = "Please choose some photos!";
-        this.errorValidation.push(this.validationImages);
-      }
+      // if (this.$refs.imageUploaderCreate.files.length < 1 || this.$refs.imageUploaderUpdate.files.length < 1) {
+      //   this.validationImages = "Please choose some photos!";
+      //   this.errorValidation.push(this.validationImages);
+      // }
       return this.errorValidation;
     },
     resetValidation: function () {

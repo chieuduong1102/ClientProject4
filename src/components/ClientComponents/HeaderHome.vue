@@ -130,10 +130,11 @@
                   <tr>
                     <td></td>
                     <td colspan="2" class="text-right">
-                      <a href="" class="a-header"><fa-icon icon="user" /> Account</a>
+                      <a href="/Register" class="a-header" > Register </a><span style="margin-left: 18px"> | </span>
                     </td>
-                    <td colspan="2" class="text-right">
-                      <a href="" class="a-header"><fa-icon icon="sign-in-alt" /> Sign in</a>
+                    
+                    <td colspan="2" class="text-right"> 
+                      <a href="/Login" class="a-header" style="float: left;"> Sign in</a>
                     </td>
                     <td></td>
                   </tr>
@@ -11147,7 +11148,7 @@ h5,
 }
 
 .a-header {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: black;
 }
 .a-header:hover {
