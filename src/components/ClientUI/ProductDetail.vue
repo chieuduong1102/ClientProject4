@@ -8,8 +8,7 @@
             <div class="breadcrumb-single breadcrumb_top">
               <ul id="breadcrumbs">
                 <li>
-                  <i class="fa fa-home"></i
-                  ><router-link to="Home"><span> Home</span></router-link>
+                  <a href="HomePage"><i class="fa fa-home"></i>Home</a>
                 </li>
                 <li><span>I</span></li>
                 <li>LOREM IPSUM DOLOR</li>
