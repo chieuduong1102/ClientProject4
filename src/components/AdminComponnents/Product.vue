@@ -1,251 +1,249 @@
 <template>
   <div class="product">
-    <div class="container-fluid">
-      <h1><fa-icon icon="book-open" /> Book</h1>
-      <hr />
-      <div class="row" v-show="this.isCreateNew">
-        <h2>Create Book</h2>
-        <h3>{{ book.bid }}</h3>
-        <form action="" @submit.prevent="createBook()">
-          <div class="row">
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="titleBook">Title Book</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationTitle.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationTitle }} </span>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  @keydown="validationTitle = ''"
-                  v-model="book.titleBook"
-                  placeholder="Title"
-                />
-              </div>
-              <div class="form-group">
-                <label for="author">Author</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationAuthor.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationAuthor }} </span>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  @keydown="validationAuthor = ''"
-                  v-model="book.author"
-                  placeholder="Author"
-                />
-              </div>
-              <div class="form-group">
-                <label for="manufacture">Manufacture</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationManufacture.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationManufacture }} </span>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  @keydown="validationManufacture = ''"
-                  v-model="book.manufacture"
-                  placeholder="Manufacture"
-                />
-              </div>
-              <div class="form-group">
-                <label for="publishingCompany">Publishing Company</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationPublishingCompany.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationPublishingCompany }} </span>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  @keydown="validationPublishingCompany = ''"
-                  v-model="book.publishingCompany"
-                  placeholder="Publishing Company"
-                />
-              </div>
-              <div class="form-group">
-                <label for="yearPublish">Year Publishing</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationYearPublishing.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationYearPublishing }} </span>
-                </div>
-                <input
-                  type="number"
-                  class="form-control"
-                  @change="validationYearPublishing = ''"
-                  v-model="book.yearPublish"
-                  placeholder="Year Publishing"
-                />
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label for="dateSale">Date Sale</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationDateSale.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationDateSale }} </span>
-                </div>
-                <input
-                  type="date"
-                  class="form-control"
-                  @change="validationDateSale = ''"
-                  v-model="book.dateSale"
-                />
-              </div>
-              <div class="form-group">
-                <label for="category">Category</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationCategoryName.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationCategoryName }} </span>
-                </div>
-                <div>
-                  <div
-                    v-for="(item, index) in book.categoryName"
-                    :key="index"
-                    class="display-selected"
-                  >
-                    {{ item }}
-                    <span class="btn-x" @click="removeCategory(item)">x</span>
-                  </div>
-                </div>
-                <select
-                  class="form-select form-control"
-                  v-model="category"
-                  @change="
-                    changeCategory(category);
-                    validationCategoryName = '';
-                  "
-                  aria-label="status"
-                >
-                  <option disabled value="">--Select Category--</option>
-                  <option v-for="(cat, index) in listCategory" :key="index">
-                    {{ cat }}
-                  </option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="description">Description</label>
-                <textarea
-                  type="number"
-                  class="form-control"
-                  rows="4"
-                  v-model="book.description"
-                  placeholder="Book's description..."
-                />
-              </div>
-              <div class="form-group">
-                <label for="price">Price</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationPrice.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationPrice }} </span>
-                </div>
-                <input
-                  type="number"
-                  @change="validationPrice = ''"
-                  v-model="book.price"
-                  class="form-control"
-                  placeholder="$"
-                />
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group" style="width: 50%">
-                <label for="status">Status</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationStatus.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationStatus }} </span>
-                </div>
-                <select
-                  class="form-select form-control"
-                  @change="validationStatus = ''"
-                  v-model="book.status"
-                  aria-label="status"
-                >
-                  <option selected value="0" disabled>--Select Status--</option>
-                  <option value="1">Disable</option>
-                  <option value="2">Active</option>
-                  <option value="3">Coming soon</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="images">Images</label>
-                <div
-                  class="detail-error-validation"
-                  v-show="validationImages.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationImages }} </span>
-                </div>
-                <input
-                  type="file"
-                  ref="imageUploaderCreate"
-                  @change="handleFileChangeCreate()"
-                  class="form-control"
-                  multiple
-                />
-              </div>
-              <div class="row">
-                <br />
-                <div
-                  class="col-md-4"
-                  v-for="(item, index) in book.listImg"
-                  :key="index"
-                >
-                  {{ item.name }}
-                </div>
-              </div>
-              <br />
-              <center>
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button
-                  type="reset"
-                  class="btn btn-secondary"
-                  @click="
-                    resetValidation();
-                    resetData();
-                  "
-                >
-                  Reset
-                </button>
-              </center>
-            </div>
-          </div>
-        </form>
+    <div class="row">
+      <div class="container-fluid " id="product-detail-display" v-if="showDetail">
+        <fa-icon icon="times" id="icon-close" @click="closeDetailProduct()"></fa-icon>
+        <div id="product-detail-content">
+          <ProductDetail :bid=book.bid />
+        </div>
       </div>
-      <div class="row" v-show="this.isUpdate">
-        <h2>Update Book Information</h2>
-        <form action="" @submit.prevent="comfirmUpdateBook()">
-          <div class="row">
-            <div class="col-md-3">
+      <div class="container-fluid ">
+        <h1><fa-icon icon="book-open" /> Book</h1>
+        <hr />
+        <div class="row">
+          <div class="col-md-4" v-show="this.isCreateNew">
+            <h2>Create Book</h2>
+            <form action="" @submit.prevent="createBook()">
+                <div class="form-group">
+                  <label for="titleBook">Title Book</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationTitle.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationTitle }} </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    @keydown="validationTitle = ''"
+                    v-model="book.titleBook"
+                    placeholder="Title"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="author">Author</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationAuthor.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationAuthor }} </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    @keydown="validationAuthor = ''"
+                    v-model="book.author"
+                    placeholder="Author"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="manufacture">Manufacture</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationManufacture.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationManufacture }} </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    @keydown="validationManufacture = ''"
+                    v-model="book.manufacture"
+                    placeholder="Manufacture"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="publishingCompany">Publishing Company</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationPublishingCompany.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationPublishingCompany }} </span>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    @keydown="validationPublishingCompany = ''"
+                    v-model="book.publishingCompany"
+                    placeholder="Publishing Company"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="yearPublish">Year Publishing</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationYearPublishing.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationYearPublishing }} </span>
+                  </div>
+                  <input
+                    type="number"
+                    class="form-control"
+                    @change="validationYearPublishing = ''"
+                    v-model="book.yearPublish"
+                    placeholder="Year Publishing"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="dateSale">Date Sale</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationDateSale.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationDateSale }} </span>
+                  </div>
+                  <input
+                    type="date"
+                    class="form-control"
+                    @change="validationDateSale = ''"
+                    v-model="book.dateSale"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="category">Category</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationCategoryName.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationCategoryName }} </span>
+                  </div>
+                  <div>
+                    <div
+                      v-for="(item, index) in book.categoryName"
+                      :key="index"
+                      class="display-selected"
+                    >
+                      {{ item }}
+                      <span class="btn-x" @click="removeCategory(item)">x</span>
+                    </div>
+                  </div>
+                  <select
+                    class="form-select form-control"
+                    v-model="category"
+                    @change="
+                      changeCategory(category);
+                      validationCategoryName = '';
+                    "
+                    aria-label="status"
+                  >
+                    <option disabled value="">--Select Category--</option>
+                    <option v-for="(cat, index) in listCategory" :key="index">
+                      {{ cat }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="description">Description</label>
+                  <textarea
+                    type="number"
+                    class="form-control"
+                    rows="4"
+                    v-model="book.description"
+                    placeholder="Book's description..."
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="price">Price</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationPrice.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationPrice }} </span>
+                  </div>
+                  <input
+                    type="number"
+                    @change="validationPrice = ''"
+                    v-model="book.price"
+                    class="form-control"
+                    placeholder="$"
+                  />
+                </div>
+                <div class="form-group" style="width: 50%">
+                  <label for="status">Status</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationStatus.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationStatus }} </span>
+                  </div>
+                  <select
+                    class="form-select form-control"
+                    @change="validationStatus = ''"
+                    v-model="book.status"
+                    aria-label="status"
+                  >
+                    <option selected value="0" disabled>--Select Status--</option>
+                    <option value="1">Disable</option>
+                    <option value="2">Active</option>
+                    <option value="3">Coming soon</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="images">Images</label>
+                  <div
+                    class="detail-error-validation"
+                    v-show="validationImages.length"
+                  >
+                    <span><fa-icon icon="exclamation-circle" /></span>
+                    <span> {{ validationImages }} </span>
+                  </div>
+                  <input
+                    type="file"
+                    ref="imageUploaderCreate"
+                    @change="handleFileChangeCreate()"
+                    class="form-control"
+                    multiple
+                  />
+                </div>
+                <div class="row">
+                  <br />
+                  <div
+                    class="col-md-4"
+                    v-for="(item, index) in book.listImg"
+                    :key="index"
+                  >
+                    {{ item.name }}
+                  </div>
+                </div>
+                <br />
+                <center>
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button
+                    type="reset"
+                    class="btn btn-secondary"
+                    @click="
+                      resetValidation();
+                      resetData();
+                    "
+                  >
+                    Reset
+                  </button>
+                </center>
+
+            </form>
+          </div>
+          <div class="col-md-4" v-show="this.isUpdate">
+            <h2>Update Book Information</h2>
+            <form action="" @submit.prevent="comfirmUpdateBook()">
               <div class="form-group">
                 <label for="titleBook">Title Book</label>
                 <div
@@ -331,8 +329,6 @@
                   placeholder="Year Publishing"
                 />
               </div>
-            </div>
-            <div class="col-md-3">
               <div class="form-group">
                 <label for="dateSale">Date Sale</label>
                 <div
@@ -410,8 +406,6 @@
                   placeholder="$"
                 />
               </div>
-            </div>
-            <div class="col-md-6">
               <div class="form-group" style="width: 50%">
                 <label for="status">Status</label>
                 <div
@@ -477,127 +471,104 @@
                   Cancel
                 </button>
               </center>
-            </div>
+            </form>
           </div>
-        </form>
-      </div>
-      <br />
-      <div class="row">
-        <div class="col-md-12">
-          <h2>List Book</h2>
-          <div
-            class="alert alert-danger alert-dismissible fade show"
-            role="alert"
-            v-show="this.isDelete"
-          >
-            Do you want delete Book:
-            <strong>{{ book.title }}</strong> ?
-            <button
-              class="btn btn-success"
-              style="width: 45px; height: 45px"
-              @click="comfirmDeleteBook(book)"
+          <div class="col-md-8">
+            <h2>List Book</h2>
+            <div
+              class="alert alert-danger alert-dismissible fade show"
+              role="alert"
+              v-show="this.isDelete"
             >
-              <fa-icon id="ic-yes" icon="check"></fa-icon>
-            </button>
-            <button
-              class="btn btn-danger"
-              style="width: 45px; height: 45px"
-              @click="isDelete = false"
-            >
-              <fa-icon id="ic-close" icon="times"></fa-icon>
-            </button>
-          </div>
-          <v-app id="inspire">
-            <v-card>
-              <v-card-title>
-                <v-text-field
-                  v-model="search"
-                  append-icon="mdi-magnify"
-                  label="Search"
-                  single-line
-                  hide-details
-                ></v-text-field>
-              </v-card-title>
-              <v-data-table
-                :headers="headers"
-                :items="this.listBook"
-                :search="search"
+              Do you want delete Book:
+              <strong>{{ book.title }}</strong> ?
+              <button
+                class="btn btn-success"
+                style="width: 45px; height: 45px"
+                @click="comfirmDeleteBook(book)"
               >
-                <template v-slot:item="row">
-                  <tr>
-                    <td>{{ row.item.titleBook }}</td>
-                    <td>{{ row.item.author }}</td>
-                    <td>{{ row.item.manufacture }}</td>
-                    <td>{{ row.item.publishingCompany }}</td>
-                    <td>{{ row.item.yearPublish }}</td>
-                    <td>{{ row.item.dateSale }}</td>
-                    <td>
-                      <span
-                        v-for="(cat, index) in row.item.bookcategoryList"
-                        :key="index"
-                        >{{ cat.cid.categoryName }},
-                      </span>
-                    </td>
-                    <td>{{ row.item.price }} $</td>
-                    <td>{{ formatStatus(row.item.status) }}</td>
-                    <!-- <td>{{ row.item.listImg }}</td> -->
-                    <td>
-                      <div class="row">
-                        <div
-                          class="col-md-4"
-                          v-for="(img, index) in row.item.imageList"
+                <fa-icon id="ic-yes" icon="check"></fa-icon>
+              </button>
+              <button
+                class="btn btn-danger"
+                style="width: 45px; height: 45px"
+                @click="isDelete = false"
+              >
+                <fa-icon id="ic-close" icon="times"></fa-icon>
+              </button>
+            </div>
+            <v-app id="inspire">
+              <v-card>
+                <v-card-title>
+                  <v-text-field
+                    v-model="search"
+                    append-icon="mdi-magnify"
+                    label="Search"
+                    single-line
+                    hide-details
+                  ></v-text-field>
+                </v-card-title>
+                <v-data-table
+                  :headers="headers"
+                  :items="this.listBook"
+                  :search="search"
+                >
+                  <template v-slot:item="row">
+                    <tr>
+                      <td>{{ row.item.titleBook }}</td>
+                      <td>{{ row.item.author }}</td>
+                      <td>{{ row.item.dateSale }}</td>
+                      <td>
+                        <span
+                          v-for="(cat, index) in row.item.bookcategoryList"
                           :key="index"
+                          >{{ cat.cid.categoryName }},
+                        </span>
+                      </td>
+                      <td>{{ row.item.price }} $</td>
+                      <td>{{ formatStatus(row.item.status) }}</td>
+                      <td>
+                        <v-btn
+                          class="mx-2"
+                          fab
+                          dark
+                          small
+                          color="blue"
+                          @click="showDetailProduct(row.item.bid)"
                         >
-                          <img
-                            :src="img.nameFile"
-                            class="img-fluid"
-                            style="margin: 5px"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <v-btn
-                        class="mx-2"
-                        fab
-                        dark
-                        small
-                        color="blue"
-                        @click="findBook(row.item.bid)"
-                      >
-                        <v-icon dark>mdi-information</v-icon>
-                      </v-btn>
-                    </td>
-                    <td>
-                      <v-btn
-                        class="mx-2"
-                        fab
-                        dark
-                        small
-                        color="green"
-                        @click="updateBook(row.item.bid)"
-                      >
-                        <v-icon dark>mdi-pencil</v-icon>
-                      </v-btn>
-                    </td>
-                    <td>
-                      <v-btn
-                        class="mx-2"
-                        fab
-                        dark
-                        small
-                        color="red"
-                        @click="deleteBook(row.item.bid)"
-                      >
-                        <v-icon dark>mdi-delete</v-icon>
-                      </v-btn>
-                    </td>
-                  </tr>
-                </template>
-              </v-data-table>
-            </v-card>
-          </v-app>
+                          <v-icon dark>mdi-information</v-icon>
+                        </v-btn>
+                      </td>
+                      <td>
+                        <v-btn
+                          class="mx-2"
+                          fab
+                          dark
+                          small
+                          color="green"
+                          @click="updateBook(row.item.bid)"
+                        >
+                          <v-icon dark>mdi-pencil</v-icon>
+                        </v-btn>
+                      </td>
+                      <td>
+                        <v-btn
+                          class="mx-2"
+                          fab
+                          dark
+                          small
+                          color="red"
+                          @click="deleteBook(row.item.bid)"
+                        >
+                          <v-icon dark>mdi-delete</v-icon>
+                        </v-btn>
+                      </td>
+                    </tr>
+                  </template>
+                </v-data-table>
+              </v-card>
+            </v-app>
+          </div>
         </div>
       </div>
     </div>
@@ -605,9 +576,13 @@
 </template>
 
 <script>
+import ProductDetail from "./ProductDetail.vue"
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 export default {
+  components: {
+    ProductDetail
+  },
   data() {
     return {
       search: "",
@@ -619,14 +594,10 @@ export default {
           value: "titleBook",
         },
         { text: "Author", value: "author" },
-        { text: "Manufacture", value: "manufacture" },
-        { text: "Publish Company", value: "publishingCompany" },
-        { text: "Year Publish", value: "yearPublish" },
         { text: "Date Sale", value: "dateSale" },
         { text: "Category", value: "categoryName" },
         { text: "Price", value: "price" },
         { text: "Status", value: "status" },
-        { text: "Image", value: "listImg" },
         { text: "Detail" },
         { text: "Update" },
         { text: "Delete" },
@@ -663,6 +634,7 @@ export default {
       isCreateNew: true,
       isUpdate: false,
       isDelete: false,
+      showDetail: false
     };
   },
   methods: {
@@ -979,6 +951,14 @@ export default {
         return "NULL";
       }
     },
+    showDetailProduct: function(id){
+      this.showDetail = true;
+      this.book.bid = id;
+    },
+    closeDetailProduct : function(){
+      this.showDetail = false;
+      this.book.bid = null;
+    }
   },
   mounted() {
     this.getAllCategory();
@@ -988,6 +968,20 @@ export default {
 </script>
 
 <style>
+.product{
+  margin: 0;
+  padding: 0;
+}
+form{
+  font-size: 0.8rem;
+}
+
+input{
+  height: 35px;
+  font-size: 0.8rem;
+}
+
+
 label {
   font-weight: bold;
 }
@@ -1023,5 +1017,31 @@ input[type="date"] {
 }
 .detail-error-validation {
   color: red;
+}
+#product-detail-display{
+  height: 120vh;
+  width: 100vw ;
+  background-color: rgba(0, 0, 0, 0.300);
+  position: absolute;
+  z-index: 10;
+  margin: -2vh 0 0 -1.6vw;
+}
+#product-detail-content{
+  height: 80vh;
+  width: 80vw;
+  margin: 5vh 3vw 5vh 3vw;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  display: inline-block;
+}
+#icon-close{
+    cursor: pointer;
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    margin: 60px 60px 0 0;    
+}
+#icon-close:hover{
+    color: red; 
 }
 </style>

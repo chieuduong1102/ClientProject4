@@ -1,5 +1,5 @@
 <template>
-  <div class="admin">
+  <div class="container-fluid admin">
       <div id="viewport">
           <!-- Sidebar -->
           <div id="sidebar">
@@ -82,7 +82,7 @@
                           <div class="content-detail" v-show="this.isShowCategory">
                               <h1>Category</h1>
                           </div>
-                          <div class="content-detail" v-show="this.isShowProduct">
+                          <div class="content-detail" v-show="this.isShowProduct" >
                               <Product />
                           </div>
                           <div class="content-detail" v-show="this.isShowOrders">
@@ -303,6 +303,7 @@ export default {
   padding: 0;
   width: 100%;
   height: 100%;
+  /* overflow: hidden; */
 }
 
 #img-branch {
@@ -341,7 +342,7 @@ export default {
   position: fixed;
   left: 250px;
   width: 250px;
-  height: 100%;
+  height: 100vh;
   margin-left: -250px;
   overflow-y: auto;
   background: #37474f;
@@ -379,6 +380,11 @@ export default {
 
 .item > li {
   padding-left: 20px;
+}
+
+#sidebar{
+  margin-top: 0;
+  height: 102vh;
 }
 
 #sidebar header {
