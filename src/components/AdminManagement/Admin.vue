@@ -368,9 +368,6 @@ export default {
   border-left: 10px solid #0984e3;
 }
 
-.router-logout {
-
-}
 
 .router-logout:hover {
   box-shadow: inset 250px 0 0 0 #dfe6e9;
@@ -400,8 +397,6 @@ export default {
   text-decoration: none;
 }
 
-#sidebar .nav {
-}
 
 #sidebar .nav a {
   background: none;

@@ -35,11 +35,29 @@ const router = new VueRouter({
   routes
 })
 
+//vuex
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  }
+})
+
 Vue.config.productionTip = false
+
 
 new Vue({
   router,
   vuetify,
   StarRating,
+  store : store,
   render: h => h(App)
 }).$mount('#app')
