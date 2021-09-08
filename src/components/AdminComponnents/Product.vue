@@ -1,251 +1,29 @@
 <template>
   <div class="product">
     <div class="row">
-      <div class="container-fluid " id="product-detail-display" v-if="showDetail">
-        <fa-icon icon="times" id="icon-close" @click="closeDetailProduct()"></fa-icon>
+      <div
+        class="container-fluid"
+        id="product-detail-display"
+        v-if="showDetail"
+      >
+        <fa-icon
+          icon="times"
+          id="icon-close"
+          @click="closeDetailProduct()"
+        ></fa-icon>
         <div id="product-detail-content">
-          <ProductDetail :bid=book.bid />
+          <ProductDetail :bid="book.bid" />
         </div>
       </div>
-      <div class="container-fluid ">
+      <div class="container-fluid">
         <h1><fa-icon icon="book-open" /> Book</h1>
         <hr />
         <div class="row">
           <div class="col-md-4" v-show="this.isCreateNew">
-            <h2>Create Book</h2>
+            <h2>Tạo mới</h2>
             <form action="" @submit.prevent="createBook()">
-                <div class="form-group">
-                  <label for="titleBook">Title Book</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationTitle.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationTitle }} </span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    @keydown="validationTitle = ''"
-                    v-model="book.titleBook"
-                    placeholder="Title"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="author">Author</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationAuthor.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationAuthor }} </span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    @keydown="validationAuthor = ''"
-                    v-model="book.author"
-                    placeholder="Author"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="manufacture">Manufacture</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationManufacture.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationManufacture }} </span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    @keydown="validationManufacture = ''"
-                    v-model="book.manufacture"
-                    placeholder="Manufacture"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="publishingCompany">Publishing Company</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationPublishingCompany.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationPublishingCompany }} </span>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control"
-                    @keydown="validationPublishingCompany = ''"
-                    v-model="book.publishingCompany"
-                    placeholder="Publishing Company"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="yearPublish">Year Publishing</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationYearPublishing.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationYearPublishing }} </span>
-                  </div>
-                  <input
-                    type="number"
-                    class="form-control"
-                    @change="validationYearPublishing = ''"
-                    v-model="book.yearPublish"
-                    placeholder="Year Publishing"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="dateSale">Date Sale</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationDateSale.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationDateSale }} </span>
-                  </div>
-                  <input
-                    type="date"
-                    class="form-control"
-                    @change="validationDateSale = ''"
-                    v-model="book.dateSale"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="category">Category</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationCategoryName.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationCategoryName }} </span>
-                  </div>
-                  <div>
-                    <div
-                      v-for="(item, index) in book.categoryName"
-                      :key="index"
-                      class="display-selected"
-                    >
-                      {{ item }}
-                      <span class="btn-x" @click="removeCategory(item)">x</span>
-                    </div>
-                  </div>
-                  <select
-                    class="form-select form-control"
-                    v-model="category"
-                    @change="
-                      changeCategory(category);
-                      validationCategoryName = '';
-                    "
-                    aria-label="status"
-                  >
-                    <option disabled value="">--Select Category--</option>
-                    <option v-for="(cat, index) in listCategory" :key="index">
-                      {{ cat }}
-                    </option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="description">Description</label>
-                  <textarea
-                    type="number"
-                    class="form-control"
-                    rows="4"
-                    v-model="book.description"
-                    placeholder="Book's description..."
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="price">Price</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationPrice.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationPrice }} </span>
-                  </div>
-                  <input
-                    type="number"
-                    @change="validationPrice = ''"
-                    v-model="book.price"
-                    class="form-control"
-                    placeholder="$"
-                  />
-                </div>
-                <div class="form-group" style="width: 50%">
-                  <label for="status">Status</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationStatus.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationStatus }} </span>
-                  </div>
-                  <select
-                    class="form-select form-control"
-                    @change="validationStatus = ''"
-                    v-model="book.status"
-                    aria-label="status"
-                  >
-                    <option selected value="0" disabled>--Select Status--</option>
-                    <option value="1">Disable</option>
-                    <option value="2">Active</option>
-                    <option value="3">Coming soon</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="images">Images</label>
-                  <div
-                    class="detail-error-validation"
-                    v-show="validationImages.length"
-                  >
-                    <span><fa-icon icon="exclamation-circle" /></span>
-                    <span> {{ validationImages }} </span>
-                  </div>
-                  <input
-                    type="file"
-                    ref="imageUploaderCreate"
-                    @change="handleFileChangeCreate()"
-                    class="form-control"
-                    multiple
-                  />
-                </div>
-                <div class="row">
-                  <br />
-                  <div
-                    class="col-md-4"
-                    v-for="(item, index) in book.listImg"
-                    :key="index"
-                  >
-                    {{ item.name }}
-                  </div>
-                </div>
-                <br />
-                <center>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                  <button
-                    type="reset"
-                    class="btn btn-secondary"
-                    @click="
-                      resetValidation();
-                      resetData();
-                    "
-                  >
-                    Reset
-                  </button>
-                </center>
-
-            </form>
-          </div>
-          <div class="col-md-4" v-show="this.isUpdate">
-            <h2>Update Book Information</h2>
-            <form action="" @submit.prevent="comfirmUpdateBook()">
               <div class="form-group">
-                <label for="titleBook">Title Book</label>
+                <label for="titleBook">Tiêu đề sách</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationTitle.length"
@@ -258,11 +36,11 @@
                   class="form-control"
                   @keydown="validationTitle = ''"
                   v-model="book.titleBook"
-                  placeholder="Title"
+                  placeholder=""
                 />
               </div>
               <div class="form-group">
-                <label for="author">Author</label>
+                <label for="author">Tác giả</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationAuthor.length"
@@ -275,11 +53,11 @@
                   class="form-control"
                   @keydown="validationAuthor = ''"
                   v-model="book.author"
-                  placeholder="Author"
+                  placeholder=""
                 />
               </div>
               <div class="form-group">
-                <label for="manufacture">Manufacture</label>
+                <label for="manufacture">Nhà cung cấp</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationManufacture.length"
@@ -292,11 +70,11 @@
                   class="form-control"
                   @keydown="validationManufacture = ''"
                   v-model="book.manufacture"
-                  placeholder="Manufacture"
+                  placeholder=""
                 />
               </div>
               <div class="form-group">
-                <label for="publishingCompany">Publishing Company</label>
+                <label for="publishingCompany">Nhà xuất bản</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationPublishingCompany.length"
@@ -309,11 +87,11 @@
                   class="form-control"
                   @keydown="validationPublishingCompany = ''"
                   v-model="book.publishingCompany"
-                  placeholder="Publishing Company"
+                  placeholder=""
                 />
               </div>
               <div class="form-group">
-                <label for="yearPublish">Year Publishing</label>
+                <label for="yearPublish">Năm xuất bản</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationYearPublishing.length"
@@ -326,11 +104,11 @@
                   class="form-control"
                   @change="validationYearPublishing = ''"
                   v-model="book.yearPublish"
-                  placeholder="Year Publishing"
+                  placeholder=""
                 />
               </div>
               <div class="form-group">
-                <label for="dateSale">Date Sale</label>
+                <label for="dateSale">Ngày mở bán</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationDateSale.length"
@@ -346,7 +124,7 @@
                 />
               </div>
               <div class="form-group">
-                <label for="category">Category</label>
+                <label for="category">Thể loại</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationCategoryName.length"
@@ -373,24 +151,23 @@
                   "
                   aria-label="status"
                 >
-                  <option disabled value="">--Select Category--</option>
+                  <option disabled value="">--Chọn thể loại--</option>
                   <option v-for="(cat, index) in listCategory" :key="index">
                     {{ cat }}
                   </option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">Mô tả</label>
                 <textarea
                   type="number"
                   class="form-control"
                   rows="4"
                   v-model="book.description"
-                  placeholder="Book's description..."
                 />
               </div>
               <div class="form-group">
-                <label for="price">Price</label>
+                <label for="price">Đơn giá</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationPrice.length"
@@ -403,11 +180,11 @@
                   @change="validationPrice = ''"
                   v-model="book.price"
                   class="form-control"
-                  placeholder="$"
+                  placeholder="VNĐ"
                 />
               </div>
               <div class="form-group" style="width: 50%">
-                <label for="status">Status</label>
+                <label for="status">Trạng thái</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationStatus.length"
@@ -421,14 +198,246 @@
                   v-model="book.status"
                   aria-label="status"
                 >
-                  <option selected value="0" disabled>--Select Status--</option>
-                  <option value="1">Disable</option>
-                  <option value="2">Active</option>
-                  <option value="3">Coming soon</option>
+                  <option selected value="0" disabled>
+                    --Chọn trạng thái--
+                  </option>
+                  <option value="1">Ngừng bán</option>
+                  <option value="2">Đang mở bán</option>
+                  <option value="3">Sắp ra mắt</option>
                 </select>
               </div>
               <div class="form-group">
-                <label for="images">Images</label>
+                <label for="images">Hình ảnh</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationImages.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationImages }} </span>
+                </div>
+                <input
+                  type="file"
+                  ref="imageUploaderCreate"
+                  @change="handleFileChangeCreate()"
+                  class="form-control"
+                  multiple
+                />
+              </div>
+              <div class="row">
+                <br />
+                <div
+                  class="col-md-4"
+                  v-for="(item, index) in book.imageList"
+                  :key="index"
+                >
+                  {{ item.name }}
+                </div>
+              </div>
+              <br />
+              <center>
+                <button type="submit" class="btn btn-primary">Tạo mới</button>
+                <button
+                  type="reset"
+                  class="btn btn-secondary"
+                  @click="
+                    resetValidation();
+                    resetData();
+                  "
+                >
+                  Tạo lại
+                </button>
+              </center>
+            </form>
+          </div>
+          <div class="col-md-4" v-show="this.isUpdate">
+            <h2>Cập nhật thông tin sách</h2>
+            <form action="" @submit.prevent="comfirmUpdateBook()">
+              <div class="form-group">
+                <label for="titleBook">Tiêu đề sách</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationTitle.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationTitle }} </span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  @keydown="validationTitle = ''"
+                  v-model="book.titleBook"
+                  placeholder=""
+                />
+              </div>
+              <div class="form-group">
+                <label for="author">Tác giả</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationAuthor.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationAuthor }} </span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  @keydown="validationAuthor = ''"
+                  v-model="book.author"
+                  placeholder=""
+                />
+              </div>
+              <div class="form-group">
+                <label for="manufacture">Nhà cung cấp</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationManufacture.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationManufacture }} </span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  @keydown="validationManufacture = ''"
+                  v-model="book.manufacture"
+                  placeholder=""
+                />
+              </div>
+              <div class="form-group">
+                <label for="publishingCompany">Nhà xuất bản</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationPublishingCompany.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationPublishingCompany }} </span>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  @keydown="validationPublishingCompany = ''"
+                  v-model="book.publishingCompany"
+                  placeholder=""
+                />
+              </div>
+              <div class="form-group">
+                <label for="yearPublish">Năm xuất bản</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationYearPublishing.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationYearPublishing }} </span>
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  @change="validationYearPublishing = ''"
+                  v-model="book.yearPublish"
+                  placeholder="Year Publishing"
+                />
+              </div>
+              <div class="form-group">
+                <label for="dateSale">Ngày mở bán</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationDateSale.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationDateSale }} </span>
+                </div>
+                <input
+                  type="date"
+                  class="form-control"
+                  @change="validationDateSale = ''"
+                  v-model="book.dateSale"
+                />
+              </div>
+              <div class="form-group">
+                <label for="category">Thể loại</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationCategoryName.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationCategoryName }} </span>
+                </div>
+                <div>
+                  <div
+                    v-for="(item, index) in book.categoryName"
+                    :key="index"
+                    class="display-selected"
+                  >
+                    {{ item }}
+                    <span class="btn-x" @click="removeCategory(item)">x</span>
+                  </div>
+                </div>
+                <select
+                  class="form-select form-control"
+                  v-model="category"
+                  @change="
+                    changeCategory(category);
+                    validationCategoryName = '';
+                  "
+                  aria-label="status"
+                >
+                  <option disabled value="">--Chọn thể loại--</option>
+                  <option v-for="(cat, index) in listCategory" :key="index">
+                    {{ cat }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="description">Mô tả</label>
+                <textarea
+                  type="number"
+                  class="form-control"
+                  rows="4"
+                  v-model="book.description"
+                />
+              </div>
+              <div class="form-group">
+                <label for="price">Đơn giá</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationPrice.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationPrice }} </span>
+                </div>
+                <input
+                  type="number"
+                  @change="validationPrice = ''"
+                  v-model="book.price"
+                  class="form-control"
+                  placeholder="VNĐ"
+                />
+              </div>
+              <div class="form-group" style="width: 50%">
+                <label for="status">Trạng thái</label>
+                <div
+                  class="detail-error-validation"
+                  v-show="validationStatus.length"
+                >
+                  <span><fa-icon icon="exclamation-circle" /></span>
+                  <span> {{ validationStatus }} </span>
+                </div>
+                <select
+                  class="form-select form-control"
+                  @change="validationStatus = ''"
+                  v-model="book.status"
+                  aria-label="status"
+                >
+                  <option selected value="0" disabled>
+                    --Chọn trạng thái--
+                  </option>
+                  <option value="1">Ngừng bán</option>
+                  <option value="2">Đang mở bán</option>
+                  <option value="3">Sắp ra mắt</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="images">Hình ảnh</label>
                 <div
                   class="detail-error-validation"
                   v-show="validationImages.length"
@@ -448,15 +457,19 @@
                 <br />
                 <div
                   class="col-md-4"
-                  v-for="(item, index) in book.listImg"
+                  v-for="(item, index) in book.imageList"
                   :key="index"
                 >
-                  {{ item.name }}
+                  <img
+                    :src="item.nameFile"
+                    class="img-fluid"
+                    style="width: 200px"
+                  />
                 </div>
               </div>
               <br />
               <center>
-                <button type="submit" class="btn btn-success">Update</button>
+                <button type="submit" class="btn btn-success">Cập nhật</button>
                 <button
                   type="reset"
                   class="btn btn-secondary"
@@ -468,7 +481,7 @@
                     isDelete = false;
                   "
                 >
-                  Cancel
+                  Hủy bỏ
                 </button>
               </center>
             </form>
@@ -503,7 +516,7 @@
                   <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
-                    label="Search"
+                    label="Tìm kiếm"
                     single-line
                     hide-details
                   ></v-text-field>
@@ -525,7 +538,7 @@
                           >{{ cat.cid.categoryName }},
                         </span>
                       </td>
-                      <td>{{ row.item.price }} $</td>
+                      <td>{{ row.item.price }} VNĐ</td>
                       <td>{{ formatStatus(row.item.status) }}</td>
                       <td>
                         <v-btn
@@ -551,18 +564,6 @@
                           <v-icon dark>mdi-pencil</v-icon>
                         </v-btn>
                       </td>
-                      <td>
-                        <v-btn
-                          class="mx-2"
-                          fab
-                          dark
-                          small
-                          color="red"
-                          @click="deleteBook(row.item.bid)"
-                        >
-                          <v-icon dark>mdi-delete</v-icon>
-                        </v-btn>
-                      </td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -576,31 +577,30 @@
 </template>
 
 <script>
-import ProductDetail from "./ProductDetail.vue"
+import ProductDetail from "./ProductDetail.vue";
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 export default {
   components: {
-    ProductDetail
+    ProductDetail,
   },
   data() {
     return {
       search: "",
       headers: [
         {
-          text: "Title",
+          text: "Tiêu đề",
           align: "start",
           filterable: false,
           value: "titleBook",
         },
-        { text: "Author", value: "author" },
-        { text: "Date Sale", value: "dateSale" },
-        { text: "Category", value: "categoryName" },
-        { text: "Price", value: "price" },
-        { text: "Status", value: "status" },
-        { text: "Detail" },
-        { text: "Update" },
-        { text: "Delete" },
+        { text: "Tác giả", value: "author" },
+        { text: "Ngày mở bán", value: "dateSale" },
+        { text: "Thể loại", value: "categoryName" },
+        { text: "Đơn giá", value: "price" },
+        { text: "Trạng thái", value: "status" },
+        { text: "Chi tiết" },
+        { text: "Cập nhật" },
       ],
       book: {
         bid: "",
@@ -614,7 +614,7 @@ export default {
         price: 0,
         description: "",
         status: 0,
-        listImg: [],
+        imageList: [],
       },
       listBook: [],
       category: "",
@@ -634,7 +634,7 @@ export default {
       isCreateNew: true,
       isUpdate: false,
       isDelete: false,
-      showDetail: false
+      showDetail: false,
     };
   },
   methods: {
@@ -699,6 +699,7 @@ export default {
             this.category = listCategoryRes[index].cid.categoryName;
             this.changeCategory(this.category);
           }
+          this.book.imageList = response.data.imageList;
           console.log(this.book.categoryName);
         })
         .catch(function (error) {
@@ -712,25 +713,36 @@ export default {
       this.validationForm();
       if (this.validationForm().length == 0) {
         axios
-          .post(API_URL + "book/update", {
-            bid: this.book.bid,
-            titleBook: this.book.titleBook,
-            author: this.book.author,
-            manufacture: this.book.manufacture,
-            publishingCompany: this.book.publishingCompany,
-            yearPublish: this.book.yearPublish,
-            dateSale: this.book.dateSale,
-            price: this.book.price,
-            description: this.book.description,
-            status: this.book.status,
-            imageList: [],
-            bookcategoryList: [],
-          })
+          .post(
+            API_URL + "book/update",
+            {
+              bid: this.book.bid,
+              titleBook: this.book.titleBook,
+              author: this.book.author,
+              manufacture: this.book.manufacture,
+              publishingCompany: this.book.publishingCompany,
+              yearPublish: this.book.yearPublish,
+              dateSale: this.book.dateSale,
+              price: this.book.price,
+              description: this.book.description,
+              status: this.book.status,
+              imageList: [],
+              bookcategoryList: [],
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
           .then((response) => {
             console.log(response.data);
-            this.getAllBook();
-            this.resetData();
+            var bid = 0;
+            bid = response.data.bid;
+            this.updateImage(bid);
+            this.updateCategoryOfBook(bid);
           })
+          .then(this.getAllBook())
           .catch((error) => console.log(error));
       }
     },
@@ -750,7 +762,7 @@ export default {
     },
     handleFileChangeCreate: function () {
       this.errorValidation = [];
-      this.book.listImg = [];
+      this.book.imageList = [];
       for (
         let index = 0;
         index < this.$refs.imageUploaderCreate.files.length;
@@ -761,7 +773,7 @@ export default {
           this.errorValidation.push(this.validationImages);
         } else {
           this.validationImages = "";
-          this.book.listImg.push(this.$refs.imageUploaderCreate.files[index]);
+          this.book.imageList.push(this.$refs.imageUploaderCreate.files[index]);
         }
       }
       for (
@@ -774,14 +786,14 @@ export default {
           this.errorValidation.push(this.validationImages);
         } else {
           this.validationImages = "";
-          this.book.listImg.push(this.$refs.imageUploaderUpdate.files[index]);
+          this.book.imageList.push(this.$refs.imageUploaderUpdate.files[index]);
         }
       }
-      console.log(this.book.listImg);
+      console.log(this.book.imageList);
     },
     handleFileChangeUpdate: function () {
       this.errorValidation = [];
-      this.book.listImg = [];
+      this.book.imageList = [];
       for (
         let index = 0;
         index < this.$refs.imageUploaderUpdate.files.length;
@@ -792,14 +804,14 @@ export default {
           this.errorValidation.push(this.validationImages);
         } else {
           this.validationImages = "";
-          this.book.listImg.push(this.$refs.imageUploaderUpdate.files[index]);
+          this.book.imageList.push(this.$refs.imageUploaderUpdate.files[index]);
         }
       }
-      console.log(this.book.listImg);
+      console.log(this.book.imageList);
     },
     createImage: function (bid) {
       let fd = new FormData();
-      this.book.listImg.forEach((img) => {
+      this.book.imageList.forEach((img) => {
         fd.append("images", img);
       });
       fd.append("bid", bid);
@@ -813,8 +825,36 @@ export default {
         .then((response) => {
           console.log(response.data);
           this.resetData();
-          this.book.listImg = [];
+          this.book.imageList = [];
         })
+        .catch((error) => console.log(error));
+    },
+    updateImage: function (bid) {
+      let fdu = new FormData();
+      console.log("updateImage");
+      console.log(this.book.imageList);
+      this.book.imageList.forEach((img) => {
+        fdu.append("images", img);
+      });
+      fdu.append("bid", bid);
+      axios
+        .post(API_URL + "image/update", fdu, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.resetData();
+          this.book.imageList = [];
+        })
+        .then(this.getAllBook())
+        .then(
+          (this.isCreateNew = true),
+          (this.isUpdate = false),
+          (this.isDelete = false)
+        )
         .catch((error) => console.log(error));
     },
     getAllCategory: function () {
@@ -837,11 +877,27 @@ export default {
         };
         this.listCategorySelected.push(catSelected);
       }
-      console.log(bid);
-      console.log(this.listCategorySelected);
       axios
         .post(
           API_URL + "bookcategory/create?bid=" + bid,
+          this.listCategorySelected
+        )
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    },
+    updateCategoryOfBook: function (bid) {
+      this.listCategorySelected = [];
+      for (let index = 0; index < this.book.categoryName.length; index++) {
+        let catSelected = {
+          categoryName: this.book.categoryName[index],
+        };
+        this.listCategorySelected.push(catSelected);
+      }
+      axios
+        .post(
+          API_URL + "bookcategory/update?bid=" + bid,
           this.listCategorySelected
         )
         .then((response) => {
@@ -924,10 +980,9 @@ export default {
         (this.book.price = 0),
         (this.book.description = ""),
         (this.book.status = 0),
-        //(this.book.listImg = []),
-        //(this.category = ""),
+        (this.book.imageList = []),
+        (this.category = ""),
         //(this.listCategorySelected = []),
-        //(this.listCategory = []),
         (this.errorValidation = []),
         (this.validationTitle = ""),
         (this.validationAuthor = ""),
@@ -942,23 +997,23 @@ export default {
     },
     formatStatus: function (stt) {
       if (stt == 1) {
-        return "Disabled";
+        return "Ngừng mở bán";
       } else if (stt == 2) {
-        return "Active";
+        return "Đang mở bán";
       } else if (stt == 3) {
-        return "Comming soon";
+        return "Sắp ra mắt";
       } else {
         return "NULL";
       }
     },
-    showDetailProduct: function(id){
+    showDetailProduct: function (id) {
       this.showDetail = true;
       this.book.bid = id;
     },
-    closeDetailProduct : function(){
+    closeDetailProduct: function () {
       this.showDetail = false;
       this.book.bid = null;
-    }
+    },
   },
   mounted() {
     this.getAllCategory();
@@ -968,19 +1023,18 @@ export default {
 </script>
 
 <style>
-.product{
+.product {
   margin: 0;
   padding: 0;
 }
-form{
+form {
   font-size: 0.8rem;
 }
 
-input{
+input {
   height: 35px;
   font-size: 0.8rem;
 }
-
 
 label {
   font-weight: bold;
@@ -1018,30 +1072,31 @@ input[type="date"] {
 .detail-error-validation {
   color: red;
 }
-#product-detail-display{
+#product-detail-display {
   height: 120vh;
-  width: 100vw ;
-  background-color: rgba(0, 0, 0, 0.300);
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
   z-index: 10;
   margin: -2vh 0 0 -1.6vw;
 }
-#product-detail-content{
+#product-detail-content {
   height: 80vh;
   width: 80vw;
   margin: 5vh 3vw 5vh 3vw;
+  padding: 5vh 3vw 5vh 3vw;
   background-color: rgb(255, 255, 255);
   border-radius: 10px;
   display: inline-block;
 }
-#icon-close{
-    cursor: pointer;
-    font-size: 2rem;
-    position: absolute;
-    right: 0;
-    margin: 60px 60px 0 0;    
+#icon-close {
+  cursor: pointer;
+  font-size: 2rem;
+  position: absolute;
+  right: 0;
+  margin: 60px 60px 0 0;
 }
-#icon-close:hover{
-    color: red; 
+#icon-close:hover {
+  color: red;
 }
 </style>
