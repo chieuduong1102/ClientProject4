@@ -1,31 +1,10 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" v-for="product in products" :key="product.bid">
         <div class="product_list">
           <div class="single_product">
-            <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="product_list">
-          <div class="single_product">
-            <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="product_list">
-          <div class="single_product">
-            <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="product_list">
-          <div class="single_product">
-            <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
+            <ProductDisplay :bid="product.bid" :titleBook="product.titleBook" :price="product.price" :imageName=" product.imageList[0]['nameFile']" :ratings="4.5" />
           </div>
         </div>
       </div>
@@ -35,12 +14,28 @@
 
 <script>
 import ProductDisplay from "./ProductDisplay.vue";
+import axios from "axios";
+const API_URL = "http://localhost:8088/";
 export default {
+  data() {
+    return {
+      products: [],
+    };
+  },
   components: {
     ProductDisplay,
   },
-  setup() {
-    return {};
+  methods: {
+    getAllBook: function () {
+      axios
+        .get(API_URL + "book/getAllBook")
+        .then((response) => {
+          this.products = response.data;
+        });
+    },
+  },
+  mounted() {
+    this.getAllBook();
   },
 };
 </script>

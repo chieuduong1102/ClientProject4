@@ -48,7 +48,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="more_feature_area">
-            <h2><a href="shop.html">Load More...</a></h2>
+            <h2><a href="Shop">Load More...</a></h2>
           </div>
         </div>
       </div>
