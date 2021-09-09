@@ -5,57 +5,137 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="shopping_world">
             <div class="feature_text">
-              <h4>HOT TOPIC</h4>
+              <h4>Thể loại sách</h4>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <div class="home2_banner_single">
             <div class="home2_banner_one">
               <a href="#">
                 <img
-                  src="../../assets/css/img/banner/banner-1.jpg"
+                  src="../../assets/book/sachkinhte.png"
+                  class="img-fluid"
                   alt="banner"
                 />
               </a>
             </div>
             <div class="home2_banner_text">
-              <h4>leather bags</h4>
-              <h3>-15% sale off</h3>
+              <h4>ECONOMIC BOOK</h4>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <div class="home2_banner_single">
             <div class="home2_banner_one">
               <a href="#">
                 <img
-                  src="../../assets/css/img/banner/banner-2.jpg"
+                  src="../../assets/book/sachlichsu.png"
+                  class="img-fluid"
                   alt="banner"
                 />
               </a>
             </div>
             <div class="home2_banner_text">
-              <h4>men's watch</h4>
-              <h3>-20% sale off</h3>
+              <h4>HISTORY BOOK</h4>
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <div class="home2_banner_single">
             <div class="home2_banner_one">
               <a href="#">
                 <img
-                  src="../../assets/css/img/banner/banner-3.jpg"
+                  src="../../assets/book/sachnuconggiachanh.png"
+                  class="img-fluid"
                   alt="banner"
                 />
               </a>
             </div>
             <div class="home2_banner_text">
-              <h4>trend shoes</h4>
-              <h3>-10% sale off</h3>
+              <h4>COOKING BOOK</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="home2_banner_single">
+            <div class="home2_banner_one">
+              <a href="#">
+                <img
+                  src="../../assets/book/sachngoaingu.png"
+                  class="img-fluid"
+                  alt="banner"
+                />
+              </a>
+            </div>
+            <div class="home2_banner_text">
+              <h4>FOREIGN LANGUAGE BOOKS</h4>
+            </div>
+          </div>
+        </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="home2_banner_single">
+            <div class="home2_banner_one">
+              <a href="#">
+                <img
+                  src="../../assets/book/sachtamlikynangsong.png"
+                  class="img-fluid"
+                  alt="banner"
+                />
+              </a>
+            </div>
+            <div class="home2_banner_text">
+              <h4>PSYCHOLOGY AND LIFE SKILLS BOOKS</h4>
+            </div>
+          </div>
+        </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="home2_banner_single">
+            <div class="home2_banner_one">
+              <a href="#">
+                <img
+                  src="../../assets/book/tieuthuyet.png"
+                  class="img-fluid"
+                  alt="banner"
+                />
+              </a>
+            </div>
+            <div class="home2_banner_text">
+              <h4>NOVELS</h4>
+            </div>
+          </div>
+        </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="home2_banner_single">
+            <div class="home2_banner_one">
+              <a href="#">
+                <img
+                  src="../../assets/book/congnghethongtin.png"
+                  class="img-fluid"
+                  alt="banner"
+                />
+              </a>
+            </div>
+            <div class="home2_banner_text">
+              <h4>IT BOOKS</h4>
+            </div>
+          </div>
+        </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+          <div class="home2_banner_single">
+            <div class="home2_banner_one">
+              <a href="#">
+                <img
+                  src="../../assets/book/truyenthieunhi.png"
+                  class="img-fluid"
+                  alt="banner"
+                />
+              </a>
+            </div>
+            <div class="home2_banner_text">
+              <h4>COMMIC</h4>
             </div>
           </div>
         </div>
@@ -73,4 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#app > div > div.container-fluid.homeProduct > div > div.home2_banner_area > div > div > div > div > div.home2_banner_text > h4{
+  color: white !important;
+}
 </style>

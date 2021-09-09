@@ -7,7 +7,7 @@
       <h2 class="title-book">{{ titleBook }}</h2>
       <div class="row price-rating">
         <div class="col-md-6">
-          <p class="popular_price">$ {{ price }}</p>
+            <p class="popular_price"> {{ price }} VNĐ</p>
         </div>
         <div class="col-md-6 text-center">
           <vue-star-rating
@@ -19,13 +19,8 @@
         </div>
         <div class="product_button">
           <div class="cart_details">
-            <a
-              href="Cart"
-              class="btn btn-warning"
-              style="padding-top: 13px"
-            >
-              <fa-icon icon="shopping-cart" /> Add to cart</a
-            >
+            <a href="cart.html" class="btn btn-warning" style="padding-top: 13px">
+              <fa-icon icon="shopping-cart" /> Thêm vào giỏ</a>
             <br />
           </div>
         </div>
