@@ -1,5 +1,5 @@
 <template>
-  <router-link to="Product">
+  <router-link to="ProductDetail">
     <div class="product_details">
         <figure style="width: 250px;height: 320px; margin: 10px auto 10px auto">
           <!-- <img src="../../../assets/css/img/product/pr1.png" alt="" /> -->
@@ -33,7 +33,7 @@
       <h2 class="title-book">{{ titleBook }}</h2>
       <div class="row price-rating">
         <div class="col-md-6">
-            <p class="popular_price">$ {{ price }}</p>
+            <p class="popular_price"> {{ price }} VNĐ</p>
         </div>
         <div class="col-md-6 text-center">
             <vue-star-rating text-class="custom-text" :star-size="18" v-model="ratingStar" :read-only="true" ></vue-star-rating>
@@ -41,7 +41,7 @@
         <div class="product_button">
           <div class="cart_details">
             <a href="cart.html" class="btn btn-warning" style="padding-top: 13px">
-              <fa-icon icon="shopping-cart" /> Add to cart</a>
+              <fa-icon icon="shopping-cart" /> Thêm vào giỏ</a>
             <br />
           </div>
         </div>

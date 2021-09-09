@@ -39,7 +39,7 @@
                               <td style="width: 150px;">
                                 Le Petit Prince
                                 <br />
-                                Count:
+                                Số lượng:
                                 <input type="number" class="input-count-item-cart" v-model="amountItem" />
                               </td>
                               <td style="width: 30px;">
@@ -58,7 +58,7 @@
                               <td style="width: 150px;">
                                 To kill a mocking bird
                                 <br />
-                                Count:
+                                Số lượng:
                                 <input type="number" class="input-count-item-cart" v-model="amountItem" />
                               </td>
                               <td style="width: 30px; color">
@@ -77,7 +77,7 @@
                               <td style="width: 150px;">
                                 To kill a mocking bird
                                 <br />
-                                Count:
+                                Số lượng:
                                 <input type="number" class="input-count-item-cart" v-model="amountItem" />
                               </td>
                               <td style="width: 30px; color">
@@ -89,7 +89,7 @@
                         </div>
                       </div>
                       <button class="btn btn-danger" style="width: 90%; margin-bottom: 5px;">
-                        Checkout
+                        Thanh toán
                       </button>
                       <br />
                     </div>
@@ -132,11 +132,11 @@
                   <tr>
                     <td></td>
                     <td colspan="2" class="text-right">
-                      <a href="/Register" class="a-header" > Register </a><span style="margin-left: 18px"> | </span>
+                      <a href="/Register" class="a-header" > Đăng kí </a><span style="margin-left: 18px"> | </span>
                     </td>
                     
                     <td colspan="2" class="text-right"> 
-                      <a href="/Login" class="a-header" style="float: left;"> Sign in</a>
+                      <a href="/Login" class="a-header" style="float: left;"> Đăng nhập</a>
                     </td>
                     <td></td>
                   </tr>
@@ -152,13 +152,13 @@
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav m-auto">
               <li class="nav-item active">
-                <a href="HomePage" class="nav-link" @mouseover="display = false">Home</a>
+                <a href="HomePage" class="nav-link" @mouseover="display = false">Trang chủ</a>
               </li>
               <li class="nav-item">
                 <a href="Shop" @mouseover="display = false" class="nav-link">Shop</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @mouseover="display = true">Category</a>
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @mouseover="display = true">Thể loại</a>
                 <div class="dropdown-menu show" @mouseleave="display = false" v-if="display" aria-labelledby="dropdown04">
                   <a class="dropdown-item" aria-expanded href="#">Page 1</a>
                   <a class="dropdown-item" aria-expanded href="#">Page 2</a>
@@ -167,10 +167,10 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a href="#" @mouseover="display = false" class="nav-link">NEWS</a>
+                <a href="#" @mouseover="display = false" class="nav-link">Tin tức</a>
               </li>
               <li class="nav-item">
-                <a href="AboutUs" @mouseover="display = false" class="nav-link">About us</a>
+                <a href="AboutUs" @mouseover="display = false" class="nav-link">Liên hệ</a>
               </li>
             </ul>
           </div>
@@ -10864,8 +10864,9 @@ h5,
   background: #ff0000 !important;
 }
 
-.ftco-section {
-}
+/* .ftco-section {
+  
+} */
 
 .ftco-no-pt {
   padding-top: 0;
@@ -11228,5 +11229,8 @@ h5,
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #c32a27; 
+}
+.img-product{
+  border-radius: 4px !important;
 }
 </style>
