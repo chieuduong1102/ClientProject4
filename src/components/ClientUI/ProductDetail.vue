@@ -82,7 +82,7 @@
               </div>
               <div class="product_rating">
                 <span>I</span>
-                <a href="#"> Thêm phản hồi</a>
+                <a href="#"> Thêm đánh giá</a>
               </div>
               <div class="pricing_rate">
                 <p class="stack">
@@ -105,7 +105,7 @@
                 <br />
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >${{ formatPrice(bookDetail.price) }}</span
+                    >{{ bookDetail.price }} VNĐ</span
                   >
                 </p>
                 <p class="blog_texts">
@@ -117,7 +117,7 @@
               <div class="cart_blog_item">
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >${{ formatPrice(bookDetail.price) }}</span
+                    >{{ bookDetail.price }}  VNĐ</span
                   >
                 </p>
                 <div class="add-to-cart">
@@ -158,7 +158,7 @@ export default {
       this.imgShow = imgName;
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(",", ".");
+      let val = (value / 1).toFixed(2).replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     checkBid() {
@@ -170,7 +170,6 @@ export default {
       axios.get(API_URL + "book/bookInfo?bid=" + this.bid).then((response) => {
         this.bookDetail = response.data;
         this.imgShow = this.bookDetail["imageList"][0]["nameFile"];
-        console.log(response.data);
       });
     },
   },

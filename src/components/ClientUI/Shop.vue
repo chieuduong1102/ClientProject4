@@ -25,22 +25,17 @@
             <div class="catagory_price_color">
               <div class="catagory_area">
                 <h2>CATEGORY</h2>
-                <ul class="catagory">
+                <ul
+                  class="catagory"
+                  v-for="category in categories"
+                  :key="category.id"
+                >
                   <li>
-                    <a href="#"><i class="fa fa-angle-right"></i>Carnation</a>
+                    <a href="#"
+                      ><i class="fa fa-angle-right"></i
+                      >{{ category.categoryName }}</a
+                    >
                     <span>(4)</span>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-angle-right"></i>Yellow Rose</a
-                    ><span>(6)</span>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-angle-right"></i>Gladiolus</a
-                    ><span>(8)</span>
-                  </li>
-                  <li>
-                    <a href="#"><i class="fa fa-angle-right"></i>Magnolia</a
-                    ><span>(10)</span>
                   </li>
                 </ul>
               </div>
@@ -85,7 +80,9 @@
                           src="../../assets/css/img/banner/banner_left.jpg"
                           alt=""
                       /></a>
-                        <h4 class="suggets"><a href="ProductDetail">Beauty Calla Lily Bouquety</a></h4>
+                      <h4 class="suggets">
+                        <a href="ProductDetail">Beauty Calla Lily Bouquety</a>
+                      </h4>
                     </div>
                   </div>
                 </div>
@@ -180,17 +177,23 @@
               </div>
               <div class="sort-by">
                 <label>Sort By</label>
-                <select>
+                <select v-model="valueSort">
                   <option :value="val" :key="val" v-for="val in sortBy">
                     {{ val }}
                   </option>
                 </select>
                 <a href="#" @click="setSort()"
-                  ><i :class="[ methodSort ? 'fa fa-long-arrow-up' : 'fa fa-long-arrow-down']"></i
+                  ><i
+                    :class="[
+                      methodSort
+                        ? 'fa fa-long-arrow-up'
+                        : 'fa fa-long-arrow-down',
+                    ]"
+                  ></i
                 ></a>
               </div>
               <div class="tab-content tab_content_style">
-                <Shop-Product />
+                <Shop-Product :sortBy="valueSort" />
               </div>
             </div>
           </div>
@@ -209,6 +212,8 @@ import ShopProduct from "../ClientComponents/ProductComponent/ShopProduct.vue";
 import Branch from "../ClientComponents/Branch.vue";
 import VueRangeSlider from "vue-range-component";
 import "vue-range-component/dist/vue-range-slider.css";
+import axios from "axios";
+const API_URL = "http://localhost:8088/";
 
 export default {
   data() {
@@ -217,12 +222,20 @@ export default {
       pages: [9, 12, 24],
       sortBy: ["Position", "Name", "Price"],
       methodSort: true,
+      categories: [],
+      valueSort: ''
     };
   },
   methods: {
     setSort() {
       this.methodSort = !this.methodSort;
     },
+    getgetAllCategories: function () {
+      axios.get(API_URL + "category/getAllCategories").then((response) => {
+        this.categories = response.data;
+        console.log(response.data);
+      });
+    }
   },
   components: {
     HeaderHome,
@@ -235,14 +248,16 @@ export default {
     this.min = 0;
     this.max = 250;
     this.formatter = (value) => `$ ${value}`;
+    this.getgetAllCategories();
   },
+  mounted() {},
 };
 </script>
 
 <style scoped src="../../assets/css/bootstrap.min.css"></style>
 
 <style>
-.suggets{
-	text-align: center;
+.suggets {
+  text-align: center;
 }
 </style>

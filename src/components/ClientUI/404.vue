@@ -49,7 +49,7 @@
                 </form>
               </div>
               <div class="error-back-home">
-                <a class="add-tag-btn" href="Home"
+                <a class="add-tag-btn" href="HomePage"
                   ><i class="fa fa-chevron-left"></i> Home Page</a
                 >
               </div>
@@ -58,6 +58,8 @@
         </div>
       </div>
     </div>
+    <Branch />
+    <br>
     <FooterHome />
   </div>
 </template>
@@ -65,6 +67,7 @@
 <script>
 import HeaderHome from "../ClientComponents/HeaderHome.vue";
 import FooterHome from "../ClientComponents/FooterHome.vue";
+import Branch from "../ClientComponents/Branch.vue";
 
 export default {
   name: "NotFound",
@@ -74,6 +77,7 @@ export default {
   components: {
     HeaderHome,
     FooterHome,
+    Branch
   },
 };
 </script>

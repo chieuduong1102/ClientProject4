@@ -1,65 +1,15 @@
 <template>
   <div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" v-for="product in products" :key="product.bid">
       <div class="product_list">
         <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-      <div class="product_list">
-        <div class="single_product repomsive_768">
-          <ProductDisplay titleBook="Rose" :price="20.06" :ratings="4.5" />
+          <ProductDisplay
+            :bid="product.bid"
+            :titleBook="product.titleBook"
+            :price="product.price"
+            :imageName="product.imageList[0]['nameFile']"
+            :ratings="4.5"
+          />
         </div>
       </div>
     </div>
@@ -85,13 +35,30 @@
 
 <script>
 import ProductDisplay from "./ProductDisplay.vue";
+import axios from "axios";
+const API_URL = "http://localhost:8088/";
 
 export default {
-  setup() {
-    return {};
+  props: {
+    sortBy: String
+  },
+  data() {
+    return {
+      products: [],
+    };
   },
   components: {
-      ProductDisplay
+    ProductDisplay,
+  },
+  methods: {
+    getAllBook: function () {
+      axios.get(API_URL + "book/getAllBook").then((response) => {
+        this.products = response.data;
+      });
+    },
+  },
+  created() {
+    this.getAllBook();
   }
 };
 </script>
