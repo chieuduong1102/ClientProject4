@@ -153,7 +153,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#app > div > div.container-fluid.homeProduct > div > div.home2_banner_area > div > div > div > div > div.home2_banner_text > h4{
+div.home2_banner_text > h4{
   color: white !important;
 }
 </style>
