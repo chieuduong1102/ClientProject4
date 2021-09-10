@@ -6,6 +6,7 @@ import HomePage from '../components/ClientUI/Home.vue'
 import ProductDetail from '../components/ClientUI/ProductDetail.vue'
 import AboutUs from '../components/ClientUI/AboutUs.vue'
 import Cart from '../components/ClientUI/Cart.vue'
+import NotFound from '../components/ClientUI/404.vue'
 
 const routes = [
   { path: '/Login', component: Login, name:'Login' },
@@ -15,7 +16,8 @@ const routes = [
   { path: '/HomePage', component: HomePage, name:'HomePage'},
   { path: '/ProductDetail', component: ProductDetail, name:'ProductDetail'},
   { path: '/AboutUs', component: AboutUs, name:'AboutUs'},
-  { path: '/Cart', component: Cart, name:'Cart'}
+  { path: '/Cart', component: Cart, name:'Cart'},
+  { path: '/404', component: NotFound, name:'NotFound'},
 ]
   
   export default routes;
