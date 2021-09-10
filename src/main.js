@@ -37,8 +37,11 @@ const router = new VueRouter({
 
 //vuex
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
+
+//lightGallery
+import LightGallery from 'vue-light-gallery';
+Vue.use(LightGallery);
 
 const store = new Vuex.Store({
   state: {

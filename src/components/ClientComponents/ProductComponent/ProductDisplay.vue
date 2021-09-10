@@ -4,7 +4,7 @@
       <figure style="width: 250px; height: 320px; margin: 10px auto 10px auto">
         <img :src="imageName" class="img-fluid img-product" alt="" />
       </figure>
-      <h2 class="title-book">{{ titleBook }}</h2>
+      <p class="title-book">{{ titleBook }}</p>
       <div class="row price-rating">
         <div class="col-md-6">
             <p class="popular_price"> {{ price }} VNĐ</p>
@@ -77,5 +77,9 @@ export default {
 .img-product {
   margin-top: 3px;
   border-radius: 10px;
+}
+.title-book{
+  color: black;
+  font-size: 1rem !important;
 }
 </style>
