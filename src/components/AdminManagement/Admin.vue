@@ -9,37 +9,37 @@
               <ul class="nav">
                   <a href="#" @click="showHome()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="home" /> Home</li>
+                          <li><fa-icon class="icon" icon="home" /> Trang chính</li>
                       </div>
                   </a>
                   <a href="#" @click="showCategory()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="th-list" /> Category</li>
+                          <li><fa-icon class="icon" icon="th-list" /> Thể loại</li>
                       </div>
                   </a>
                   <a href="#" @click="showProduct()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="book-open" /> Product</li>
+                          <li><fa-icon class="icon" icon="book-open" /> Sản phẩm</li>
                       </div>
                   </a>
                   <a href="#" @click="showOrders()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="tasks" /> Orders</li>
+                          <li><fa-icon class="icon" icon="tasks" /> Đơn hàng</li>
                       </div>
                   </a>
                   <a href="#" @click="showAdminAccount()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="user-cog" @click="getAllAdminAccount();"/> Admin Account</li>
+                          <li><fa-icon class="icon" icon="user-cog" @click="getAllAdminAccount();"/> TK Admin</li>
                       </div>
                   </a>
                   <a href="#" @click="showUserAccount()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="user" /> User Account</li>
+                          <li><fa-icon class="icon" icon="user" /> TK Customer</li>
                       </div>
                   </a>
                   <a href="#" @click="showFeedback()">
                       <div class="item">
-                          <li><fa-icon class="icon" icon="comment-alt" /> Feedback & Rating</li>
+                          <li><fa-icon class="icon" icon="comment-alt" /> Phản hồi và Đánh giá</li>
                       </div>
                   </a>
                   <router-link to="Login" id="router-logout">
@@ -47,7 +47,7 @@
                           <li>
                               <fa-icon class="icon" icon="power-off" />
                               <span>
-                                  Logout
+                                  Đăng xuất
                               </span>
                           </li>
                       </div>
@@ -86,7 +86,7 @@
                               <Product />
                           </div>
                           <div class="content-detail" v-show="this.isShowOrders">
-                              <h1>Orders</h1>
+                              <Order />
                           </div>
                           <div class="content-detail" v-show="this.isShowAdminAccount">
                               <AdminAccount />
@@ -106,6 +106,7 @@
 </template>
 <script>
 import Product from "../AdminComponnents/Product.vue";
+import Order from "../AdminComponnents/Order.vue";
 import Feedback from "../AdminComponnents/Feedback.vue";
 import AdminAccount from "../AdminComponnents/AdminAcount.vue";
 import UserAccount from "../AdminComponnents/UserAccount.vue";
@@ -116,7 +117,8 @@ export default {
     Product,
     AdminAccount,
     UserAccount,
-    Feedback
+    Feedback,
+    Order
   },
   data() {
     return {

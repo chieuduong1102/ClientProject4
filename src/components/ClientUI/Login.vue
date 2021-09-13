@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-6" id="div-left">
           <div style="height: 25vh;"></div>
-          <img src="../assets/full-logo.png" class="img-fluid" alt="logo" />
+          <img src="../../assets/full-logo.png" class="img-fluid" alt="logo" />
         </div>
         <div class="col-md-6">
           <div id="form-login">
@@ -22,7 +22,7 @@
                   <span><fa-icon icon="exclamation-circle" /></span>
                   <span> {{ validationUsername }} </span>
                 </div>
-                <input type="text" class="form-control" id="username" name="username" v-model="admin.username" @keydown="validationUsername=''" placeholder="Enter username" />
+                <input type="text" class="form-control" id="username" name="username" v-model="client.username" @keydown="validationUsername=''" placeholder="Enter username" />
               </div>
               <div class="form-group">
                 <label for="password"><fa-icon icon="key" /> Password</label>
@@ -30,7 +30,7 @@
                   <span><fa-icon icon="exclamation-circle" /></span>
                   <span> {{ validationPassword }} </span>
                 </div>
-                <input type="password" class="form-control" id="password" name="password" v-model="admin.password" @keydown="validationUsername=''" placeholder="Password" />
+                <input type="password" class="form-control" id="password" name="password" v-model="client.password" @keydown="validationUsername=''" placeholder="Password" />
               </div>
               <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="rememberMeCheckBox" v-model="rememberMe" @click="rememberLogin()" style="cursor: pointer;" />
@@ -42,10 +42,10 @@
                   Login
                 </button>
               </div>
-              <!-- <div class="form-group text-center">
-                Don't have admin's account?
+              <div class="form-group text-center">
+                Don't have client's account?
                 <router-link to="Register"><span> Register!</span></router-link>
-              </div> -->
+              </div>
             </form>
           </div>
         </div>
@@ -60,11 +60,11 @@ const API_URL = "http://localhost:8088/";
 export default {
   data() {
     return {
-      admin: {
+      client: {
         username: "",
         password: "",
       },
-      listAdmin: [],
+      listClient: [],
       rememberMe: "",
       isRememberMe: false,
       errorValidation: [],
@@ -81,9 +81,9 @@ export default {
       this.validationForm();
       if (this.errorValidation.length == 0) {
         axios
-          .post(API_URL + "admin/checkAdmin", {
-            username: this.admin.username,
-            password: this.admin.password,
+          .post(API_URL + "user/checkUser", {
+            username: this.client.username,
+            password: this.client.password,
           })
           .then((response) => {
             let resBody = response.data;
@@ -95,9 +95,9 @@ export default {
             } else if (resBody.code == 100) {
               // this.errorValidation = [];
               this.resetValidation();
-              window.localStorage.setItem("sessionLogin", this.admin.username);
-              window.localStorage.setItem("sessionLoginRemember", this.admin.username);
-              this.$router.push({ name: "Admin" });
+              window.localStorage.setItem("sessionLoginClient", this.client.username);
+              window.localStorage.setItem("sessionLoginRememberClient", this.client.username);
+              this.$router.push({ name: "Shop" });
               this.loading = true;
               console.log(resBody);
             }
@@ -107,11 +107,11 @@ export default {
     },
     validationForm: function () {
       this.errorValidation = [];
-      if (this.admin.username == "") {
+      if (this.client.username == "") {
         this.validationUsername = "Username must not be empty!";
         this.errorValidation.push(this.validationUsername);
       }
-      if (this.admin.password == "") {
+      if (this.client.password == "") {
         this.validationPassword = "password must not be empty!";
         this.errorValidation.push(this.validationPassword);
       }
@@ -125,21 +125,21 @@ export default {
       this.isRememberMe = !this.isRememberMe;
       console.log(this.isRememberMe);
       if(this.isRememberMe == true){
-        console.log(localStorage.get("sessionLoginRemember"));
+        console.log(localStorage.get("sessionLoginRememberClient"));
       } else {
-        localStorage.clear("sessionLoginRemember");
-        console.log(localStorage.get("sessionLoginRemember"));
+        localStorage.clear("sessionLoginRememberClient");
+        console.log(localStorage.get("sessionLoginRememberClient"));
       }
     }
   },
   mounted() {
-    if(localStorage.getItem("sessionLoginRemember") != null){
+    if(localStorage.getItem("sessionLoginRememberClient") != null){
       this.rememberMe="remember"
       this.isRememberMe = true;
       axios
-      .get(API_URL + "admin/adminInfo?admin=" + localStorage.getItem("sessionLoginRemember"))
+      .get(API_URL + "user/userInfo?user=" + localStorage.getItem("sessionLoginRememberClient"))
       .then((response) => {
-        this.admin.username = response.data.username;
+        this.client.username = response.data.username;
       })
       .catch(function (error) {
         console.log(error);

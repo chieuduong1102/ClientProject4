@@ -132,11 +132,13 @@
                   <tr>
                     <td></td>
                     <td colspan="2" class="text-right">
-                      <a href="/Register" class="a-header" > Đăng kí </a><span style="margin-left: 18px"> | </span>
+                      <a href="/RegisterClient" class="a-header" v-show="isLogined==false"> Đăng kí </a>
+                      <a style="font-weight: bold;" v-show="isLogined==true">Hi, {{ sessionLoginClient }}</a>
                     </td>
                     
                     <td colspan="2" class="text-right"> 
-                      <a href="/Login" class="a-header" style="float: left;"> Đăng nhập</a>
+                      <a href="/LoginClient" class="a-header" style="float: left;" v-show="isLogined==false"> Đăng nhập</a>
+                      <a href="/HomePage" class="a-header" style="float: left;" v-show="isLogined==true" @click="logout()"> Đăng xuất</a>
                     </td>
                     <td></td>
                   </tr>
@@ -188,7 +190,9 @@ export default {
       displaySmallCart: false,
       amountProduct: 2,
       amountItem: 1,
-      categories: []
+      categories: [],
+      sessionLoginClient: "",
+      isLogined: false,
     };
   },
   methods: {
@@ -200,10 +204,23 @@ export default {
         this.categories = response.data;
         console.log(response.data);
       });
+    },
+    logout: function(){
+      this.isLogined = false;
+      // alert(this.isLogined)
+      this.sessionLoginClient = "";
+      localStorage.removeItem("sessionLoginClient");
+      this.$router.push({ name: "HomePage" });
     }
   },
   mounted() {
     this.getAllCategories();
+    this.sessionLoginClient = localStorage.getItem("sessionLoginClient");
+    if(this.sessionLoginClient != null){
+      this.isLogined = true;
+    } else {
+      this.isLogined = false;
+    }
   }
 };
 </script>

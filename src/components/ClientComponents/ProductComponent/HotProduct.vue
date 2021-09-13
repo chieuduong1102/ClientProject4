@@ -38,6 +38,9 @@ export default {
         this.products = response.data;
       });
     },
+    formatPrice(value) {
+      return value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+    },
   },
   mounted() {
     this.getBookHot();
