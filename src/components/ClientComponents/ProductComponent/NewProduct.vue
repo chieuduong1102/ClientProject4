@@ -33,7 +33,7 @@ export default {
     ProductDisplay,
   },
   methods: {
-    getAllBook: function () {
+    getNewBooks: function () {
       axios
         .get(API_URL + "book/getNewBooks")
         .then((response) => {
@@ -41,8 +41,8 @@ export default {
         });
     },
   },
-  mounted() {
-    this.getAllBook();
+  created() {
+    this.getNewBooks();
   },
 };
 </script>

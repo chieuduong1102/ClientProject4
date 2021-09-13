@@ -7,7 +7,7 @@
       <p class="title-book" style="padding: 0 15px 0 15px">{{ titleBook }}</p>
       <div class="row price-rating">
         <div class="col-6">
-          <p class="popular_price">{{ formatPrice(price) }}</p>
+          <p class="popular_price">{{ formatPrice(price) }} VNĐ</p>
         </div>
         <div class="col-6 text-center">
           <vue-star-rating
@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      // ratingStar: 3,
+      ratingStar: 3,
     };
   },
   methods: {

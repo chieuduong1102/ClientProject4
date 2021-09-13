@@ -106,8 +106,7 @@
                 <br />
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >{{ formatPrice(bookDetail.price) }}</span
-                  >
+                    >{{ formatPrice(bookDetail.price) }}</span>
                 </p>
                 <p class="blog_texts">
                   {{ bookDetail.description }}
@@ -118,8 +117,7 @@
               <div class="cart_blog_item">
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >{{ formatPrice(bookDetail.price) }} </span
-                  >
+                    >{{ formatPrice(bookDetail.price) }} </span>
                 </p>
                 <div class="add-to-cart">
                   <input type="number" title="Qty" min="1" value="1" class="qty qty-product" />
@@ -184,7 +182,7 @@ export default {
     Branch,
     RatingFeedbackCustomer,
   },
-  mounted() {
+  created() {
     this.getBookDetail();
     this.checkBid();
 

@@ -8,7 +8,7 @@
             <div class="breadcrumb-single">
               <ul id="breadcrumbs">
                 <li>
-                  <a href="Home"><i class="fa fa-home"></i>Home</a>
+                  <a href="HomePage"><i class="fa fa-home"></i>Home</a>
                 </li>
                 <li><span>Ι</span></li>
                 <li>Shop</li>
@@ -27,11 +27,10 @@
                 <h2>Thể loại</h2>
                 <ul
                   class="catagory"
-                  v-for="category in categories"
-                  :key="category.id"
+                  v-for="category in categories" :class="categoryIdSearch == category.cid ? 'active' : ''" :key="category.id"
                 >
-                  <li>
-                    <a href="#"
+                  <li @click="searchWithCategory(category.cid)">
+                    <a
                       ><i class="fa fa-angle-right"></i
                       >{{ category.categoryName }}</a
                     >
@@ -161,14 +160,14 @@
             <div class="my_tabs">
               <ul class="tab_style">
                 <li class="active">
-                  <a data-toggle="tab" href="#tab1"
+                  <a data-toggle="tab"
                     ><span><i class="fa fa-th"></i></span
                   ></a>
                 </li>
               </ul>
               <div class="limiter">
                 <label>Show</label>
-                <select>
+                <select v-model="perPage"> 
                   <option :value="page" :key="page" v-for="page in pages">
                     {{ page }}
                   </option>
@@ -182,7 +181,7 @@
                     {{ val }}
                   </option>
                 </select>
-                <a href="#" @click="setSort()"
+                <a @click="setSort()"
                   ><i
                     :class="[
                       methodSort
@@ -193,7 +192,7 @@
                 ></a>
               </div>
               <div class="tab-content tab_content_style">
-                <Shop-Product :sortBy="valueSort" />
+                <Shop-Product :sortBy="valueSort" :methodSort="methodSort" :valuePrice="value" :categoryIdSearch="categoryIdSearch" :perPage="perPage"/>
               </div>
             </div>
           </div>
@@ -218,22 +217,26 @@ const API_URL = "http://localhost:8088/";
 export default {
   data() {
     return {
-      value: [0, 250],
+      value: [0, 500000],
       pages: [9, 12, 24],
       sortBy: ["Position", "Name", "Price"],
       methodSort: true,
       categories: [],
-      valueSort: ''
+      valueSort: 'Position',
+      categoryIdSearch: -1,
+      perPage: 9
     };
   },
   methods: {
     setSort() {
       this.methodSort = !this.methodSort;
     },
+    searchWithCategory(categoryID) {
+      this.categoryIdSearch = categoryID;
+    },
     getgetAllCategories: function () {
       axios.get(API_URL + "category/getAllCategories").then((response) => {
         this.categories = response.data;
-        console.log(response.data);
       });
     }
   },
@@ -246,11 +249,12 @@ export default {
   },
   created() {
     this.min = 0;
-    this.max = 250;
-    this.formatter = (value) => `$ ${value}`;
+    this.max = 500000;
+    this.formatter = (value) => `${value} VNĐ`;
+  },
+  mounted() {
     this.getgetAllCategories();
   },
-  mounted() {},
 };
 </script>
 
@@ -259,5 +263,8 @@ export default {
 <style>
 .suggets {
   text-align: center;
+}
+ul.catagory.active a, ul.catagory.active li{
+  color: red;
 }
 </style>
