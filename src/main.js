@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.min.css'
 import 'ant-design-vue/dist/antd.css';
 import Antd from 'ant-design-vue';
+import store from "./store";
 
 Vue.use(Antd);
 
@@ -11,9 +12,10 @@ Vue.use(Antd);
 import AxiosPlugin from 'vue-axios-cors';
 Vue.use(AxiosPlugin)
 
-//
+//StarRating
 import StarRating from 'vue-star-rating'
 Vue.component('vue-star-rating', StarRating)
+
 //fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -36,18 +38,10 @@ const router = new VueRouter({
 })
 
 //vuex
-import Vuex from 'vuex'
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
-  state: {
-    
-  },
-  mutations: {
-
-  }
-})
+//lightGallery
+import LightGallery from 'vue-light-gallery';
+Vue.use(LightGallery);
 
 Vue.config.productionTip = false
 

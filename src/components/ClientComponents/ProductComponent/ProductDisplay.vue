@@ -4,18 +4,19 @@
       <figure style="width: 250px; height: 320px; margin: 10px auto 10px auto">
         <img :src="imageName" class="img-fluid img-product" alt="" />
       </figure>
-      <h2 class="title-book">{{ titleBook }}</h2>
+      <p class="title-book" style="padding: 0 15px 0 15px">{{ titleBook }}</p>
       <div class="row price-rating">
-        <div class="col-md-6">
+        <div class="col-6">
           <p class="popular_price">{{ formatPrice(price) }} VNĐ</p>
         </div>
-        <div class="col-md-6 text-center">
+        <div class="col-6 text-center">
           <vue-star-rating
             text-class="custom-text"
             :star-size="18"
-            v-model="ratingStar"
+            v-model="rating"
             :read-only="true"
           ></vue-star-rating>
+          <p class="popular_cat">{{ cat }}</p>
         </div>
         <div class="product_button">
           <div class="cart_details">
@@ -40,6 +41,7 @@ export default {
     bid: Number,
     titleBook: String,
     price: Number,
+    cat: String,
     rating: Number,
     imageName: String,
   },
@@ -50,10 +52,9 @@ export default {
   },
   methods: {
     formatPrice(value) {
-      let val = (value / 1).toFixed().replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
     },
-  },
+  }
 };
 </script>
 
@@ -88,5 +89,16 @@ export default {
 .img-product {
   margin-top: 3px;
   border-radius: 10px;
+}
+.title-book {
+  color: black;
+  font-weight: bolder;
+  font-size: 1rem !important;
+}
+.popular_cat {
+  color: #000;
+  font-size: 0.8rem;
+  font-weight: normal;
+  text-align: left;
 }
 </style>

@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="feature_text">
-            <h4>Featured Product</h4>
+            <h4>Sản phẩm nổi bật</h4>
           </div>
         </div>
       </div>
@@ -15,7 +15,7 @@
             @click.prevent="setActive('New')"
             :class="{ active: isActive('New') }"
             href="#new"
-            >New</a
+            >Sách mới</a
           >
         </li>
         <li class="nav-item">
@@ -24,7 +24,7 @@
             @click.prevent="setActive('Hot')"
             :class="{ active: isActive('Hot') }"
             href="#hot"
-            >Hot</a
+            >Sách bán chạy</a
           >
         </li>
         <li class="nav-item"></li>
@@ -48,17 +48,26 @@
       <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div class="more_feature_area">
-            <h2><a href="Shop">Load More...</a></h2>
+            <h2><a href="Shop">Xem thêm...</a></h2>
           </div>
         </div>
       </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="feature_text">
+          <h4>Hòa cùng mùa tựu trường</h4>
+        </div>
+      </div>
     </div>
+    <BookGallery />
+    <br>
+    <br>
   </div>
 </template>
 
 <script>
 import NewProduct from "./ProductComponent/NewProduct.vue";
 import HotProduct from "./ProductComponent/HotProduct.vue";
+import BookGallery from "./ProductComponent/BookGallery.vue";
 export default {
   data() {
     return {
@@ -76,6 +85,7 @@ export default {
   components: {
     NewProduct,
     HotProduct,
+    BookGallery
   },
 };
 </script>

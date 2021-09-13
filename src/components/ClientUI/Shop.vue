@@ -24,10 +24,13 @@
           <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
             <div class="catagory_price_color">
               <div class="catagory_area">
-                <h2>CATEGORY</h2>
-                <ul class="catagory" v-for="category in categories" :class="categoryIdSearch == category.cid ? 'active' : ''" :key="category.id">
-                  <li @click="searchWithCategory(category.cid)" >
-                    <a 
+                <h2>Thể loại</h2>
+                <ul
+                  class="catagory"
+                  v-for="category in categories" :class="categoryIdSearch == category.cid ? 'active' : ''" :key="category.id"
+                >
+                  <li @click="searchWithCategory(category.cid)">
+                    <a
                       ><i class="fa fa-angle-right"></i
                       >{{ category.categoryName }}</a
                     >
@@ -36,7 +39,7 @@
                 </ul>
               </div>
               <div class="priceing_area">
-                <h2>Price</h2>
+                <h2>Tìm theo giá</h2>
                 <div class="info_widget">
                   <div class="price_filter">
                     <div class="price_slider_amount">
@@ -52,11 +55,24 @@
               </div>
               <div class="catagory_area"></div>
             </div>
+            <div class="popular_tag_area">
+              <div class="popular_items">
+                <h2>Phổ biến</h2>
+                <ul id="single_popular">
+                  <li><a href="#">Sách công nghệ</a></li>
+                  <li><a href="#">Tiểu thuyết</a></li>
+                  <li><a href="#">Chăm sóc gia đình</a></li>
+                  <li><a href="#">Tiếng anh</a></li>
+                  <li><a href="#">Truyện tranh</a></li>
+                  <li><a href="#">Truyện cổ tích</a></li>
+                </ul>
+              </div>
+            </div>
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="popular_tag_area popular_tag_response">
                   <div class="popular_items">
-                    <h2>Suggets For You</h2>
+                    <h2>Đề xuất cho bạn</h2>
                     <div class="conpany_product_details">
                       <a href="ProductDetail"
                         ><img
@@ -75,7 +91,7 @@
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="popular_tag_area">
                   <div class="popular_items">
-                    <h2>Highlights</h2>
+                    <h2>Sản phẩm nổi bật</h2>
                   </div>
                 </div>
                 <div class="clothing_carousel_list">
@@ -136,8 +152,8 @@
           <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="catagory_banner">
-                  <img src="../../assets/css/img/banner/category.jpg" alt="" />
+                <div class="catagory_banner" style="background">
+                  <img src="../../assets/css/img/banner/category.jpg" class="img-fluid" style="height: 225px" alt="" />
                 </div>
               </div>
             </div>

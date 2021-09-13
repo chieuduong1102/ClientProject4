@@ -1,6 +1,6 @@
 <template>
   <div class="feedback">
-    <h1>Feedback</h1>
+    <h1>{{$store.state.name}}</h1>
   </div>
 </template>
 <script>

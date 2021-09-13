@@ -14,7 +14,7 @@
                 <div class="row">
                   <div class="col-md-10">
                     <div class="input-group rounded">
-                      <input type="email" class="form-control rounded" id="input-home-search" placeholder="What're you searching for...?" aria-label="Register" aria-describedby="search-addon" />
+                      <input type="email" class="form-control rounded" id="input-home-search" placeholder="Bạn muốn tìm kiểm...?" aria-label="Register" aria-describedby="search-addon" />
                       <button type="submit" class="input-group-text border-0 btn btn-danger" id="search-addon">
                         <fa-icon icon="search" />
                       </button>
@@ -99,7 +99,7 @@
               <div class="col-md-3 justify-content-center d-md-flex mb-md-0 mb-3">
                 <table id="tableMXH">
                   <tr>
-                    <td><span>Connect: </span></td>
+                    <td><span>Kết nối: </span></td>
                     <td>
                       <a href="#">
                         <v-btn class="mx" fab small>
@@ -160,10 +160,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @mouseover="display = true">Thể loại</a>
                 <div class="dropdown-menu show" @mouseleave="display = false" v-if="display" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" aria-expanded href="#">Page 1</a>
-                  <a class="dropdown-item" aria-expanded href="#">Page 2</a>
-                  <a class="dropdown-item" aria-expanded href="#">Page 3</a>
-                  <a class="dropdown-item" aria-expanded href="#">Page 4</a>
+                  <a class="dropdown-item" aria-expanded href="#" v-for="(cat, index) in categories" :key="index"> {{cat.categoryName}}</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -182,6 +179,8 @@
 </template>
 
 <script>
+import axios from "axios";
+const API_URL = "http://localhost:8088/";
 export default {
   data() {
     return {
@@ -189,13 +188,23 @@ export default {
       displaySmallCart: false,
       amountProduct: 2,
       amountItem: 1,
+      categories: []
     };
   },
   methods: {
     toggleDropdown() {
       this.display = !this.display;
     },
+    getAllCategories: function () {
+      axios.get(API_URL + "category/getAllCategories").then((response) => {
+        this.categories = response.data;
+        console.log(response.data);
+      });
+    }
   },
+  mounted() {
+    this.getAllCategories();
+  }
 };
 </script>
 
