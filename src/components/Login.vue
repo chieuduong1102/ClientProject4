@@ -44,7 +44,7 @@
               </div>
               <!-- <div class="form-group text-center">
                 Don't have admin's account?
-                <router-link to="Register"><span> Register!</span></router-link>
+                <router-link to="/Register"><span> Register!</span></router-link>
               </div> -->
             </form>
           </div>

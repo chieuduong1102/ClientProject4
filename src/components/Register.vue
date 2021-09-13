@@ -142,26 +142,6 @@
                 />
               </div>
               <div class="form-group">
-                <label for="address"
-                  ><fa-icon icon="map-marker-alt" /> Address</label
-                >
-                <div
-                  class="detail-error-validation"
-                  v-show="validationAddress.length"
-                >
-                  <span><fa-icon icon="exclamation-circle" /></span>
-                  <span> {{ validationAddress }} </span>
-                </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="address"
-                  v-model="user.address"
-                  placeholder="Address"
-                  @keydown="validationAddress=''"
-                />
-              </div>
-              <div class="form-group">
                 <label for="phoneNumber"
                   ><fa-icon icon="phone-alt" /> Phone Number</label
                 >
@@ -201,7 +181,7 @@
 
 <script>
 import axios from "axios";
-const API_URL = "http://localhost:8088/user/";
+const API_URL = "http://localhost:8088/admin/";
 export default {
   data() {
     return {
@@ -210,7 +190,6 @@ export default {
         fullname: "",
         email: "",
         phonenumber: "",
-        address: "",
         password: "",
       },
       loading: false,
@@ -222,7 +201,6 @@ export default {
       validationEmail: "",
       validationUsername: "",
       validationPhonenumber: "",
-      validationAddress: "",
       validationPassword: "",
       validationComfirmPassword: "",
     };
@@ -236,7 +214,6 @@ export default {
             username: this.user.username,
             fullname: this.user.fullname,
             email: this.user.email,
-            address: this.user.address,
             phonenumber: this.user.phonenumber,
             password: this.user.password,
           })
@@ -265,7 +242,6 @@ export default {
         (this.validationEmail = ""),
         (this.validationUsername = ""),
         (this.validationPhonenumber = ""),
-        (this.validationAddress = ""),
         (this.validationPassword = ""),
         (this.validationComfirmPassword = "");
     },
@@ -298,10 +274,6 @@ export default {
       if (this.user.comfirmPassword != this.user.password) {
         this.validationComfirmPassword = "ComfirmPassword incorrect!";
         this.errorValidation.push(this.validationComfirmPassword);
-      }
-      if (this.user.address == "") {
-        this.validationAddress = "address must not be empty!";
-        this.errorValidation.push(this.validationAddress);
       }
     },
   },

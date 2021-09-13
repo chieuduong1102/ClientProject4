@@ -47,7 +47,7 @@
                           <li>
                               <fa-icon class="icon" icon="power-off" />
                               <span>
-                                  Đăng xuất
+                                  Đăng xuất 
                               </span>
                           </li>
                       </div>
