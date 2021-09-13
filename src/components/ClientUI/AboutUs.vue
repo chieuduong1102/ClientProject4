@@ -44,7 +44,7 @@
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="about_hope_image">
-              <img src="../../assets/css/img/author/team30.jpg" alt="" />
+              <img src="https://www.latrobe.edu.au/news/images/articles/book-3996723_1920.jpg/1680.jpg" alt="" />
             </div>
           </div>
         </div>
@@ -131,14 +131,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="single_creative_member">
               <div class="creative_author">
                 <img src="../../assets/css/img/author/m14.jpg" alt="" />
               </div>
               <div class="member_info">
-                <span class="member_name">Havier Macherano</span>
-                <span class="member_role">Ranchers</span>
+                <span class="member_name">Ngô Quang Dũng</span>
+                <span class="member_role">Front end Dev</span>
               </div>
               <div class="member_icons">
                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -163,14 +163,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="single_creative_member">
               <div class="creative_author">
                 <img src="../../assets/css/img/author/m15.jpg" alt="" />
               </div>
               <div class="member_info">
-                <span class="member_name">Luka Biglia</span>
-                <span class="member_role">Farmer</span>
+                <span class="member_name">Phạm Hữu Dương</span>
+                <span class="member_role">Leader</span>
               </div>
               <div class="member_icons">
                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -195,14 +195,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="single_creative_member">
               <div class="creative_author">
                 <img src="../../assets/css/img/author/m16.jpg" alt="" />
               </div>
               <div class="member_info">
-                <span class="member_name">Anzo Perez</span>
-                <span class="member_role">Farmer</span>
+                <span class="member_name">Hoàng Quang Huy</span>
+                <span class="member_role">Back end Dev</span>
               </div>
               <div class="member_icons">
                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -227,14 +227,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="single_creative_member">
               <div class="creative_author">
                 <img src="../../assets/css/img/author/m17.jpg" alt="" />
               </div>
               <div class="member_info">
-                <span class="member_name">Martin Demichelis</span>
-                <span class="member_role">Farmer</span>
+                <span class="member_name">Lê Đức Mạnh</span>
+                <span class="member_role">BA & Data</span>
               </div>
               <div class="member_icons">
                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -259,14 +259,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
             <div class="single_creative_member">
               <div class="creative_author">
-                <img src="../../assets/css/img/author/m17.jpg" alt="" />
+                <img src="../../assets/css/img/author/m18.jpg" alt="" />
               </div>
               <div class="member_info">
-                <span class="member_name">Martin Demichelis</span>
-                <span class="member_role">Farmer</span>
+                <span class="member_name">Nguyễn Hữu Đạt</span>
+                <span class="member_role">BA & Data</span>
               </div>
               <div class="member_icons">
                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -325,4 +325,12 @@ export default {
 .progress-circular span {
   font-size: 50px;
 }
+
+.fa-facebook,
+.fa-twitter,
+.fa-google-plus {
+  color: white !important;
+}
+
+
 </style>

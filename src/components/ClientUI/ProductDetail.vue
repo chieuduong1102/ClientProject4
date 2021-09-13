@@ -74,11 +74,12 @@
             <div class="blog_product_details">
               <h2 class="blog_heading"><a href="">{{ bookDetail.titleBook }}</a></h2>
               <div class="product_rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-half-o"></i>
+                <vue-star-rating
+                text-class="custom-text"
+                :star-size="18"
+                v-model="bookDetail.rating"
+                :read-only="true"
+              ></vue-star-rating>
               </div>
               <div class="product_rating">
                 <span>I</span>
@@ -105,7 +106,7 @@
                 <br />
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >{{ bookDetail.price }} VNĐ</span
+                    >{{ formatPrice(bookDetail.price) }}</span
                   >
                 </p>
                 <p class="blog_texts">
@@ -117,11 +118,11 @@
               <div class="cart_blog_item">
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >{{ bookDetail.price }}  VNĐ</span
+                    >{{ formatPrice(bookDetail.price) }} </span
                   >
                 </p>
                 <div class="add-to-cart">
-                  <input type="number" title="Qty" value="1" min="1" class="qty qty-product" />
+                  <input type="number" title="Qty" min="1" value="1" class="qty qty-product" />
                   <button type="button" title="Add to Cart" class="btn btn-warning" style="width: auto">
                     <span>Thêm vào giỏ hàng</span>
                   </button>
@@ -132,7 +133,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <RatingFeedbackCustomer />
     </div>
     <br>
@@ -163,8 +164,7 @@ export default {
       this.imgShow = imgName;
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(".", ",");
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
     },
     checkBid() {
       if (this.bid === "" || isNaN(this.bid)) {

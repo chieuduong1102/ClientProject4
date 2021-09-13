@@ -4,7 +4,7 @@
       <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" v-for="product in products" :key="product.bid">
         <div class="product_list">
           <div class="single_product">
-            <ProductDisplay :bid="product.bid" :titleBook="product.titleBook" :price="product.price" :imageName=" product.imageList[0]['nameFile']" :ratings="4.5" />
+            <ProductDisplay :bid="product.bid" :titleBook="product.titleBook" :price="product.price" :cat="product.bookcategoryList[0].cid.categoryName" :imageName=" product.imageList[0]['nameFile']" :ratings="4" />
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@
         <vue-star-rating
             :animate="true" :active-color="['#ae0000','#f9ca24']" :active-border-color="['#F6546A','#f6e58d']" :border-width="4" :star-points="[23,2, 14,17, 0,19, 10,34, 7,50, 23,43, 38,50, 36,34, 46,19, 31,17]" :active-on-click="true" :clearable="true"
             :show-rating="false"
-            :star-size="30"
+            :star-size="25"
             v-model="ratingStar"
           ></vue-star-rating>
         </div>
