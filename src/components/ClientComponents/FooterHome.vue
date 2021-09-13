@@ -14,30 +14,27 @@
             <h4 id="text-branch">HO BOOKSTORE</h4>
             <br />
             <p>
-              Let us tenderly and kindly cherish, therefore, the means of
-              knowledge. Let us dare to read, think, speak, and write.
+              - Một cuốn sách là một giấc mơ mà bạn cầm trong tay -
             </p>
             <hr />
             <div class="text-start address-store">
               <fa-icon icon="map-marked"></fa-icon>
-              <strong> Address: </strong> No.1, Ton Duc Thang Street, Dong Da
-              District, Ha Noi
+              <strong> Địa chỉ: </strong> 285 Đội Cấn, Ba Đình, Hà Nội
               <br />
               <fa-icon icon="phone-alt"></fa-icon>
-              <strong> Hotline: </strong> (+84)24 123 4567
+              <strong> Số Hotline: </strong> (+84)24 123 4567
               <br />
               <fa-icon icon="mobile"></fa-icon>
-              <strong> Mobile: </strong> (+84)86 123 4567
+              <strong> Số di động: </strong> (+84)86 123 4567
               <br />
               <fa-icon icon="at"></fa-icon>
               <strong> Email: </strong> hobookstore@gmail.com
               <br />
               <fa-icon icon="shipping-fast"></fa-icon>
-              <strong> Ship: </strong> HObookstore.com accepts online orders and
-              has home delivery.
+              <strong> Giao hàng: </strong> Vì tình hình dịch COVID-19 HObookstore nhận đặt hàng trực tuyến và giao hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn phòng cũng như tất cả Hệ Thống Fahasa trên toàn quốc. 
               <table id="tableMXH">
                 <tr>
-                  <td>Connect:</td>
+                  <td>Kết nối với chúng tôi:</td>
                   <td>
                     <v-btn class="mx" fab small>
                       <v-icon style="color: #3867d6">mdi-facebook</v-icon>
@@ -68,48 +65,48 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
               <div class="service-support">
                 <p class="tilte-s-s">
-                  <fa-icon icon="align-left"></fa-icon> Services
+                  <fa-icon icon="align-left"></fa-icon> Dịch vụ
                 </p>
                 <ul>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> Terms of use</a>
+                    ><a href=""> Điều khoản sử dụng</a>
                   </li>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> Privacy policy </a>
+                    ><a href=""> Chính sách sử dụng</a>
                   </li>
                   <li style="list-style-type: none">
-                    <fa-icon icon="clipboard"></fa-icon><a href=""> About us</a>
+                    <fa-icon icon="clipboard"></fa-icon><a href=""> Giới thiệu về HObookstore</a>
                   </li>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> Chain bookstore </a>
+                    ><a href=""> Hệ thống cửa hàng</a>
                   </li>
                 </ul>
                 <p class="tilte-s-s">
-                  <fa-icon icon="align-left"></fa-icon> Support
+                  <fa-icon icon="align-left"></fa-icon> Hỗ trợ
                 </p>
                 <ul>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> Exchange - return - refund policy</a>
+                    ><a href=""> Chính sách đổi-trả</a>
                   </li>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> Wholesale customer policy </a>
+                    ><a href=""> Khách hàng thân thiết</a>
                   </li>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> Shipping method</a>
+                    ><a href=""> Phương thức vận chuyển</a>
                   </li>
                   <li style="list-style-type: none">
                     <fa-icon icon="clipboard"></fa-icon
-                    ><a href=""> Payment methods and invoicing </a>
+                    ><a href=""> Phương thức thanh toán</a>
                   </li>
                 </ul>
                 <br /><br />
-                <div class="input-group rounded">
+                <!-- <div class="input-group rounded">
                   <input
                     type="email"
                     class="form-control rounded"
@@ -125,7 +122,7 @@
                   >
                     Register
                   </button>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">

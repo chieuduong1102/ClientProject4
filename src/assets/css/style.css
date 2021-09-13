@@ -1958,7 +1958,14 @@ ul#single_popular li:hover a {
 	transition: all 0.3s ease-in-out;
 }
 
+.product_details{
+	height: 500px !important;
+}
 
+.price-rating{
+	position: absolute;
+	bottom: 0;
+}
 
 .product_details:hover {
 	border-radius: 5px;

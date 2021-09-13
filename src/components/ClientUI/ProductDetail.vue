@@ -121,9 +121,9 @@
                   >
                 </p>
                 <div class="add-to-cart">
-                  <input type="text" title="Qty" value="1" class="qty" />
-                  <button type="button" title="Add to Cart" class="cart_button">
-                    <span>Add to Cart</span>
+                  <input type="number" title="Qty" value="1" min="1" class="qty qty-product" />
+                  <button type="button" title="Add to Cart" class="btn btn-warning" style="width: auto">
+                    <span>Thêm vào giỏ hàng</span>
                   </button>
                 </div>
               </div>
@@ -132,6 +132,10 @@
         </div>
       </div>
     </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <RatingFeedbackCustomer />
+    </div>
+    <br>
     <Branch />
     <br />
     <FooterHome />
@@ -142,6 +146,7 @@
 import HeaderHome from "../ClientComponents/HeaderHome.vue";
 import FooterHome from "../ClientComponents/FooterHome.vue";
 import Branch from "../ClientComponents/Branch.vue";
+import RatingFeedbackCustomer from "../ClientComponents/RatingFeedbackCustomer.vue";
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 
@@ -177,6 +182,7 @@ export default {
     HeaderHome,
     FooterHome,
     Branch,
+    RatingFeedbackCustomer,
   },
   mounted() {
     this.getBookDetail();
@@ -207,5 +213,11 @@ export default {
 }
 .product_rating {
   font-size: 20px !important;
+}
+.qty-product{
+  text-align: center !important;
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }
 </style>

@@ -14,7 +14,7 @@
                 <div class="row">
                   <div class="col-md-10">
                     <div class="input-group rounded">
-                      <input type="email" class="form-control rounded" id="input-home-search" placeholder="What're you searching for...?" aria-label="Register" aria-describedby="search-addon" />
+                      <input type="email" class="form-control rounded" id="input-home-search" placeholder="Bạn muốn tìm kiểm...?" aria-label="Register" aria-describedby="search-addon" />
                       <button type="submit" class="input-group-text border-0 btn btn-danger" id="search-addon">
                         <fa-icon icon="search" />
                       </button>
@@ -99,7 +99,7 @@
               <div class="col-md-3 justify-content-center d-md-flex mb-md-0 mb-3">
                 <table id="tableMXH">
                   <tr>
-                    <td><span>Connect: </span></td>
+                    <td><span>Kết nối: </span></td>
                     <td>
                       <a href="#">
                         <v-btn class="mx" fab small>

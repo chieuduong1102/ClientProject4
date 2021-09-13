@@ -8,6 +8,13 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">   
+        <a href="/Shop">
+          <div class="view-more">
+            <a class="a-view-more" href="/Shop">Xem thêm... </a>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -39,4 +46,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+
+.view-more{
+  margin: 200px auto;
+}
+.a-view-more{
+  font-size: 1rem;
+  color: #000;
+  text-decoration: underline;
+}
+
+.a-view-more:hover{
+  color: rgb(255, 0, 0);
+}
 </style>
