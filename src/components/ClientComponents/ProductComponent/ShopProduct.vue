@@ -7,6 +7,7 @@
             :bid="product.bid"
             :titleBook="product.titleBook"
             :price="product.price"
+            :cat="product.bookcategoryList[0].cid.categoryName"
             :imageName="product.imageList[0]['nameFile']"
             :ratings="4.5"
           />

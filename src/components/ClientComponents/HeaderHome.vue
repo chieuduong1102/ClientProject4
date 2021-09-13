@@ -160,10 +160,7 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @mouseover="display = true">Thể loại</a>
                 <div class="dropdown-menu show" @mouseleave="display = false" v-if="display" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" aria-expanded href="#">Page 1</a>
-                  <a class="dropdown-item" aria-expanded href="#">Page 2</a>
-                  <a class="dropdown-item" aria-expanded href="#">Page 3</a>
-                  <a class="dropdown-item" aria-expanded href="#">Page 4</a>
+                  <a class="dropdown-item" aria-expanded href="#" v-for="(cat, index) in categories" :key="index"> {{cat.categoryName}}</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -182,6 +179,8 @@
 </template>
 
 <script>
+import axios from "axios";
+const API_URL = "http://localhost:8088/";
 export default {
   data() {
     return {
@@ -189,13 +188,23 @@ export default {
       displaySmallCart: false,
       amountProduct: 2,
       amountItem: 1,
+      categories: []
     };
   },
   methods: {
     toggleDropdown() {
       this.display = !this.display;
     },
+    getAllCategories: function () {
+      axios.get(API_URL + "category/getAllCategories").then((response) => {
+        this.categories = response.data;
+        console.log(response.data);
+      });
+    }
   },
+  mounted() {
+    this.getAllCategories();
+  }
 };
 </script>
 
