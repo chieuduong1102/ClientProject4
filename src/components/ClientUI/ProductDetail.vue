@@ -105,7 +105,7 @@
                 <br />
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >{{ bookDetail.price }} VNĐ</span
+                    >{{ formatPrice(bookDetail.price) }} VNĐ</span
                   >
                 </p>
                 <p class="blog_texts">
@@ -117,7 +117,7 @@
               <div class="cart_blog_item">
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >{{ bookDetail.price }}  VNĐ</span
+                    >{{ formatPrice(bookDetail.price) }}  VNĐ</span
                   >
                 </p>
                 <div class="add-to-cart">
@@ -158,7 +158,7 @@ export default {
       this.imgShow = imgName;
     },
     formatPrice(value) {
-      let val = (value / 1).toFixed(2).replace(".", ",");
+      let val = (value / 1).toFixed().replace(".", ",");
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     },
     checkBid() {
@@ -178,7 +178,7 @@ export default {
     FooterHome,
     Branch,
   },
-  mounted() {
+  created() {
     this.getBookDetail();
     this.checkBid();
 

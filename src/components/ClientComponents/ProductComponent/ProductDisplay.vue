@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ path: 'ProductDetail', query: {bid: bid}}">
+  <router-link :to="{ path: 'ProductDetail', query: { bid: bid } }">
     <div class="product_details">
       <figure style="width: 250px; height: 320px; margin: 10px auto 10px auto">
         <img :src="imageName" class="img-fluid img-product" alt="" />
@@ -7,7 +7,7 @@
       <h2 class="title-book">{{ titleBook }}</h2>
       <div class="row price-rating">
         <div class="col-md-6">
-            <p class="popular_price"> {{ price }} VNĐ</p>
+          <p class="popular_price">{{ formatPrice(price) }} VNĐ</p>
         </div>
         <div class="col-md-6 text-center">
           <vue-star-rating
@@ -19,8 +19,13 @@
         </div>
         <div class="product_button">
           <div class="cart_details">
-            <a href="cart.html" class="btn btn-warning" style="padding-top: 13px">
-              <fa-icon icon="shopping-cart" /> Thêm vào giỏ</a>
+            <a
+              href="cart.html"
+              class="btn btn-warning"
+              style="padding-top: 13px"
+            >
+              <fa-icon icon="shopping-cart" /> Thêm vào giỏ</a
+            >
             <br />
           </div>
         </div>
@@ -40,8 +45,14 @@ export default {
   },
   data() {
     return {
-      ratingStar: 3
+      ratingStar: 3,
     };
+  },
+  methods: {
+    formatPrice(value) {
+      let val = (value / 1).toFixed().replace(".", ",");
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    },
   },
 };
 </script>

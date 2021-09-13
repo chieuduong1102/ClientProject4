@@ -26,16 +26,16 @@ export default {
     ProductDisplay,
   },
   methods: {
-    getAllBook: function () {
+    getNewBooks: function () {
       axios
-        .get(API_URL + "book/getAllBook")
+        .get(API_URL + "book/getNewBooks")
         .then((response) => {
           this.products = response.data;
         });
     },
   },
-  mounted() {
-    this.getAllBook();
+  created() {
+    this.getNewBooks();
   },
 };
 </script>
