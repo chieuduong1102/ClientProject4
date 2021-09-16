@@ -2,14 +2,18 @@
   <div class="order">
     <h1>Danh sách đơn hàng</h1>
     <hr />
+    <h1>{{ orderDetail }}</h1>
     <div class="order-detail" v-show="isShowDetail">
-        <fa-icon
-          icon="times"
-          id="icon-close"
-          @click="isShowDetail=false"
-        ></fa-icon>
-        <br>
-        <OrderDetail :orderId=orderDetail.oid :userName="orderDetail.username"/>
+      <fa-icon
+        icon="times"
+        id="icon-close"
+        @click="isShowDetail = false"
+      ></fa-icon>
+      <br />
+      <OrderDetail
+        :orderId="orderDetail.oid"
+        :userName="orderDetail.username"
+      />
     </div>
     <v-app id="inspire">
       <v-card>
@@ -60,9 +64,7 @@
                 </v-btn>
               </td>
               <td>
-                <v-btn color="red" v-show="comfirmOrder" dark>
-                  Xác nhận
-                </v-btn>
+                <v-btn color="red" v-show="comfirmOrder" dark> Xác nhận </v-btn>
                 <v-btn color="red" v-show="cancelOrder" dark> Hủy bỏ </v-btn>
               </td>
             </tr>
@@ -75,7 +77,7 @@
 <script>
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
-import OrderDetail from './OrderDetail.vue'
+import OrderDetail from "./OrderDetail.vue";
 
 export default {
   components: {
@@ -103,8 +105,15 @@ export default {
       orderList: [],
       orderDetail: {
         oid: 0,
-        username: "",
-        bid: 0,
+        fullname: "",
+        books: [],
+        address: "",
+        totalPrice: "",
+      },
+      book: {
+        titleBook: "",
+        amount: 0,
+        price: 0,
       },
       comfirmOrder: true,
       cancelOrder: false,
@@ -117,19 +126,70 @@ export default {
         .get(API_URL + "order/getOrderList")
         .then((response) => {
           this.orderList = response.data;
+          this.getOrderDetailByOid(response.data[1].oid);
+          this.findCustomerInformation(response.data[1].userName);
+          this.orderDetail.address = response.data[1].deliveryAddress;
+          this.orderDetail.totalPrice = response.data[1].totalPrice;
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    showDetail: function(oid, userName){
-      this.isShowDetail=true; this.orderDetail.oid = oid; this.orderDetail.username = userName;
+    showDetail: function (oid, userName) {
+      this.isShowDetail = true;
+      this.orderDetail.oid = oid;
+      this.orderDetail.username = userName;
     },
     formatPrice(value) {
       return value.toLocaleString("it-IT", {
         style: "currency",
         currency: "VND",
       });
+    },
+    getOrderDetailByOid(oid) {
+      axios
+        .get(API_URL + "order/getOrderDetail?oid=" + oid)
+        .then((response) => {
+          this.orderDetail.oid = oid;
+          let list = response.data;
+          for (let index = 0; index < list.length; index++) {
+            this.getBookByBid(list[index].bid);
+            //this.orderList.books[index].amount = list[index].amount;
+          }
+          console.log(response.data);
+        })
+        // .then( this.findCustomerInformation())
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    getBookByBid(bid) {
+      axios
+        .get(API_URL + "book/bookInfo?bid=" + bid)
+        .then((response) => {
+          let book = {
+            amount: 0,
+            titleBook : "",
+            price: 0,
+          }
+          book.titleBook = response.data.titleBook;
+          book.price = response.data.price;
+          this.orderDetail.books.push(book);
+          console.log(response.data.titleBook);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    findCustomerInformation(username) {
+      axios
+        .get(API_URL + "user/userInfo?user=" + username)
+        .then((response) => {
+          this.orderDetail.fullname = response.data.fullname;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
   mounted() {
@@ -138,14 +198,14 @@ export default {
 };
 </script>
 <style scoped>
-.order-detail{
+.order-detail {
   width: 82vw;
   height: 60vh;
   background-color: white;
   position: absolute;
   z-index: 10;
-  -webkit-box-shadow: 0px 0px 5px 200px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 0px 5px 200px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0px 0px 5px 200px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 5px 200px rgba(0, 0, 0, 0.5);
   box-shadow: 0px 0px 5px 200px rgba(0, 0, 0, 0.5);
 }
 
