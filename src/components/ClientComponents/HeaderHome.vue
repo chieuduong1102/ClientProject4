@@ -152,16 +152,13 @@
                   <tr>
                     <td></td>
                     <td colspan="2" class="text-right">
-                      <a
-                        href="/RegisterClient"
-                        class="a-header"
-                        v-show="isLogined == false"
-                      >
-                        Đăng kí
-                      </a>
-                      <a style="font-weight: bold" v-show="isLogined == true"
-                        >Hi, {{ sessionLoginClient }}</a
-                      >
+                      <a href="/RegisterClient" class="a-header" v-show="isLogined==false" > Đăng kí </a>
+                      <a style="font-weight: 500; color: red;" v-show="isLogined==true" @mouseover="isShowMenuUser=true"> <fa-icon icon="user" /> Hi, {{ sessionLoginClient }}</a>
+                      <div id="menu-user-logined" v-show="isShowMenuUser" @mouseleave="isShowMenuUser=false">
+                        <a href="/UserManagement"><div class="item-menu-user">Tài khoản của tôi</div></a>
+                        <a href="/UserManagement"><div class="item-menu-user">Đơn hàng của tôi</div></a>
+                        <!-- <div class="item-menu-user">Tài khoản của tôi</div> -->
+                      </div>
                     </td>
 
                     <td colspan="2" class="text-right">
@@ -285,6 +282,7 @@ export default {
       sessionLoginClient: "",
       isLogined: false,
       itemsCart: JSON.parse(window.localStorage.getItem("cart")),
+      isShowMenuUser: false,
     };
   },
   methods: {
@@ -11348,4 +11346,33 @@ h5,
 .img-product {
   border-radius: 4px !important;
 }
+#menu-user-logined{
+  margin-top: 5px ;
+  width: auto; 
+  height: auto; 
+  background-color: rgb(223, 211, 211);
+  position: absolute;
+  z-index: 10;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.item-menu-user{
+  height: auto;
+  padding: 7px 15px 7px 15px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  text-align: left;
+  background: linear-gradient(to left, rgb(255, 255, 255) 50%, #eb4d4b 50%) right;
+  background-size: 200%;
+  transition: .2s ease-out;
+  color: black;
+}
+
+.item-menu-user:hover{
+  color: white;
+  background-position: left;
+}
+
 </style>

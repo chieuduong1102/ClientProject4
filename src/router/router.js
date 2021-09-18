@@ -9,6 +9,7 @@ import ProductDetail from '../components/ClientUI/ProductDetail.vue'
 import AboutUs from '../components/ClientUI/AboutUs.vue'
 import Cart from '../components/ClientUI/Cart.vue'
 import NotFound from '../components/ClientUI/404.vue'
+import UserManagement from '../components/ClientComponents/UserManagement.vue'
 
 const routes = [
   { path: '/LoginClient', component: LoginClient, name:'LoginClient' },
@@ -22,6 +23,7 @@ const routes = [
   { path: '/AboutUs', component: AboutUs, name:'AboutUs'},
   { path: '/Cart', component: Cart, name:'Cart'},
   { path: '/404', component: NotFound, name:'NotFound'},
+  { path: '/UserManagement', component: UserManagement, name:'UserManagement'},
 ]
   
   export default routes;

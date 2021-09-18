@@ -5,9 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
    state: {
-      cart: window.localStorage.getItem('cart') != null ? window.localStorage.getItem('cart') : []
+      cart: window.localStorage.getItem('cart') != null ? window.localStorage.getItem('cart') : [],
+      name : "HO BookStore"
    },
-   getters: {},
+   getters: {
+      getName: function(state){
+         return state.name;
+     }
+   },
    mutations: {
       addToCart(state, { item, quantity }) {
          let arrayItemCart = [];
@@ -51,7 +56,14 @@ export default new Vuex.Store({
             }
          }
          window.localStorage.setItem('cart', JSON.stringify(arrayItemCart));
-      }
+      },
+      setName(state, name){
+         state.name = name;
+     }
    },
-   actions: {}
+   actions: {
+      updateName(context){
+         context.commit('setName','Cửa hàng sách')
+     }
+   }
 });

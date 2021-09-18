@@ -216,6 +216,7 @@
               name="username"
               v-model="user.username"
               placeholder="Username"
+              readonly
             />
           </div>
           <div class="form-group">
