@@ -1,130 +1,150 @@
 <template>
   <div class="header-navbar">
     <section class="ftco-section">
-      <div class="container-fluid px-md-5" style="background-color: white;">
+      <div class="container-fluid px-md-5" style="background-color: white">
         <div class="row justify-content-between">
           <div class="col-md-12 order-md-last">
             <div class="row">
-              <div class="col-md-3 text-right" style="margin 0; padding: 0; margin-bottom: -50px !important;">
+              <div
+                class="col-md-3 text-right"
+                style="margin 0; padding: 0; margin-bottom: -50px !important;"
+              >
                 <a class="navbar-brand" href="Home">
-                  <img src="../../assets/full-logo.png" class="img-fluid" style="height: 120px;" alt="" />
+                  <img
+                    src="../../assets/full-logo.png"
+                    class="img-fluid"
+                    style="height: 120px"
+                    alt=""
+                  />
                 </a>
               </div>
               <div class="col-md-6 text-center">
                 <div class="row">
                   <div class="col-md-10">
                     <div class="input-group rounded">
-                      <input type="email" class="form-control rounded" id="input-home-search" placeholder="Bạn muốn tìm kiểm...?" aria-label="Register" aria-describedby="search-addon" />
-                      <button type="submit" class="input-group-text border-0 btn btn-danger" id="search-addon">
+                      <input
+                        type="email"
+                        class="form-control rounded"
+                        id="input-home-search"
+                        placeholder="Bạn muốn tìm kiểm...?"
+                        aria-label="Register"
+                        aria-describedby="search-addon"
+                      />
+                      <button
+                        type="submit"
+                        class="input-group-text border-0 btn btn-danger"
+                        id="search-addon"
+                      >
                         <fa-icon icon="search" />
                       </button>
                     </div>
                   </div>
                   <div class="col-md-2">
-                    <div style="margin-top: 30px;"></div>
+                    <div style="margin-top: 30px"></div>
                     <a href="Cart">
-                    <v-btn class="mx" fab small color="red">
-                      <v-icon style="color: #eb4d4b;" @mouseover="displaySmallCart = true">mdi-shopping</v-icon>
-                      <div id="amount-product">{{ amountProduct }}</div>
-                    </v-btn>
+                      <v-btn class="mx" fab small color="red">
+                        <v-icon
+                          style="color: #eb4d4b"
+                          @mouseover="displaySmallCart = true"
+                          >mdi-shopping</v-icon
+                        >
+                        <div id="amount-product">{{ itemsCart.length }}</div>
+                      </v-btn>
                     </a>
-                    <div id="shopping-cart-small" v-show="displaySmallCart" @mouseleave="displaySmallCart = false">
+                    <div
+                      id="shopping-cart-small"
+                      v-show="displaySmallCart"
+                      @mouseleave="displaySmallCart = false"
+                    >
                       <div class="items-in-cart">
                         <div class="shopping-cart-item">
                           <table>
-                            <tr>
-                              <td style="width: 100px;">
-                                <img src="https://cdn-amz.fado.vn/images/I/51364NhwLoL.jpg" class="img-fluid img-product" alt="" />
+                            <tr v-for="item in itemsCart" :key="item.bid">
+                              <td style="width: 100px">
+                                <router-link
+                                  :to="{
+                                    path: 'ProductDetail',
+                                    query: { bid: item.bid },
+                                  }"
+                                  ><img
+                                    class="img-fluid img-product"
+                                    :src="item.image"
+                                    alt=""
+                                /></router-link>
                               </td>
-                              <td style="width: 150px;">
-                                Le Petit Prince
+                              <td style="width: 150px">
+                                <router-link
+                                  :to="{
+                                    path: 'ProductDetail',
+                                    query: { bid: item.bid },
+                                  }"
+                                  >{{ item.title }}</router-link
+                                >
                                 <br />
                                 Số lượng:
-                                <input type="number" class="input-count-item-cart" v-model="amountItem" />
+                                <input
+                                  type="number"
+                                  class="input-count-item-cart"
+                                  :value="item.quantity"
+                                  disabled
+                                />
                               </td>
-                              <td style="width: 30px;">
-                                <fa-icon icon="trash" class="icon-delete-item-cart" />
+                              <td style="width: 30px">
+                                <fa-icon
+                                  icon="trash"
+                                  class="icon-delete-item-cart"
+                                  @click="removeItem(item.bid)"
+                                />
                               </td>
                             </tr>
                           </table>
-                          <hr style="width: 90%; margin: 2px auto 2px auto;" />
-                        </div>
-                        <div class="shopping-cart-item">
-                          <table>
-                            <tr>
-                              <td style="width: 100px;">
-                                <img src="https://ejoy-english.com/blog/wp-content/uploads/2018/03/dd-372x600.jpg" class="img-fluid img-product" alt="" />
-                              </td>
-                              <td style="width: 150px;">
-                                To kill a mocking bird
-                                <br />
-                                Số lượng:
-                                <input type="number" class="input-count-item-cart" v-model="amountItem" />
-                              </td>
-                              <td style="width: 30px; color">
-                                <fa-icon icon="trash" class="icon-delete-item-cart" />
-                              </td>
-                            </tr>
-                          </table>
-                          <hr style="width: 90%; margin: 2px auto 2px auto;" />
-                        </div>
-                        <div class="shopping-cart-item">
-                          <table>
-                            <tr>
-                              <td style="width: 100px;">
-                                <img src="https://ejoy-english.com/blog/wp-content/uploads/2018/03/dd-372x600.jpg" class="img-fluid img-product" alt="" />
-                              </td>
-                              <td style="width: 150px;">
-                                To kill a mocking bird
-                                <br />
-                                Số lượng:
-                                <input type="number" class="input-count-item-cart" v-model="amountItem" />
-                              </td>
-                              <td style="width: 30px; color">
-                                <fa-icon icon="trash" class="icon-delete-item-cart" />
-                              </td>
-                            </tr>
-                          </table>
-                          <hr style="width: 90%; margin: 2px auto 2px auto;" />
+                          <hr style="width: 90%; margin: 2px auto 2px auto" />
                         </div>
                       </div>
-                      <button class="btn btn-danger" style="width: 90%; margin-bottom: 5px;">
-                        Thanh toán
-                      </button>
+                      <a href="Cart">
+                        <button
+                          class="btn btn-danger"
+                          style="width: 90%; margin-bottom: 5px"
+                        >
+                          Thanh toán
+                        </button>
+                      </a>
                       <br />
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 justify-content-center d-md-flex mb-md-0 mb-3">
+              <div
+                class="col-md-3 justify-content-center d-md-flex mb-md-0 mb-3"
+              >
                 <table id="tableMXH">
                   <tr>
                     <td><span>Kết nối: </span></td>
                     <td>
                       <a href="#">
                         <v-btn class="mx" fab small>
-                          <v-icon style="color: #3867d6;">mdi-facebook</v-icon>
+                          <v-icon style="color: #3867d6">mdi-facebook</v-icon>
                         </v-btn>
                       </a>
                     </td>
                     <td>
                       <a href="#">
                         <v-btn class="mx" fab small>
-                          <v-icon style="color: #eb3b5a;">mdi-youtube</v-icon>
+                          <v-icon style="color: #eb3b5a">mdi-youtube</v-icon>
                         </v-btn>
                       </a>
                     </td>
                     <td>
                       <a href="#">
                         <v-btn class="mx" fab small>
-                          <v-icon style="color: #8854d0;">mdi-instagram</v-icon>
+                          <v-icon style="color: #8854d0">mdi-instagram</v-icon>
                         </v-btn>
                       </a>
                     </td>
                     <td>
                       <a href="#">
                         <v-btn class="mx" fab small color="red">
-                          <v-icon style="color: #45aaf2;">mdi-twitter</v-icon>
+                          <v-icon style="color: #45aaf2">mdi-twitter</v-icon>
                         </v-btn>
                       </a>
                     </td>
@@ -140,10 +160,25 @@
                         <!-- <div class="item-menu-user">Tài khoản của tôi</div> -->
                       </div>
                     </td>
-                    
-                    <td colspan="2" class="text-right"> 
-                      <a href="/LoginClient" class="a-header" style="float: left;" v-show="isLogined==false"> Đăng nhập</a>
-                      <a href="/HomePage" class="a-header" style="float: left;" v-show="isLogined==true" @click="logout()"> Đăng xuất</a>
+
+                    <td colspan="2" class="text-right">
+                      <a
+                        href="/LoginClient"
+                        class="a-header"
+                        style="float: left"
+                        v-show="isLogined == false"
+                      >
+                        Đăng nhập</a
+                      >
+                      <a
+                        href="/HomePage"
+                        class="a-header"
+                        style="float: left"
+                        v-show="isLogined == true"
+                        @click="logout()"
+                      >
+                        Đăng xuất</a
+                      >
                     </td>
                     <td></td>
                   </tr>
@@ -153,28 +188,76 @@
           </div>
         </div>
       </div>
-      <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+      <nav
+        class="
+          navbar navbar-expand-lg navbar-dark
+          ftco_navbar
+          bg-dark
+          ftco-navbar-light
+        "
+        id="ftco-navbar"
+      >
         <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation"><span class="fa fa-bars"></span> Menu</button>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#ftco-nav"
+            aria-controls="ftco-nav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="fa fa-bars"></span> Menu
+          </button>
           <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav m-auto">
               <li class="nav-item active">
-                <a href="HomePage" class="nav-link" @mouseover="display = false">Trang chủ</a>
+                <a href="HomePage" class="nav-link" @mouseover="display = false"
+                  >Trang chủ</a
+                >
               </li>
               <li class="nav-item">
-                <a href="Shop" @mouseover="display = false" class="nav-link">Shop</a>
+                <a href="Shop" @mouseover="display = false" class="nav-link"
+                  >Shop</a
+                >
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @mouseover="display = true">Thể loại</a>
-                <div class="dropdown-menu show" @mouseleave="display = false" v-if="display" aria-labelledby="dropdown04">
-                  <a class="dropdown-item" aria-expanded href="#" v-for="(cat, index) in categories" :key="index"> {{cat.categoryName}}</a>
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="dropdown04"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  @mouseover="display = true"
+                  >Thể loại</a
+                >
+                <div
+                  class="dropdown-menu show"
+                  @mouseleave="display = false"
+                  v-if="display"
+                  aria-labelledby="dropdown04"
+                >
+                  <a
+                    class="dropdown-item"
+                    aria-expanded
+                    href="#"
+                    v-for="(cat, index) in categories"
+                    :key="index"
+                  >
+                    {{ cat.categoryName }}</a
+                  >
                 </div>
               </li>
               <li class="nav-item">
-                <a href="#" @mouseover="display = false" class="nav-link">Tin tức</a>
+                <a href="#" @mouseover="display = false" class="nav-link"
+                  >Tin tức</a
+                >
               </li>
               <li class="nav-item">
-                <a href="AboutUs" @mouseover="display = false" class="nav-link">Liên hệ</a>
+                <a href="AboutUs" @mouseover="display = false" class="nav-link"
+                  >Liên hệ</a
+                >
               </li>
             </ul>
           </div>
@@ -198,36 +281,39 @@ export default {
       categories: [],
       sessionLoginClient: "",
       isLogined: false,
+      itemsCart: JSON.parse(window.localStorage.getItem("cart")),
       isShowMenuUser: false,
     };
   },
   methods: {
+    removeItem(bid) {
+      this.$store.commit("removeItem", bid);
+      this.itemsCart = JSON.parse(window.localStorage.getItem("cart"));
+    },
     toggleDropdown() {
       this.display = !this.display;
     },
     getAllCategories: function () {
       axios.get(API_URL + "category/getAllCategories").then((response) => {
         this.categories = response.data;
-        console.log(response.data);
       });
     },
-    logout: function(){
+    logout: function () {
       this.isLogined = false;
-      // alert(this.isLogined)
       this.sessionLoginClient = "";
       localStorage.removeItem("sessionLoginClient");
       this.$router.push({ name: "HomePage" });
-    }
+    },
   },
   mounted() {
     this.getAllCategories();
     this.sessionLoginClient = localStorage.getItem("sessionLoginClient");
-    if(this.sessionLoginClient != null){
+    if (this.sessionLoginClient != null) {
       this.isLogined = true;
     } else {
       this.isLogined = false;
     }
-  }
+  },
 };
 </script>
 
@@ -11159,7 +11245,6 @@ h5,
   background: none;
 }
 
-
 #input-home-search:focus {
   background: none !important;
 }
@@ -11200,8 +11285,6 @@ h5,
 }
 #shopping-cart-small {
   margin-top: 5px;
-  width: 280px;
-  height: 500px;
   position: absolute;
   background: white;
   z-index: 1000;
@@ -11236,11 +11319,9 @@ h5,
   background: white;
 }
 
-.items-in-cart{
+.items-in-cart {
   overflow: auto;
   overflow-x: hidden;
-  width: 280px;
-  height: 440px;
   margin-bottom: 10px;
 }
 /* width */
@@ -11250,19 +11331,19 @@ h5,
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #eb4d4b; 
+  background: #eb4d4b;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #c32a27; 
+  background: #c32a27;
 }
-.img-product{
+.img-product {
   border-radius: 4px !important;
 }
 #menu-user-logined{

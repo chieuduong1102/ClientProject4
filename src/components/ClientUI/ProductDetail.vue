@@ -72,14 +72,16 @@
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="blog_product_details">
-              <h2 class="blog_heading"><a href="">{{ bookDetail.titleBook }}</a></h2>
+              <h2 class="blog_heading">
+                <a href="">{{ bookDetail.titleBook }}</a>
+              </h2>
               <div class="product_rating">
                 <vue-star-rating
-                text-class="custom-text"
-                :star-size="18"
-                v-model="bookDetail.rating"
-                :read-only="true"
-              ></vue-star-rating>
+                  text-class="custom-text"
+                  :star-size="18"
+                  v-model="bookDetail.rating"
+                  :read-only="true"
+                ></vue-star-rating>
               </div>
               <div class="product_rating">
                 <span>I</span>
@@ -105,8 +107,9 @@
                 </div>
                 <br />
                 <p class="rating_dollor rating_margin">
-                  <span class="rating_value_two"
-                    >{{ formatPrice(bookDetail.price) }}</span>
+                  <span class="rating_value_two">{{
+                    formatPrice(bookDetail.price)
+                  }}</span>
                 </p>
                 <p class="blog_texts">
                   {{ bookDetail.description }}
@@ -117,11 +120,25 @@
               <div class="cart_blog_item">
                 <p class="rating_dollor rating_margin">
                   <span class="rating_value_two"
-                    >{{ formatPrice(bookDetail.price) }} </span>
+                    >{{ formatPrice(bookDetail.price) }}
+                  </span>
                 </p>
                 <div class="add-to-cart">
-                  <input type="number" title="Qty" min="1" value="1" class="qty qty-product" />
-                  <button type="button" title="Add to Cart" class="btn btn-warning" style="width: auto">
+                  <input
+                    v-model="quantity"
+                    type="number"
+                    title="Qty"
+                    min="1"
+                    value="1"
+                    class="qty qty-product"
+                  />
+                  <button
+                    type="button"
+                    title="Add to Cart"
+                    class="btn btn-warning"
+                    style="width: auto"
+                    @click="addToCart(bookDetail,quantity)"
+                  >
                     <span>Thêm vào giỏ hàng</span>
                   </button>
                 </div>
@@ -132,9 +149,9 @@
       </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <RatingFeedbackCustomer />
+      <RatingFeedbackCustomer />
     </div>
-    <br>
+    <br />
     <Branch />
     <br />
     <FooterHome />
@@ -155,14 +172,23 @@ export default {
       bookDetail: [],
       imgShow: "",
       bid: this.$route.query.bid,
+      quantity: 1
     };
   },
   methods: {
     setImgShow(imgName) {
       this.imgShow = imgName;
     },
+    getAllBook: function () {
+      axios.get(API_URL + "book/getAllBook").then((response) => {
+        this.items = response.data;
+      });
+    },
     formatPrice(value) {
-      return value.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+      return value.toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      });
     },
     checkBid() {
       if (this.bid === "" || isNaN(this.bid)) {
@@ -175,6 +201,9 @@ export default {
         this.imgShow = this.bookDetail["imageList"][0]["nameFile"];
       });
     },
+    addToCart(item, quantity) {
+        this.$store.commit('addToCart', {item, quantity});
+    }
   },
   components: {
     HeaderHome,
@@ -185,6 +214,7 @@ export default {
   created() {
     this.getBookDetail();
     this.checkBid();
+    this.getAllBook();
 
     //Display in top page
     window.scroll({
@@ -212,7 +242,7 @@ export default {
 .product_rating {
   font-size: 20px !important;
 }
-.qty-product{
+.qty-product {
   text-align: center !important;
   border-top: none;
   border-left: none;

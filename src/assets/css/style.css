@@ -2661,12 +2661,22 @@ table.cart_items th {
 	border-bottom: 1px solid #E5E5E5;
 }
 
-table.cart_items th:nth-last-of-type(6) {
-	padding: 10px 150px;
+table.cart_items th:nth-last-of-type(4) {
+	padding: 10px 70px;
 }
 
-table.cart_items td:nth-last-of-type(6) {
-	padding: 10px 150px;
+table.cart_items td:nth-last-of-type(4) {
+	padding: 10px 70px;
+}
+
+table.cart_items th:nth-last-of-type(3),
+table.cart_items th:nth-last-of-type(1) {
+	padding: 10px 40px;
+}
+
+table.cart_items td:nth-last-of-type(3),
+table.cart_items th:nth-last-of-type(1) {
+	padding: 10px 40px;
 }
 
 table.cart_items td:nth-last-of-type(1) {
