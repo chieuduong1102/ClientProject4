@@ -60,6 +60,7 @@
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 import { mapGetters } from "vuex";
+// import emailjs from 'emailjs-com';
 export default {
   data() {
     return {};
@@ -97,6 +98,7 @@ export default {
           console.log(error);
         });
     },
+    
   },
   computed: {
     ...mapGetters(["getOrderDetail"]),

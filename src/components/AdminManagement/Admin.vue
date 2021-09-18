@@ -12,11 +12,6 @@
                           <li><fa-icon class="icon" icon="home" /> Trang chính</li>
                       </div>
                   </a>
-                  <a href="#" @click="showCategory()">
-                      <div class="item">
-                          <li><fa-icon class="icon" icon="th-list" /> Thể loại</li>
-                      </div>
-                  </a>
                   <a href="#" @click="showProduct()">
                       <div class="item">
                           <li><fa-icon class="icon" icon="book-open" /> Sản phẩm</li>
@@ -79,9 +74,6 @@
                           <div class="content-detail" v-show="this.isShowHome">
                               <h1>Home</h1>
                           </div>
-                          <div class="content-detail" v-show="this.isShowCategory">
-                              <h1>Category</h1>
-                          </div>
                           <div class="content-detail" v-show="this.isShowProduct" >
                               <Product />
                           </div>
@@ -131,7 +123,6 @@ export default {
       },
       currentTime: "",
       isShowHome: true,
-      isShowCategory: false,
       isShowProduct: false,
       isShowOrders: false,
       isShowAdminAccount: false,

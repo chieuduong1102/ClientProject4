@@ -18,6 +18,30 @@
       <div class="container-fluid">
         <h1><fa-icon icon="book-open" /> Book</h1>
         <hr />
+        <h2>Thể loại sách</h2>
+        <form @submit.prevent="createNewCategory()">
+          <span><b>Thêm mới: </b></span>
+          <input
+            type="text"
+            id="cat-text-new"
+            v-model="newCat"
+            @blur="toggle = false"
+            @focus="toggle = true"
+          />
+          <div class="results" v-if="toggle">
+            <div
+              class="result"
+              v-for="(cat, index) in newListCategoryAutoComplete"
+              :key="index"
+            >
+              <span class="span-item-cat" @click="selectResult(cat)" @mousedown.prevent>
+                {{ cat.categoryName }} <input type="button" class="btn-del-cat" value="Xóa" @click="deleteCategory(cat.cid)" />
+              </span>
+            </div>
+          </div>
+          <input type="submit" id="btn-add-new-cat" value="Tạo" /> 
+        </form>
+        <hr />
         <div class="row">
           <div class="col-md-4" v-show="this.isCreateNew">
             <h2>Tạo mới</h2>
@@ -584,8 +608,20 @@ export default {
   components: {
     ProductDetail,
   },
+  watch: {
+    newCat(val) {
+      this.newListCategoryAutoComplete = [];
+      this.listCategoryAutoComplete.forEach((element) => {
+        if (element.categoryName.includes(val)) {
+          this.newListCategoryAutoComplete.push(element);
+        }
+      });
+    },
+  },
   data() {
     return {
+      newCat: "",
+      toggle: false,
       search: "",
       headers: [
         {
@@ -620,6 +656,9 @@ export default {
       category: "",
       listCategorySelected: [],
       listCategory: [],
+      listCategoryAutoComplete: [],
+      newListCategoryAutoComplete: [],
+      newCategoryRequest: {},
       errorValidation: [],
       validationTitle: "",
       validationAuthor: "",
@@ -638,6 +677,9 @@ export default {
     };
   },
   methods: {
+    selectResult(cat) {
+      this.newCat = cat.categoryName;
+    },
     getAllBook: function () {
       axios
         .get(API_URL + "book/getAllBook")
@@ -862,6 +904,7 @@ export default {
         .get(API_URL + "category/getAllCategories")
         .then((response) => {
           let list = response.data;
+          this.listCategoryAutoComplete = response.data;
           for (let index = 0; index < list.length; index++) {
             this.listCategory.push(list[index].categoryName);
           }
@@ -904,6 +947,32 @@ export default {
           console.log(response.data);
         })
         .catch((error) => console.log(error));
+    },
+    createNewCategory: function () {
+      axios
+        .post(
+          API_URL + "category/create",
+          (this.newCategoryRequest = {
+            categoryName: this.newCat,
+          })
+        )
+        .then((response) => {
+          alert(response.data.msg);
+          this.newCat = "";
+        })
+        .catch((error) => console.log(error));
+    },
+    deleteCategory: function(id){
+      axios
+        .delete(
+          API_URL + "category/delete?id="+id,
+        )
+        .then((response) => {
+          alert(response.data.msg);
+          this.getAllCategory();
+          //this.newCat = "";
+        })
+        .catch((error) => console.log(error))
     },
     validationForm: function () {
       this.errorValidation = [];
@@ -1098,5 +1167,49 @@ input[type="date"] {
 }
 #icon-close:hover {
   color: red;
+}
+
+#cat-text-new {
+  border-bottom: 1px solid black;
+  width: 250px;
+}
+#btn-add-new-cat {
+  border: 1px solid black;
+  width: 70px;
+  font-size: 1rem;
+}
+#btn-add-new-cat:hover {
+  background-color: black;
+  color: white;
+}
+.results {
+  position: absolute;
+  width: 250px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  z-index: 100;
+  left: 110px;
+}
+.result {
+  padding: 10px 10px;
+  font-size: 0.9rem;
+}
+.result:hover {
+  background: #efefef;
+}
+.btn-del-cat{
+  background-color: rgb(253, 104, 104) !important;
+  position: absolute !important;
+  right: 5px !important;
+  width: 30px !important;
+  height: auto !important;
+  color: white !important;
+}
+.btn-del-cat:hover{
+  background-color: rgb(255, 0, 0) !important;
+  color: #000 !important;
+}
+.span-item-cat{
+  cursor: pointer;
 }
 </style>
