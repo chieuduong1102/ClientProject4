@@ -1,8 +1,7 @@
 <template>
   <div class="order">
-    <h1>Danh sách đơn hàng</h1>
+    <h1><fa-icon icon="tasks"/> Danh sách đơn hàng</h1>
     <hr />
-    <h3>{{ orderDetail }}</h3>
     <div class="div-order-detail" v-show="isShowDetail">
       <div class="order-detail">
         <fa-icon
@@ -12,15 +11,6 @@
         ></fa-icon>
         <br />
         <OrderDetail />
-        <!-- <OrderDetail
-          :orderId="order.oid"
-          :userName="order.userName"
-          :timeOrder="order.timeOrder"
-          :deliveryAddress="order.deliveryAddress"
-          :totalPrice="order.totalPrice"
-          :note="order.note"
-          :status="order.status"
-        /> -->
       </div>
     </div>
     <v-app id="inspire">
@@ -47,6 +37,7 @@
               <td>{{ row.item.deliveryAddress }}</td>
               <td>{{ formatPrice(row.item.totalPrice) }}</td>
               <td>{{ row.item.note }}</td>
+              <td>{{ formatStatus(row.item.status) }}</td>
               <td>
                 <v-btn
                   class="mx-2"
@@ -72,8 +63,30 @@
                 </v-btn>
               </td>
               <td>
-                <v-btn color="red" v-show="comfirmOrder" dark> Xác nhận </v-btn>
-                <v-btn color="red" v-show="cancelOrder" dark> Hủy bỏ </v-btn>
+                <v-btn
+                  color="green"
+                  v-show="row.item.status==0 ? btnComfirmOrder = true : btnComfirmOrder = false"
+                  dark
+                  style="width: 75px; font-size: 0.7rem; margin-left: 3px"
+                  @click="showDetail(row.item.oid)"
+                >
+                  Xác nhận
+                </v-btn>
+                <v-btn disabled elevation="2" 
+                v-show="row.item.status==1? btnComfirmedOrder = true : btnComfirmedOrder = false"
+                style="font-size: 0.7rem; margin-left: 3px">Đã xác nhận</v-btn>
+                <v-btn
+                  color="red"
+                  v-show="row.item.status==0? btnCancelOrder = true : btnCancelOrder = false"
+                  dark
+                  style="width: 75px; font-size: 0.7rem; margin-left: 3px"
+                  @click="showDetail(row.item.oid)"
+                >
+                  Hủy bỏ
+                </v-btn>
+                <v-btn disabled elevation="2"
+                v-show="row.item.status==-1? btnCanceledOrder = true : btnCanceledOrder = false"
+                style="font-size: 0.7rem; margin-left: 3px">Đã hủy bỏ</v-btn>
               </td>
             </tr>
           </template>
@@ -86,7 +99,7 @@
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 import OrderDetail from "./OrderDetail.vue";
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 
 export default {
   components: {
@@ -107,6 +120,7 @@ export default {
         { text: "Địa chỉ GH", value: "deliveryAddress" },
         { text: "Tổng tiền", value: "totalPrice" },
         { text: "Ghi chú", value: "note" },
+        { text: "Trạng thái", value: "status" },
         { text: "Chi tiết" },
         { text: "Cập nhật" },
         { text: "Xác nhận" },
@@ -129,8 +143,10 @@ export default {
         books: [],
       },
       book: {},
-      comfirmOrder: true,
-      cancelOrder: false,
+      btnComfirmOrder: true,
+      btnComfirmedOrder: true,
+      btnCancelOrder: true,
+      btnCanceledOrder: true,
       isShowDetail: false,
     };
   },
@@ -156,6 +172,7 @@ export default {
           this.orderDetail.deliveryAddress = this.order.deliveryAddress;
           this.orderDetail.totalPrice = this.order.totalPrice;
           this.orderDetail.note = this.order.note;
+          this.orderDetail.status = this.order.status;
           this.getOrderDetailByOid(this.orderDetail);
           this.findCustomerInformation(this.orderDetail);
           //console.log(this.order);
@@ -169,7 +186,7 @@ export default {
       this.getOrderByOid(oid);
       this.changeOrderDetail(this.orderDetail);
     },
-    ...mapActions(['changeOrderDetail']),
+    ...mapActions(["changeOrderDetail"]),
     getOrderDetailByOid(orderDetail) {
       axios
         .get(API_URL + "order/getOrderDetail?oid=" + orderDetail.oid)
@@ -209,9 +226,9 @@ export default {
       axios
         .get(API_URL + "user/userInfo?user=" + orderDetail.user.username)
         .then((response) => {
-          orderDetail.user.fullname = response.data.fullname,
-          orderDetail.user.phonenumber  = response.data.phonenumber,
-          orderDetail.user.email  = response.data.email
+          (orderDetail.user.fullname = response.data.fullname),
+            (orderDetail.user.phonenumber = response.data.phonenumber),
+            (orderDetail.user.email = response.data.email);
         })
         .catch(function (error) {
           console.log(error);
@@ -223,7 +240,18 @@ export default {
         currency: "VND",
       });
     },
-    closePopupDetail(){
+    formatStatus(x) {
+      switch (x) {
+        case -1:
+          return "Đã hủy";
+        case 0:
+          return "Chờ xử lí";
+        case 1:
+          return "Đã xác nhận";
+      }
+    },
+    closePopupDetail() {
+      this.findAllOrders();
       this.orderDetail = {
         oid: "",
         user: {
@@ -238,9 +266,9 @@ export default {
         totalPrice: 0,
         status: 0,
         books: [],
-      }
+      };
       this.isShowDetail = false;
-    }
+    },
   },
   mounted() {
     this.findAllOrders();
@@ -250,7 +278,7 @@ export default {
 <style scoped>
 .order-detail {
   width: 600px;
-  height: 800px;
+  height: auto;
   background-color: white;
   position: absolute;
   margin: 5px 20%;

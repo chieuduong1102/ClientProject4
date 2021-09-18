@@ -11,7 +11,7 @@
               alt="logo"
             />
             <br />
-            <h4 id="text-branch">HO BOOKSTORE</h4>
+            <b id="text-branch">HO BOOKSTORE</b>
             <br />
             <p>
               - Một cuốn sách là một giấc mơ mà bạn cầm trong tay -
@@ -34,7 +34,7 @@
               <strong> Giao hàng: </strong> Vì tình hình dịch COVID-19 HObookstore nhận đặt hàng trực tuyến và giao hàng tận nơi. KHÔNG hỗ trợ đặt mua và nhận hàng trực tiếp tại văn phòng cũng như tất cả Hệ Thống Fahasa trên toàn quốc. 
               <table id="tableMXH">
                 <tr>
-                  <td>Kết nối với chúng tôi:</td>
+                  <td>Kết nối:</td>
                   <td>
                     <v-btn class="mx" fab small>
                       <v-icon style="color: #3867d6">mdi-facebook</v-icon>
@@ -249,17 +249,17 @@ export default {
 }
 
 .address-store {
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .service-support {
-  margin-top: 40px;
+  margin-top: 160px;
   padding-left: 80px;
   color: #d2dae2 !important;
 }
 
 .tilte-s-s {
-  font-size: 1.3rem;
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
@@ -267,7 +267,7 @@ export default {
   text-decoration: none;
   color: #d2dae2 !important;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
 }
 
 .service-support > ul > li > a:hover {
@@ -306,7 +306,7 @@ export default {
 }
 
 #tableSS tr td > img {
-  height: 50px;
+  height: 30px;
   width: auto;
 }
 

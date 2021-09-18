@@ -16,7 +16,7 @@
               <h1>Register Success</h1>
               <hr style="width: 50%; margin: auto" />
               <br />
-              <router-link to="Login">
+              <router-link to="LoginClient">
                 <button class="btn btn-primary" id="btnLoginNotify">
                   Login
                 </button>

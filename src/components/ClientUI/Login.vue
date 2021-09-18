@@ -44,7 +44,7 @@
               </div>
               <div class="form-group text-center">
                 Don't have client's account?
-                <router-link to="Register"><span> Register!</span></router-link>
+                <router-link to="RegisterClient"><span> Register!</span></router-link>
               </div>
             </form>
           </div>
