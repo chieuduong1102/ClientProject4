@@ -3,8 +3,24 @@
     <div id="content-order-detail">
       <p>{{ getOrderDetail }}</p>
       <h3><fa-icon icon="file-alt" /> Thông tin đơn hàng</h3>
-      <hr>
+      <hr />
       <table>
+        <tr>
+          <td class="td-item">Họ và tên người nhận:</td>
+          <td class="td-detail">{{ getOrderDetail.user.fullname }}</td>
+        </tr>
+        <tr>
+          <td class="td-item">Số điện thoại:</td>
+          <td class="td-detail">{{ getOrderDetail.user.phonenumber }}</td>
+        </tr>
+        <tr>
+          <td class="td-item">Họ và tên người nhận:</td>
+          <td class="td-detail">{{ getOrderDetail.user.fullname }}</td>
+        </tr>
+        <tr>
+          <td class="td-item">Họ và tên người nhận:</td>
+          <td class="td-detail">{{ getOrderDetail.user.fullname }}</td>
+        </tr>
         <tr>
           <td class="td-item">Họ và tên người nhận:</td>
           <td class="td-detail">{{ getOrderDetail.user.fullname }}</td>
@@ -29,10 +45,10 @@ export default {
 };
 </script>
 <style scoped>
-#content-order-detail{
+#content-order-detail {
   margin: 2vh 1vw;
 }
-table{ 
+table {
   width: 100%;
   border: 1px solid black;
 }
@@ -41,11 +57,10 @@ table tr td {
   border: 1px solid black;
 }
 
-.td-item{
+.td-item {
   width: 40%;
   font-weight: bold;
 }
-.td-detail{
-  
+.td-detail {
 }
 </style>
