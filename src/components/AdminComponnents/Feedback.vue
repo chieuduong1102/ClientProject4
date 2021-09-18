@@ -1,16 +1,15 @@
 <template>
   <div class="feedback">
-    <h1>{{getName}}</h1>
-    <button class="btn btn-primary" @click="updateName()">Change</button>
+    <h1>{{getOrderDetail}}</h1>
   </div>
 </template>
 <script>
 // import axios from "axios";
 // const API_URL = "http://localhost:8088/";
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import {mapGetters } from 'vuex'
 export default {
   computed: {
-    ...mapGetters(['getName'])
+    ...mapGetters(['getOrderDetail'])
   },
   data() {
     return {
@@ -18,8 +17,8 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['setName']),
-    ...mapActions(['updateName'])
+    // ...mapMutations(['setName']),
+    // ...mapActions(['updateName'])
   },
   mounted() {
       

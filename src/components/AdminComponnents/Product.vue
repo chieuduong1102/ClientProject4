@@ -1073,7 +1073,7 @@ input[type="date"] {
   color: red;
 }
 #product-detail-display {
-  height: 120vh;
+  height: 130vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.3);
   position: absolute;

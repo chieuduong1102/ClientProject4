@@ -10,21 +10,27 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state : {
-        name : "HO BookStore"
+        orderDetail : {}
     },
     getters : {
-        getName: function(state){
-            return state.name;
+        getOrderDetail: function(state){
+            return state.orderDetail;
         }
     },
     mutations: {
-        setName(state, name){
-            state.name = name;
+        setOrderDetail(state, orderDetail){
+            state.orderDetail = orderDetail;
         }
     },
     actions: {
-        updateName(context){
-            context.commit('setName','Cửa hàng sách')
-        }
+        changeOrderDetail(context, orderDetail){
+            console.log(orderDetail);
+            context.commit('setOrderDetail',orderDetail)
+            
+        },
+        // changeOrderDetail(){
+        //     //context.commit('setOrderDetail',orderDetail)
+        //     console.log("changeOrderDetail")
+        // }
     }
 });

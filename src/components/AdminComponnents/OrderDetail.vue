@@ -1,47 +1,51 @@
 <template>
   <div class="container detail">
-    <h1>{{ orderId }}</h1>
-    <h1>{{ userName }}</h1>
-    <h2></h2>
-    <p>{{ orderDetail }}</p>
+    <div id="content-order-detail">
+      <p>{{ getOrderDetail }}</p>
+      <h3><fa-icon icon="file-alt" /> Thông tin đơn hàng</h3>
+      <hr>
+      <table>
+        <tr>
+          <td class="td-item">Họ và tên người nhận:</td>
+          <td class="td-detail">{{ getOrderDetail.user.fullname }}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 <script>
 // import axios from "axios";
 // const API_URL = "http://localhost:8088/";
+import { mapGetters } from "vuex";
 export default {
-  props: {
-    orderId: Number,
-    userName: String,
-  },
   data() {
-    return {
-      orderList: [],
-      orderDetail: {
-        oid: "",
-        user: {
-          username: "",
-          fullname: "",
-          phonenumber: "",
-          email: "",
-        },
-        deliveryAddress: "",
-        timeOrder: "",
-        amount: "",
-        totalPrice: 0,
-        books: [],
-      },
-    };
+    return {};
   },
-  methods: {
-    
+  methods: {},
+  computed: {
+    ...mapGetters(["getOrderDetail"]),
   },
-  mounted() {
-    // this.getOrderDetailByOid();
-    //   this.getBookByBid();
-    //   this.findCustomerInformation();
-  },
+  mounted() {},
 };
 </script>
 <style scoped>
+#content-order-detail{
+  margin: 2vh 1vw;
+}
+table{ 
+  width: 100%;
+  border: 1px solid black;
+}
+
+table tr td {
+  border: 1px solid black;
+}
+
+.td-item{
+  width: 40%;
+  font-weight: bold;
+}
+.td-detail{
+  
+}
 </style>

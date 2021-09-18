@@ -2,18 +2,26 @@
   <div class="order">
     <h1>Danh sách đơn hàng</h1>
     <hr />
-    <h1>{{ orderDetail }}</h1>
-    <div class="order-detail" v-show="isShowDetail">
-      <fa-icon
-        icon="times"
-        id="icon-close"
-        @click="isShowDetail = false"
-      ></fa-icon>
-      <br />
-      <OrderDetail
-        :orderId="orderDetail.oid"
-        :userName="orderDetail.username"
-      />
+    <h3>{{ orderDetail }}</h3>
+    <div class="div-order-detail" v-show="isShowDetail">
+      <div class="order-detail">
+        <fa-icon
+          icon="times"
+          id="icon-close"
+          @click="closePopupDetail()"
+        ></fa-icon>
+        <br />
+        <OrderDetail />
+        <!-- <OrderDetail
+          :orderId="order.oid"
+          :userName="order.userName"
+          :timeOrder="order.timeOrder"
+          :deliveryAddress="order.deliveryAddress"
+          :totalPrice="order.totalPrice"
+          :note="order.note"
+          :status="order.status"
+        /> -->
+      </div>
     </div>
     <v-app id="inspire">
       <v-card>
@@ -46,7 +54,7 @@
                   dark
                   small
                   color="blue"
-                  @click="showDetail(row.item.oid, row.item.userName)"
+                  @click="showDetail(row.item.oid)"
                 >
                   <v-icon dark>mdi-information</v-icon>
                 </v-btn>
@@ -78,6 +86,7 @@
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 import OrderDetail from "./OrderDetail.vue";
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -103,18 +112,23 @@ export default {
         { text: "Xác nhận" },
       ],
       orderList: [],
+      order: {},
       orderDetail: {
-        oid: 0,
-        fullname: "",
+        oid: "",
+        user: {
+          username: "",
+          fullname: "",
+          phonenumber: "",
+          email: "",
+        },
+        deliveryAddress: "",
+        timeOrder: "",
+        note: "",
+        totalPrice: 0,
+        status: 0,
         books: [],
-        address: "",
-        totalPrice: "",
       },
-      book: {
-        titleBook: "",
-        amount: 0,
-        price: 0,
-      },
+      book: {},
       comfirmOrder: true,
       cancelOrder: false,
       isShowDetail: false,
@@ -126,19 +140,82 @@ export default {
         .get(API_URL + "order/getOrderList")
         .then((response) => {
           this.orderList = response.data;
-          this.getOrderDetailByOid(response.data[1].oid);
-          this.findCustomerInformation(response.data[1].userName);
-          this.orderDetail.address = response.data[1].deliveryAddress;
-          this.orderDetail.totalPrice = response.data[1].totalPrice;
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    showDetail: function (oid, userName) {
+    getOrderByOid: function (oid) {
+      axios
+        .get(API_URL + "order/getOrder?oid=" + oid)
+        .then((response) => {
+          this.order = response.data;
+          this.orderDetail.oid = oid;
+          this.orderDetail.user.username = this.order.userName;
+          this.orderDetail.timeOrder = this.order.timeOrder;
+          this.orderDetail.deliveryAddress = this.order.deliveryAddress;
+          this.orderDetail.totalPrice = this.order.totalPrice;
+          this.orderDetail.note = this.order.note;
+          this.getOrderDetailByOid(this.orderDetail);
+          this.findCustomerInformation(this.orderDetail);
+          //console.log(this.order);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    showDetail: function (oid) {
       this.isShowDetail = true;
-      this.orderDetail.oid = oid;
-      this.orderDetail.username = userName;
+      this.getOrderByOid(oid);
+      this.changeOrderDetail(this.orderDetail);
+    },
+    ...mapActions(['changeOrderDetail']),
+    getOrderDetailByOid(orderDetail) {
+      axios
+        .get(API_URL + "order/getOrderDetail?oid=" + orderDetail.oid)
+        .then((response) => {
+          for (let index = 0; index < response.data.length; index++) {
+            let book = {
+              titleBook: "",
+              author: "",
+              price: 0,
+              amount: 0,
+            };
+            book.amount = response.data[index].amount;
+            orderDetail.books.push(book);
+            this.getBookByBid(response.data[index].bid, book);
+          }
+          //console.log(response.data);
+        })
+        // .then( this.findCustomerInformation())
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    getBookByBid(bid, book) {
+      axios
+        .get(API_URL + "book/bookInfo?bid=" + bid)
+        .then((response) => {
+          book.titleBook = response.data.titleBook;
+          book.author = response.data.author;
+          book.price = response.data.price;
+          //console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    findCustomerInformation(orderDetail) {
+      axios
+        .get(API_URL + "user/userInfo?user=" + orderDetail.user.username)
+        .then((response) => {
+          orderDetail.user.fullname = response.data.fullname,
+          orderDetail.user.phonenumber  = response.data.phonenumber,
+          orderDetail.user.email  = response.data.email
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
     formatPrice(value) {
       return value.toLocaleString("it-IT", {
@@ -146,51 +223,24 @@ export default {
         currency: "VND",
       });
     },
-    getOrderDetailByOid(oid) {
-      axios
-        .get(API_URL + "order/getOrderDetail?oid=" + oid)
-        .then((response) => {
-          this.orderDetail.oid = oid;
-          let list = response.data;
-          for (let index = 0; index < list.length; index++) {
-            this.getBookByBid(list[index].bid);
-            //this.orderList.books[index].amount = list[index].amount;
-          }
-          console.log(response.data);
-        })
-        // .then( this.findCustomerInformation())
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    getBookByBid(bid) {
-      axios
-        .get(API_URL + "book/bookInfo?bid=" + bid)
-        .then((response) => {
-          let book = {
-            amount: 0,
-            titleBook : "",
-            price: 0,
-          }
-          book.titleBook = response.data.titleBook;
-          book.price = response.data.price;
-          this.orderDetail.books.push(book);
-          console.log(response.data.titleBook);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
-    findCustomerInformation(username) {
-      axios
-        .get(API_URL + "user/userInfo?user=" + username)
-        .then((response) => {
-          this.orderDetail.fullname = response.data.fullname;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    },
+    closePopupDetail(){
+      this.orderDetail = {
+        oid: "",
+        user: {
+          username: "",
+          fullname: "",
+          phonenumber: "",
+          email: "",
+        },
+        deliveryAddress: "",
+        timeOrder: "",
+        note: "",
+        totalPrice: 0,
+        status: 0,
+        books: [],
+      }
+      this.isShowDetail = false;
+    }
   },
   mounted() {
     this.findAllOrders();
@@ -199,16 +249,21 @@ export default {
 </script>
 <style scoped>
 .order-detail {
-  width: 82vw;
-  height: 60vh;
+  width: 600px;
+  height: 800px;
   background-color: white;
   position: absolute;
-  z-index: 10;
-  -webkit-box-shadow: 0px 0px 5px 200px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0px 0px 5px 200px rgba(0, 0, 0, 0.5);
-  box-shadow: 0px 0px 5px 200px rgba(0, 0, 0, 0.5);
+  margin: 5px 20%;
 }
-
+.div-order-detail {
+  width: 100vw;
+  height: 130vh;
+  background-color: rgba(0, 0, 0, 0.376);
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  z-index: 10;
+}
 #icon-close {
   cursor: pointer;
   font-size: 2rem;
