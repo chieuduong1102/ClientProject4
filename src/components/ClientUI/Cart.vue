@@ -18,74 +18,63 @@
         </div>
       </div>
     </div>
-    <div class="shopping_cart_area">
+    <div v-if="itemsCart == null || itemsCart.length == 0">
+      <div class="hastech-404-content" style="text-align: center">
+        <h2>Cart is empty !!!</h2>
+      </div>
+    </div>
+    <div
+      v-if="itemsCart != null && itemsCart.length != 0"
+      class="shopping_cart_area"
+    >
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="shopping-cart-table">
               <table class="cart_items">
                 <tr>
-                  <th>Remove</th>
-                  <th>Image</th>
-                  <th>Product Name</th>
-                  <th>Edit</th>
-                  <th>Unit Price</th>
-                  <th>Quantity</th>
-                  <th>Subtotal</th>
+                  <th>Xoá</th>
+                  <th>Ảnh mô tả</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Đơn giá</th>
+                  <th>Số lượng</th>
+                  <th>Thành tiền</th>
                 </tr>
-                <tr>
+                <tr v-for="item in itemsCart" :key="item.bid">
                   <td>
-                    <a href="#"
+                    <img
+                      class="img-fluid img-product"
+                      src="../../assets/css/img/arrow/btn_trash.gif"
+                      @click="removeItem(item.bid)"
+                    />
+                  </td>
+                  <td>
+                    <router-link
+                      :to="{ path: 'ProductDetail', query: { bid: item.bid } }"
                       ><img
-                        src="../../assets/css/img/arrow/btn_trash.gif"
+                        class="img-fluid img-product"
+                        :src="item.image"
                         alt=""
-                    /></a>
+                    /></router-link>
                   </td>
                   <td>
-                    <a href="#"
-                      ><img src="../../assets/css/img/product/pr6.png" alt=""
-                    /></a>
+                    <router-link
+                      :to="{ path: 'ProductDetail', query: { bid: item.bid } }"
+                      >{{ item.title }}</router-link
+                    >
                   </td>
-                  <td><a href="#">Pellentesque hendrerit</a></td>
-                  <td><a href="#">Edit</a></td>
-                  <td>$8.00</td>
+                  <td>{{ formatPrice(item.price) }}</td>
                   <td>
                     <input
-                      name="cart[390][qty]"
-                      value="1"
-                      size="4"
+                      type="number"
+                      @change="changeQuantity(item.bid, $event.target.value)"
+                      :value="item.quantity"
                       title="Qty"
+                      min="1"
                       class="input-text qty"
                     />
                   </td>
-                  <td>$8.00</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="#"
-                      ><img
-                        src="../../assets/css/img/arrow/btn_trash.gif"
-                        alt=""
-                    /></a>
-                  </td>
-                  <td>
-                    <a href="#"
-                      ><img src="../../assets/css/img/product/pr7.png" alt=""
-                    /></a>
-                  </td>
-                  <td><a href="#">Pellentesque hendrerit</a></td>
-                  <td><a href="#">Edit</a></td>
-                  <td>$7.00</td>
-                  <td>
-                    <input
-                      name="cart[390][qty]"
-                      value="1"
-                      size="4"
-                      title="Qty"
-                      class="input-text qty"
-                    />
-                  </td>
-                  <td>$12.00</td>
+                  <td>{{ formatPrice(item.price * item.quantity) }}</td>
                 </tr>
               </table>
             </div>
@@ -93,63 +82,51 @@
         </div>
       </div>
     </div>
-    <div class="row button_cart">
-	<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
+    <div
+      v-if="itemsCart != null && itemsCart.length != 0"
+      class="row button_cart"
+    >
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12"></div>
       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <div class="shopping_button">
-          <button type="button" title="shop">Continue Shopping</button>
+          <a href="Shop">
+            <button type="button" title="shop">Tiếp tục mua sắm</button>
+          </a>
         </div>
         <div class="shopping_button">
-          <button type="button" title="shop">Clear Shopping Cart</button>
+          <button @click="clearCart()" type="button" title="shop">
+            Xoá toàn bộ
+          </button>
         </div>
       </div>
     </div>
     <!--End Shopping Cart top area -->
     <!--Start Estimate Shipping,Discount,Total checkout area -->
-    <div class="cart-collaterals-item">
+    <div
+      v-if="itemsCart != null && itemsCart.length != 0"
+      class="cart-collaterals-item"
+    >
       <div class="container">
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <div class="shopping_details_des">
-              <h2>Estimate Shipping and Tax</h2>
-              <h3>Enter your destination to get shipping and tax.</h3>
+              <h2>Địa điểm giao hàng</h2>
+              <h3>Vui lòng nhập địa chỉ giao hàng của bạn.</h3>
               <div class="shopping_form">
-                <h4>Country<span>*</span></h4>
-                <select
-                  name="country_id"
-                  id="country"
-                  class="validate-select"
-                  title="Country"
-                >
-                  <option value="AF">Afghanistan</option>
-                  <option value="ZM">Zambia</option>
-                  <option value="ZW">Zimbabwe</option>
-                </select>
-                <h4>State/Province</h4>
-                <select
-                  id="region_id"
-                  name="region_id"
-                  title="State/Province"
-                  class="required-entry validate-select"
-                >
-                  <option value="">
-                    Please select region, state or province
-                  </option>
-                  <option value="1">Alabama</option>
-                  <option value="2">Wyoming</option>
-                </select>
-                <h4>Zip/Postal Code</h4>
+                <h4>Địa chỉ<span>*</span></h4>
                 <input
                   class="input-text validate-postcode"
                   type="text"
-                  name="estimate_postcode"
+                  name="location_delivery"
                   value=""
                 />
-                <div class="review_button product_tag_add">
-                  <button type="submit" title="Submit Review" class="button">
-                    Get a Quote
-                  </button>
-                </div>
+                <h4>Ghi chú</h4>
+                <input
+                  class="input-text validate-postcode"
+                  type="text"
+                  name="note"
+                  value=""
+                />
               </div>
             </div>
           </div>
@@ -157,18 +134,14 @@
             <div class="total_price">
               <table class="total_rate">
                 <tr>
-                  <td>Subtotal</td>
-                  <td>$30.00</td>
-                </tr>
-                <tr>
-                  <th>Grand Total</th>
-                  <th>$19.00</th>
+                  <th>Tổng đơn hàng</th>
+                  <th>{{ totalOrder() }}</th>
                 </tr>
               </table>
             </div>
             <div class="check_out_simble review_button">
               <button type="submit" title="Submit Review" class="button">
-                Checkout
+                Thanh toán
               </button>
               <h2><a href="">Checkout with Multiple Addresses</a></h2>
             </div>
@@ -185,8 +158,37 @@ import HeaderHome from "../ClientComponents/HeaderHome.vue";
 import FooterHome from "../ClientComponents/FooterHome.vue";
 
 export default {
-  setup() {
-    return {};
+  data() {
+    return {
+      itemsCart: JSON.parse(window.localStorage.getItem("cart")),
+    };
+  },
+  methods: {
+    removeItem(bid) {
+      this.$store.commit("removeItem", bid);
+      this.itemsCart = JSON.parse(window.localStorage.getItem("cart"));
+    },
+    clearCart() {
+      this.$store.commit("clearCart");
+      this.itemsCart = JSON.parse(window.localStorage.getItem("cart"));
+    },
+    changeQuantity(bid, quantity) {
+      this.$store.commit("changeQuantity", { bid, quantity });
+      this.itemsCart = JSON.parse(window.localStorage.getItem("cart"));
+    },
+    totalOrder() {
+      let totalItem = 0;
+      for (let i = 0; i < this.itemsCart.length; i++) {
+        totalItem += this.itemsCart[i]["quantity"] * this.itemsCart[i]["price"];
+      }
+      return this.formatPrice(totalItem);
+    },
+    formatPrice(value) {
+      return value.toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      });
+    },
   },
   components: {
     HeaderHome,
@@ -202,8 +204,14 @@ h2 {
 .shopping_cart_area {
   margin-top: 0px;
 }
-.button_cart{
-	margin-top: 20px;
-	text-align: center;
+.button_cart {
+  margin-top: 20px;
+  text-align: center;
+}
+.hastech-404-content h2 {
+  letter-spacing: 0px !important;
+}
+img {
+  cursor: pointer;
 }
 </style>

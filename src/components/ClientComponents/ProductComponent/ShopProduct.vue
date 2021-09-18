@@ -8,6 +8,7 @@
       <div class="product_list">
         <div class="single_product repomsive_768">
           <ProductDisplay
+            :bookDetail="product"
             :bid="product.bid"
             :titleBook="product.titleBook"
             :price="product.price"
@@ -21,17 +22,14 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="blog_pagination" v-if="getItems.length > 0">
-          <ul class="pagination_list">
-            <paginate
-              :page-count="getPageCount"
-              :page-range="3"
-              :margin-pages="2"
-              :click-handler="clickCallback"
-              :prev-text="this.prev"
-              :next-text="this.next"
-            >
-            </paginate>
-          </ul>
+          <paginate
+            class="pagination_list"
+            :page-count="getPageCount"
+            :click-handler="clickCallback"
+            :prev-text="this.prev"
+            :next-text="this.next"
+          >
+          </paginate>
         </div>
         <div class="emptyProduct" v-else>
           <div class="col-lg-12">
@@ -60,10 +58,12 @@ export default {
     valuePrice: Array,
     categoryIdSearch: Number,
     perPage: Number,
+    getAll: Boolean
   },
   data() {
     return {
       products: [],
+      productsSearch: [],
       currentPage: 1,
       next: "<i class='fa fa-caret-right'></i>",
       prev: "<i class='fa fa-caret-left'></i>",
@@ -89,22 +89,11 @@ export default {
     getAllBook: function () {
       axios.get(API_URL + "book/getAllBook").then((response) => {
         this.products = response.data;
-        console.log(999996);
+        this.productsSearch = response.data;
       });
     },
     getProductWithPrice: function () {
-      axios
-        .get(
-          API_URL +
-            "book/getAllBookByPrice?price=" +
-            this.valuePrice[0] +
-            "to" +
-            this.valuePrice[1]
-        )
-        .then((response) => {
-          this.products = response.data;
-          console.log(999997);
-        });
+      this.products = this.productsSearch.filter(product => product.price > this.valuePrice[0] && product.price < this.valuePrice[1]);
     },
     sortByName: function (methodSort) {
       if (methodSort) {
@@ -136,14 +125,14 @@ export default {
         .get(API_URL + "book/getAllBookByCategory?cid=" + cid)
         .then((response) => {
           this.products = response.data;
-          console.log(999998);
+          this.productsSearch = response.data;
         });
+        this.products = this.productsSearch.filter(product => product.price > this.valuePrice[0] && product.price < this.valuePrice[1]);
     },
   },
   mounted() {
+    this.getAllBook();
     if (!isNaN(this.$route.query.cid)) {
-      // this.categoryIdSearch = this.$route.query.cid;
-      console.log(15, this.$route.query.cid);
       this.searchWithCategoryId(this.$route.query.cid);
     }
   },
@@ -171,14 +160,18 @@ export default {
     },
     categoryIdSearch: function () {
       this.$router.push(this.$route.path);
-      console.log(this.categoryIdSearch);
       if (this.categoryIdSearch != -1) {
         this.searchWithCategoryId(this.categoryIdSearch);
       }
     },
+    getAll: function () {
+      if(this.getAll){
+        this.getAllBook();
+      }
+    },
     perPage: function () {
       this.currentPage = 1;
-    },
+    }
   },
 };
 </script>

@@ -25,6 +25,11 @@
             <div class="catagory_price_color">
               <div class="catagory_area">
                 <h2>Thể loại</h2>
+                <ul class="catagory" :class="getAll == true ? 'active' : ''">
+                <li @click="setAll()"><a
+                      ><i class="fa fa-angle-right"></i
+                      >Tất cả</a></li>
+                      </ul>
                 <ul
                   class="catagory"
                   v-for="category in categories" :class="categoryIdSearch == category.cid ? 'active' : ''" :key="category.id"
@@ -192,7 +197,7 @@
                 ></a>
               </div>
               <div class="tab-content tab_content_style">
-                <Shop-Product :sortBy="valueSort" :methodSort="methodSort" :valuePrice="value" :categoryIdSearch="categoryIdSearch" :perPage="perPage"/>
+                <Shop-Product :sortBy="valueSort" :methodSort="methodSort" :valuePrice="value" :categoryIdSearch="categoryIdSearch" :perPage="perPage" :getAll="getAll"/>
               </div>
             </div>
           </div>
@@ -217,14 +222,15 @@ const API_URL = "http://localhost:8088/";
 export default {
   data() {
     return {
-      value: [0, 500000],
+      value: [0, 400000],
       pages: [9, 12, 24],
       sortBy: ["Position", "Name", "Price"],
       methodSort: true,
       categories: [],
       valueSort: 'Position',
       categoryIdSearch: -1,
-      perPage: 9
+      perPage: 9,
+      getAll: true
     };
   },
   methods: {
@@ -233,11 +239,16 @@ export default {
     },
     searchWithCategory(categoryID) {
       this.categoryIdSearch = categoryID;
+      this.getAll = false;
     },
     getgetAllCategories: function () {
       axios.get(API_URL + "category/getAllCategories").then((response) => {
         this.categories = response.data;
       });
+    },
+    setAll: function () {
+      this.getAll = true;
+      this.categoryIdSearch = -1;
     }
   },
   components: {
@@ -249,7 +260,7 @@ export default {
   },
   created() {
     this.min = 0;
-    this.max = 500000;
+    this.max = 400000;
     this.formatter = (value) => `${value} VNĐ`;
   },
   mounted() {
