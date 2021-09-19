@@ -30,13 +30,11 @@
               <p>Cảm ơn quý khách đã mua sắm cùng HO Bookstore</p>
               <p>Mọi thắc mắc hay cần trợ giúp hay liên hệ với chúng tôi!</p>
               <p>Rất hân hạnh được phục vụ!</p>
-              <br><br>
+              <br /><br />
               <a href="/HomePage" class="go-home">go home</a>
             </div>
             <div class="footer-like">
-              <p>
-                Hẹn gặp lại quý khách!
-              </p>
+              <p>Hẹn gặp lại quý khách!</p>
             </div>
           </div>
         </div>
@@ -226,13 +224,9 @@ export default {
           this.errorAddress = "Xin hãy nhập địa chỉ giao hàng";
           return false;
         }
-        let today = new Date();
-        let date =
-          today.getFullYear() +
-          "-" +
-          (today.getMonth() + 1) +
-          "-" +
-          today.getDate();
+        let d = new Date();
+        let date = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+                    d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
         let newOrder = {
           timeOrder: date,
           userName: this.userName,
@@ -252,7 +246,7 @@ export default {
               let item = {
                 bid: this.itemsCart[i]["bid"],
                 oid: response.data,
-                amount: this.itemsCart[i]["price"],
+                amount: this.itemsCart[i]["quantity"],
               };
 
               axios
