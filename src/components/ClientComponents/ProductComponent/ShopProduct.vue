@@ -165,11 +165,13 @@ export default {
       if (this.categoryIdSearch != -1) {
         this.searchWithCategoryId(this.categoryIdSearch);
       }
+      this.currentPage = 1;
     },
     getAll: function () {
       if(this.getAll){
         this.getAllBook();
       }
+      this.currentPage = 1;
     },
     perPage: function () {
       this.currentPage = 1;

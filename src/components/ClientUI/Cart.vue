@@ -233,7 +233,6 @@ export default {
           (today.getMonth() + 1) +
           "-" +
           today.getDate();
-
         let newOrder = {
           timeOrder: date,
           userName: this.userName,
