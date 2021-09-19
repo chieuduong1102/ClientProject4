@@ -26,13 +26,15 @@
               <div class="catagory_area">
                 <h2>Thể loại</h2>
                 <ul class="catagory" :class="getAll == true ? 'active' : ''">
-                <li @click="setAll()"><a
-                      ><i class="fa fa-angle-right"></i
-                      >Tất cả</a></li>
-                      </ul>
+                  <li @click="setAll()">
+                    <a><i class="fa fa-angle-right"></i>Tất cả</a>
+                  </li>
+                </ul>
                 <ul
                   class="catagory"
-                  v-for="category in categories" :class="categoryIdSearch == category.cid ? 'active' : ''" :key="category.id"
+                  v-for="category in categories"
+                  :class="categoryIdSearch == category.cid ? 'active' : ''"
+                  :key="category.id"
                 >
                   <li @click="searchWithCategory(category.cid)">
                     <a
@@ -79,14 +81,21 @@
                   <div class="popular_items">
                     <h2>Đề xuất cho bạn</h2>
                     <div class="conpany_product_details">
-                      <a href="ProductDetail"
-                        ><img
-                          src="../../assets/css/img/banner/banner_left.jpg"
-                          alt=""
-                      /></a>
-                      <h4 class="suggets">
-                        <a href="ProductDetail">Beauty Calla Lily Bouquety</a>
-                      </h4>
+                      <router-link
+                        :to="{
+                          path: 'ProductDetail',
+                          query: { bid: products[8].bid },
+                        }"
+                      >
+                        <a href="#"
+                          ><img
+                            :src="products[8].imageList[0]['nameFile']"
+                            alt=""
+                        /></a>
+                        <h4 class="suggets">
+                          <a href="#">{{ products[8].titleBook }}</a>
+                        </h4>
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -100,54 +109,31 @@
                   </div>
                 </div>
                 <div class="clothing_carousel_list">
-                  <div class="single_clothing_product">
-                    <div class="clothing_item">
-                      <img src="../../assets/css/img/product/pr1.png" alt="" />
-                      <div class="product_clothing_details">
-                        <h2><a href="#">Beauty Calla Lily Bouquety</a></h2>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <p>$13.00</p>
-                      </div>
-                    </div>
-                    <div class="clothing_item">
-                      <img src="../../assets/css/img/product/pr6.png" alt="" />
-                      <div class="product_clothing_details">
-                        <h2><a href="#">Special Bouquet</a></h2>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <p>$12.00</p>
-                      </div>
-                    </div>
-                    <div class="clothing_item">
-                      <img src="../../assets/css/img/product/pr8.png" alt="" />
-                      <div class="product_clothing_details">
-                        <h2><a href="#">Breathtaking Beauty Bouquet</a></h2>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <p>$123.00</p>
-                      </div>
-                    </div>
-                    <div class="clothing_item">
-                      <img src="../../assets/css/img/product/pr8.png" alt="" />
-                      <div class="product_clothing_details">
-                        <h2><a href="#">Breathtaking Beauty Bouquet</a></h2>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <p>$123.00</p>
-                      </div>
+                  <div
+                    class="single_clothing_product"
+                    v-for="(product, index) in highlight"
+                    :key="product.bid"
+                  >
+                    <div class="clothing_item" v-if="index < 4">
+                      <router-link
+                        :to="{
+                          path: 'ProductDetail',
+                          query: { bid: product.bid },
+                        }"
+                      >
+                        <div class="product_clothing_details">
+                          <img :src="product.imageList[0]['nameFile']" alt="" />
+                          <h2>
+                            <a href="#">{{ product.titleBook }}</a>
+                          </h2>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <p>{{ formatPrice(product.price) }}</p>
+                        </div>
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -158,7 +144,12 @@
             <div class="row">
               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="catagory_banner" style="background">
-                  <img src="../../assets/css/img/banner/category.jpg" class="img-fluid" style="height: 225px" alt="" />
+                  <img
+                    src="../../assets/css/img/banner/category.jpg"
+                    class="img-fluid"
+                    style="height: 225px"
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -172,7 +163,7 @@
               </ul>
               <div class="limiter">
                 <label>Show</label>
-                <select v-model="perPage"> 
+                <select v-model="perPage">
                   <option :value="page" :key="page" v-for="page in pages">
                     {{ page }}
                   </option>
@@ -197,7 +188,16 @@
                 ></a>
               </div>
               <div class="tab-content tab_content_style">
-                <Shop-Product :sortBy="valueSort" :methodSort="methodSort" :valuePrice="value" :categoryIdSearch="categoryIdSearch" :perPage="perPage" :getAll="getAll"/>
+                <Shop-Product
+                  :sortBy="valueSort"
+                  :methodSort="methodSort"
+                  :valuePrice="value"
+                  :categoryIdSearch="categoryIdSearch"
+                  :perPage="perPage"
+                  :getAll="getAll"
+                  @cartWasEdited="itemsCart = $event"
+                  :itemsCart="itemsCart"
+                />
               </div>
             </div>
           </div>
@@ -227,10 +227,13 @@ export default {
       sortBy: ["Position", "Name", "Price"],
       methodSort: true,
       categories: [],
-      valueSort: 'Position',
+      valueSort: "Position",
       categoryIdSearch: -1,
       perPage: 9,
-      getAll: true
+      getAll: true,
+      itemsCart: JSON.parse(window.localStorage.getItem("cart")),
+      products: [],
+      highlight: []
     };
   },
   methods: {
@@ -246,10 +249,26 @@ export default {
         this.categories = response.data;
       });
     },
+    getAllBook: function () {
+      axios.get(API_URL + "book/getAllBook").then((response) => {
+        this.products = response.data;
+      });
+    },
+        getBookHot: function () {
+      axios.get(API_URL + "book/getBestSeller").then((response) => {
+        this.highlight = response.data;
+      });
+    },
     setAll: function () {
       this.getAll = true;
       this.categoryIdSearch = -1;
-    }
+    },
+    formatPrice(value) {
+      return value.toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      });
+    },
   },
   components: {
     HeaderHome,
@@ -262,9 +281,15 @@ export default {
     this.min = 0;
     this.max = 400000;
     this.formatter = (value) => `${value} VNĐ`;
+    if (!isNaN(this.$route.query.cid)) {
+      this.categoryIdSearch = this.$route.query.cid;
+      this.getAll = false;
+    }
   },
   mounted() {
     this.getgetAllCategories();
+    this.getAllBook();
+    this.getBookHot();
   },
 };
 </script>
@@ -275,7 +300,8 @@ export default {
 .suggets {
   text-align: center;
 }
-ul.catagory.active a, ul.catagory.active li{
+ul.catagory.active a,
+ul.catagory.active li {
   color: red;
 }
 </style>

@@ -42,7 +42,7 @@ export default {
     cat: String,
     rating: Number,
     imageName: String,
-    bookDetail: JSON
+    bookDetail: JSON,
   },
   data() {
     return {
@@ -58,7 +58,6 @@ export default {
       });
     },
     addToCart(item, quantity) {
-      // console.log(2323);
       this.$store.commit("addToCart", { item, quantity });
     },
   },

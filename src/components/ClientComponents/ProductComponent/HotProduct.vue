@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     getBookHot: function () {
-      axios.get(API_URL + "book/getBookHot").then((response) => {
+      axios.get(API_URL + "book/getBestSeller").then((response) => {
         this.products = response.data;
       });
     },
