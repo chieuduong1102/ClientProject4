@@ -11,7 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         orderDetail: {},
-        cart: window.localStorage.getItem('cart') != null ? window.localStorage.getItem('cart') : [],
+        cart: window.localStorage.getItem('cart') != null ? JSON.parse(window.localStorage.getItem('cart')) : [],
     },
     getters: {
         getOrderDetail: function (state) {
@@ -43,6 +43,7 @@ export default new Vuex.Store({
             }
 
             window.localStorage.setItem('cart', JSON.stringify(arrayItemCart));
+            state.cart = arrayItemCart;
         },
         removeItem(state, bid) {
             let arrayItemCart = JSON.parse(window.localStorage.getItem('cart'));
@@ -51,9 +52,11 @@ export default new Vuex.Store({
                 arrayItemCart = [];
             }
             window.localStorage.setItem('cart', JSON.stringify(arrayItemCart));
+            state.cart = arrayItemCart;
         },
-        clearCart() {
+        clearCart(state) {
             window.localStorage.removeItem('cart');
+            state.cart = [];
         },
         changeQuantity(state, { bid, quantity }) {
             let arrayItemCart = JSON.parse(window.localStorage.getItem('cart'));
@@ -64,6 +67,7 @@ export default new Vuex.Store({
                 }
             }
             window.localStorage.setItem('cart', JSON.stringify(arrayItemCart));
+            state.cart = arrayItemCart;
         },
     },
     actions: {
