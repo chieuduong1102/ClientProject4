@@ -90,6 +90,7 @@ export default {
       axios.get(API_URL + "book/getAllBook").then((response) => {
         this.products = response.data;
         this.productsSearch = response.data;
+        this.getProductWithPrice();
       });
     },
     getProductWithPrice: function () {
@@ -126,14 +127,15 @@ export default {
         .then((response) => {
           this.products = response.data;
           this.productsSearch = response.data;
+          this.getProductWithPrice();
         });
-        this.products = this.productsSearch.filter(product => product.price > this.valuePrice[0] && product.price < this.valuePrice[1]);
     },
   },
   mounted() {
-    this.getAllBook();
     if (!isNaN(this.$route.query.cid)) {
       this.searchWithCategoryId(this.$route.query.cid);
+    }else {
+      this.getAllBook();
     }
   },
   watch: {
@@ -163,11 +165,13 @@ export default {
       if (this.categoryIdSearch != -1) {
         this.searchWithCategoryId(this.categoryIdSearch);
       }
+      this.currentPage = 1;
     },
     getAll: function () {
       if(this.getAll){
         this.getAllBook();
       }
+      this.currentPage = 1;
     },
     perPage: function () {
       this.currentPage = 1;

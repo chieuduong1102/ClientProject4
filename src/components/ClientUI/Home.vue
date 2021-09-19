@@ -1,9 +1,12 @@
 <template>
   <div class="home">
-    <HeaderHome />
+    <HeaderHome/>
     <Slider />
     <div class="container-fluid homeProduct">
-      <div class="container text-center" style="width: 80%; margin auto; background-color: white">
+      <div
+        class="container text-center"
+        style="width: 80%; margin auto; background-color: white"
+      >
         <Branch />
         <br />
         <Product />

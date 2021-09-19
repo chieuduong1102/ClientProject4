@@ -25,19 +25,17 @@
             <div class="about_hope_text">
               <h1>WELCOME TO <strong>HO BookStore</strong></h1>
               <p>
-                Lorem ipsum scelerisque molestie id molestie magna ante etiam
-                sollicitudin tempus consectetur conubia, urna eros nunc
-                curabitur viverra rutrum tortor luctus torquent mollis est
-                dictum euismod
+                Chào mừng bạn đến với HO BookStore, chúng tôi chuyên cung cấp những đầu sách mới nhất, bán chạy nhất và đem lại những 
+                sự hài lòng nhất đối với mỗi độc giả.
               </p>
               <ul id="about_hope_details">
                 <li>
-                  <i class="fa fa-angle-right"></i> We have a love for book.
+                  <i class="fa fa-angle-right"></i> Chúng tôi cả tất cả những đầu sách bạn đang tìm.
                 </li>
                 <li>
-                  <i class="fa fa-angle-right"></i> We bring you every book.
+                  <i class="fa fa-angle-right"></i> Chúng tôi giao hàng đến mọi nơi bạn cần.
                 </li>
-                <li><i class="fa fa-angle-right"></i> We bring everywhere.</li>
+                <li><i class="fa fa-angle-right"></i> Chúng tôi đem lại những trải nghiệm tốt nhất cho bạn.</li>
               </ul>
               <div class="about_read_more"></div>
             </div>
@@ -55,10 +53,9 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="about_skills">
-              <h2>OUR <strong> SKILL</strong></h2>
+              <h2><strong>THÀNH TỰU</strong></h2>
               <p>
-                Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit
-                aut fugit.
+                Những thành tự mà chúng tôi đã đạt được trong nhiều năm hoạt động.
               </p>
             </div>
           </div>
@@ -72,13 +69,13 @@
                   :rotate="-90"
                   :size="270"
                   :width="8"
-                  value="50"
+                  value="100"
                   color="red"
                 >
-                  <span> 50% </span>
+                  <span> >1000 </span>
                 </v-progress-circular>
               </div>
-              <h2 class="progress-h4">Emploies in Team</h2>
+              <h2 class="progress-h4">Số lượng nhân viên</h2>
             </div>
           </div>
           <!-- single-skill-about end -->
@@ -90,13 +87,13 @@
                   :rotate="-90"
                   :size="270"
                   :width="8"
-                  value="50"
+                  value="100"
                   color="red"
                 >
-                  <span> 50% </span>
+                  <span> >500.000 </span>
                 </v-progress-circular>
               </div>
-              <h2 class="progress-h4">Product Delivery</h2>
+              <h2 class="progress-h4">Sản phẩm đã bán</h2>
             </div>
           </div>
           <!-- single-skill-about end -->
@@ -108,13 +105,13 @@
                   :rotate="-90"
                   :size="270"
                   :width="8"
-                  value="50"
+                  value="100"
                   color="red"
                 >
-                  <span> 50% </span>
+                  <span> >300.000 </span>
                 </v-progress-circular>
               </div>
-              <h2 class="progress-h4">Worldwide Clients</h2>
+              <h2 class="progress-h4">Số lượng khách hàng</h2>
             </div>
           </div>
         </div>
@@ -125,8 +122,8 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="creative_member_text">
-              <h2>OUR <strong> MEMBER</strong></h2>
-              <p>Florists team with many years of experience.</p>
+              <h2><strong>TEAM PHÁT TRIỂN</strong></h2>
+              <p>5 thành viên trong đội phát triển.</p>
             </div>
           </div>
         </div>

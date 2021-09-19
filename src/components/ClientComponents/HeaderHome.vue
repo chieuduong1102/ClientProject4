@@ -9,7 +9,7 @@
                 class="col-md-3 text-right"
                 style="margin 0; padding: 0; margin-bottom: -50px !important;"
               >
-                <a class="navbar-brand" href="Home">
+                <a class="navbar-brand" href="HomePage">
                   <img
                     src="../../assets/full-logo.png"
                     class="img-fluid"
@@ -23,7 +23,7 @@
                   <div class="col-md-10">
                     <div class="input-group rounded">
                       <input
-                        type="email"
+                        v-model="inputSearch"
                         class="form-control rounded"
                         id="input-home-search"
                         placeholder="Bạn muốn tìm kiểm...?"
@@ -48,7 +48,10 @@
                           @mouseover="displaySmallCart = true"
                           >mdi-shopping</v-icon
                         >
-                        <!-- <div id="amount-product">{{ itemsCart.length }}</div> -->
+                        <div id="amount-product" v-if="this.$store.state.cart != null">
+                          {{ this.$store.state.cart.length }}
+                        </div>
+                        <div id="amount-product" v-else>0</div>
                       </v-btn>
                     </a>
                     <div
@@ -59,7 +62,7 @@
                       <div class="items-in-cart">
                         <div class="shopping-cart-item">
                           <table>
-                            <tr v-for="item in itemsCart" :key="item.bid">
+                            <tr v-for="item in this.$store.state.cart" :key="item.bid">
                               <td style="width: 100px">
                                 <router-link
                                   :to="{
@@ -269,9 +272,7 @@
                     href="#"
                     v-for="(cat, index) in categories"
                     :key="index"
-                  >
-                    {{ cat.categoryName }}</a
-                  >
+                  ><router-link :to="{ path: 'Shop', query: { cid: cat.cid } }"> {{ cat.categoryName }}</router-link> </a> 
                 </div>
               </li>
               <li class="nav-item">
@@ -301,19 +302,16 @@ export default {
     return {
       display: false,
       displaySmallCart: false,
-      amountProduct: 2,
-      amountItem: 1,
       categories: [],
       sessionLoginClient: "",
       isLogined: false,
-      itemsCart: JSON.parse(window.localStorage.getItem("cart")),
       isShowMenuUser: false,
+      inputSearch: ''
     };
   },
   methods: {
     removeItem(bid) {
       this.$store.commit("removeItem", bid);
-      this.itemsCart = JSON.parse(window.localStorage.getItem("cart"));
     },
     toggleDropdown() {
       this.display = !this.display;
