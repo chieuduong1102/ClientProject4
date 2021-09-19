@@ -79,7 +79,7 @@
                 <vue-star-rating
                   text-class="custom-text"
                   :star-size="18"
-                  v-model="bookDetail.rating"
+                  v-model="rating"
                   :read-only="true"
                 ></vue-star-rating>
               </div>
@@ -149,7 +149,7 @@
       </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <RatingFeedbackCustomer />
+      <RatingFeedbackCustomer :bookid="bid" />
     </div>
     <br />
     <Branch />
@@ -172,7 +172,9 @@ export default {
       bookDetail: [],
       imgShow: "",
       bid: this.$route.query.bid,
-      quantity: 1
+      quantity: 1,
+      arrayScore: [],
+      rating: 0,
     };
   },
   methods: {
@@ -201,6 +203,16 @@ export default {
         this.imgShow = this.bookDetail["imageList"][0]["nameFile"];
       });
     },
+    getRatingFeedback: function(){
+      axios.get(API_URL + "feedback/getFeedbackByBid?bid=" + this.bid).then((response) => {
+        let res = response.data;
+        for (let index = 0; index < res.length; index++) {
+          this.arrayScore.push(res[index].scoreRate);
+        }
+        this.rating = Math.round(this.arrayScore.reduce((a,b)=>a+b)/this.arrayScore.length);
+        console.log(this.rating);
+      });
+    },
     addToCart(item, quantity) {
         this.$store.commit('addToCart', {item, quantity});
     }
@@ -215,7 +227,7 @@ export default {
     this.getBookDetail();
     this.checkBid();
     this.getAllBook();
-
+    this.getRatingFeedback();
     //Display in top page
     window.scroll({
       top: 0,

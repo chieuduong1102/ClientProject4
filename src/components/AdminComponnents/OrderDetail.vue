@@ -123,6 +123,5 @@ table tr {
   width: 40%;
   font-weight: bold;
 }
-.td-detail {
-}
+
 </style>
