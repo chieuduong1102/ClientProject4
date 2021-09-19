@@ -2,7 +2,7 @@
   <div class="user-management">
     <HeaderHome />
     <div class="container body-content">
-      <div class="row" style="margin: auto; width: 60%">
+      <div class="row" style="margin: auto;">
         <div class="col-md-3">
           <div class="text-center">
             <img

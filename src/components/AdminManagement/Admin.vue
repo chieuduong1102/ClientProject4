@@ -72,7 +72,7 @@
                   <div class="row">
                       <div class="col-md-12">
                           <div class="content-detail" v-show="this.isShowHome">
-                              <h1>Home</h1>
+                              <Dashboard />
                           </div>
                           <div class="content-detail" v-show="this.isShowProduct" >
                               <Product />
@@ -102,6 +102,7 @@ import Order from "../AdminComponnents/Order.vue";
 import Feedback from "../AdminComponnents/Feedback.vue";
 import AdminAccount from "../AdminComponnents/AdminAcount.vue";
 import UserAccount from "../AdminComponnents/UserAccount.vue";
+import Dashboard from "../AdminComponnents/Dashboard.vue";
 import axios from "axios";
 const API_URL = "http://localhost:8088/";
 export default {
@@ -110,7 +111,8 @@ export default {
     AdminAccount,
     UserAccount,
     Feedback,
-    Order
+    Order,
+    Dashboard
   },
   data() {
     return {
