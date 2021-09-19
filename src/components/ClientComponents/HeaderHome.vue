@@ -69,11 +69,13 @@
                                     path: 'ProductDetail',
                                     query: { bid: item.bid },
                                   }"
-                                  ><img
+                                >
+                                  <img
                                     class="img-fluid img-product"
                                     :src="item.image"
                                     alt=""
-                                /></router-link>
+                                  />
+                                </router-link>
                               </td>
                               <td style="width: 150px">
                                 <router-link
@@ -81,8 +83,9 @@
                                     path: 'ProductDetail',
                                     query: { bid: item.bid },
                                   }"
-                                  >{{ item.title }}</router-link
                                 >
+                                  {{ item.title }}
+                                </router-link>
                                 <br />
                                 Số lượng:
                                 <input
