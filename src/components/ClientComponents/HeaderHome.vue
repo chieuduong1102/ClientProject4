@@ -59,9 +59,13 @@
                       v-show="displaySmallCart"
                       @mouseleave="displaySmallCart = false"
                     >
-                      <div class="items-in-cart">
+                    <div v-if="this.$store.state.cart.length==0">Giỏ hàng của bạn đang trống!
+                      <br>
+                      <v-icon style="color: #eb4d4b;font-size: 4rem">mdi-shopping</v-icon>
+                    </div>
+                      <div class="items-in-cart" v-if="this.$store.state.cart.length != 0">
                         <div class="shopping-cart-item">
-                          <table>
+                          <table >
                             <tr v-for="item in this.$store.state.cart" :key="item.bid">
                               <td style="width: 100px">
                                 <router-link
@@ -106,16 +110,16 @@
                           </table>
                           <hr style="width: 90%; margin: 2px auto 2px auto" />
                         </div>
-                      </div>
-                      <a href="Cart">
+                        <a href="Cart">
                         <button
                           class="btn btn-danger"
                           style="width: 90%; margin-bottom: 5px"
                         >
                           Thanh toán
                         </button>
-                      </a>
+                      </a>                    
                       <br />
+                      </div>
                     </div>
                   </div>
                 </div>

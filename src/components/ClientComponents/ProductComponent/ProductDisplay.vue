@@ -34,21 +34,27 @@
 </template>
 
 <script>
+import axios from "axios";
+const API_URL = "http://localhost:8088/";
 export default {
   props: {
     bid: Number,
     titleBook: String,
     price: Number,
     cat: String,
-    rating: Number,
+    ratingStar: Number,
     imageName: String,
     bookDetail: JSON,
   },
   data() {
     return {
-      ratingStar: 3,
+      rating: 0,
       quantity: 1,
+      arrayScore: [],
     };
+  },
+  mounted(){
+    this.getRatingFeedback();
   },
   methods: {
     formatPrice(value) {
@@ -59,6 +65,16 @@ export default {
     },
     addToCart(item, quantity) {
       this.$store.commit("addToCart", { item, quantity });
+    },
+    getRatingFeedback: function(){
+      axios.get(API_URL + "feedback/getFeedbackByBid?bid=" + this.$props.bid).then((response) => {
+        let res = response.data;
+        for (let index = 0; index < res.length; index++) {
+          this.arrayScore.push(res[index].scoreRate);
+        }
+        this.rating = Math.round(this.arrayScore.reduce((a,b)=>a+b)/this.arrayScore.length);
+        console.log(this.rating);
+      });
     },
   },
 };

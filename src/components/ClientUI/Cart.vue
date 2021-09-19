@@ -18,9 +18,28 @@
         </div>
       </div>
     </div>
-    <div v-if="itemsCart == null || itemsCart.length == 0">
+    <div
+      class="container-fluid"
+      v-if="itemsCart == null || itemsCart.length == 0"
+    >
       <div class="hastech-404-content" style="text-align: center">
-        <h2>Cart is empty !!!</h2>
+        <div class="content">
+          <div class="wrapper-1">
+            <div class="wrapper-2">
+              <h1>Thank you !</h1>
+              <p>Cảm ơn quý khách đã mua sắm cùng HO Bookstore</p>
+              <p>Mọi thắc mắc hay cần trợ giúp hay liên hệ với chúng tôi!</p>
+              <p>Rất hân hạnh được phục vụ!</p>
+              <br><br>
+              <a href="/HomePage" class="go-home">go home</a>
+            </div>
+            <div class="footer-like">
+              <p>
+                Hẹn gặp lại quý khách!
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -199,56 +218,57 @@ export default {
       return totalItem;
     },
     createOrder() {
-      if (this.deliveryAddress == "") {
-        this.errorAddress = "Xin hãy nhập địa chỉ giao hàng";
-        return false;
-      }
-
       let result = null;
-      let today = new Date();
-      let date =
-        today.getFullYear() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getDate();
+      if (this.userName == null) {
+        this.$router.push({ name: "LoginClient" });
+      } else {
+        if (this.deliveryAddress == "") {
+          this.errorAddress = "Xin hãy nhập địa chỉ giao hàng";
+          return false;
+        }
+        let today = new Date();
+        let date =
+          today.getFullYear() +
+          "-" +
+          (today.getMonth() + 1) +
+          "-" +
+          today.getDate();
 
-      let newOrder = {
-        timeOrder: date,
-        userName: this.userName,
-        deliveryAddress: this.deliveryAddress,
-        totalPrice: parseInt(this.totalOrder()),
-        note: this.note,
-        status: 0,
-      };
+        let newOrder = {
+          timeOrder: date,
+          userName: this.userName,
+          deliveryAddress: this.deliveryAddress,
+          totalPrice: parseInt(this.totalOrder()),
+          note: this.note,
+          status: 0,
+        };
+        axios
+          .post(API_URL + "order/create", JSON.stringify(newOrder), {
+            headers: {
+              "content-type": "application/json",
+            },
+          })
+          .then((response) => {
+            for (let i = 0; i < this.itemsCart.length; i++) {
+              let item = {
+                bid: this.itemsCart[i]["bid"],
+                oid: response.data,
+                amount: this.itemsCart[i]["price"],
+              };
 
-      axios
-        .post(API_URL + "order/create", JSON.stringify(newOrder), {
-          headers: {
-            "content-type": "application/json",
-          },
-        })
-        .then((response) => {
-          for (let i = 0; i < this.itemsCart.length; i++) {
-            let item = {
-              bid: this.itemsCart[i]["bid"],
-              oid: response.data,
-              amount: this.itemsCart[i]["price"],
-            };
-
-            axios
-              .post(API_URL + "order/orderdetail", JSON.stringify(item), {
-                headers: {
-                  "content-type": "application/json",
-                },
-              })
-              .then((response) => {
-                result = response.data;
-              });
-          }
-        });
-        this.clearCart();
-
+              axios
+                .post(API_URL + "order/orderdetail", JSON.stringify(item), {
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                })
+                .then((response) => {
+                  result = response.data;
+                  this.clearCart();
+                });
+            }
+          });
+      }
       return result;
     },
     formatPrice(value) {
@@ -281,5 +301,82 @@ h2 {
 }
 img {
   cursor: pointer;
+}
+
+.wrapper-1 {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper-2 {
+  padding: 30px;
+  text-align: center;
+}
+h1 {
+  font-family: "Kaushan Script", cursive;
+  font-size: 4em;
+  letter-spacing: 3px;
+  color: #5892ff;
+  margin: 0;
+  margin-bottom: 20px;
+}
+.wrapper-2 p {
+  margin: 0;
+  font-size: 1.3em;
+  color: #aaa;
+  font-family: "Source Sans Pro", sans-serif;
+  letter-spacing: 1px;
+}
+.go-home {
+  color: #fff;
+  background: #5892ff;
+  border: none;
+  padding: 10px 50px;
+  margin: 30px 0;
+  border-radius: 30px;
+  text-transform: capitalize;
+  box-shadow: 0 10px 16px 1px rgba(174, 199, 251, 1);
+}
+.footer-like {
+  margin-top: auto;
+  background: #d7e6fe;
+  padding: 6px;
+  text-align: center;
+}
+.footer-like p {
+  margin: 0;
+  padding: 4px;
+  color: #6358ff;
+  font-family: "Source Sans Pro", sans-serif;
+  letter-spacing: 1px;
+}
+.footer-like p a {
+  text-decoration: none;
+  color: #6358ff;
+  font-weight: 600;
+}
+
+@media (min-width: 360px) {
+  h1 {
+    font-size: 4.5em;
+  }
+  .go-home {
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 600px) {
+  .content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .wrapper-1 {
+    height: initial;
+    max-width: 620px;
+    margin: 0 auto;
+    margin-top: 50px;
+    box-shadow: 4px 8px 40px 8px rgba(99, 88, 255, 0.2);
+  }
 }
 </style>
