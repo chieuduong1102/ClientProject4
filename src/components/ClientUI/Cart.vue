@@ -115,13 +115,18 @@
               <div class="shopping_form">
                 <h4>Địa chỉ<span>*</span></h4>
                 <input
+                  v-model="deliveryAddress"
                   class="input-text validate-postcode"
                   type="text"
-                  name="location_delivery"
                   value=""
                 />
+                <div style="color: red" v-if="deliveryAddress == ''">
+                  {{ errorAddress }}<br />
+                </div>
+                <br />
                 <h4>Ghi chú</h4>
                 <input
+                  v-model="note"
                   class="input-text validate-postcode"
                   type="text"
                   name="note"
@@ -135,15 +140,19 @@
               <table class="total_rate">
                 <tr>
                   <th>Tổng đơn hàng</th>
-                  <th>{{ totalOrder() }}</th>
+                  <th>{{ formatPrice(totalOrder()) }}</th>
                 </tr>
               </table>
             </div>
             <div class="check_out_simble review_button">
-              <button type="submit" title="Submit Review" class="button">
+              <button
+                type="submit"
+                title="Submit Review"
+                class="button"
+                @click="createOrder()"
+              >
                 Thanh toán
               </button>
-              <h2><a href="">Checkout with Multiple Addresses</a></h2>
             </div>
           </div>
         </div>
@@ -156,11 +165,17 @@
 <script>
 import HeaderHome from "../ClientComponents/HeaderHome.vue";
 import FooterHome from "../ClientComponents/FooterHome.vue";
+import axios from "axios";
+const API_URL = "http://localhost:8088/";
 
 export default {
   data() {
     return {
       itemsCart: JSON.parse(window.localStorage.getItem("cart")),
+      userName: window.localStorage.getItem("sessionLoginClient"),
+      deliveryAddress: "",
+      note: "",
+      errorAddress: "",
     };
   },
   methods: {
@@ -181,7 +196,60 @@ export default {
       for (let i = 0; i < this.itemsCart.length; i++) {
         totalItem += this.itemsCart[i]["quantity"] * this.itemsCart[i]["price"];
       }
-      return this.formatPrice(totalItem);
+      return totalItem;
+    },
+    createOrder() {
+      if (this.deliveryAddress == "") {
+        this.errorAddress = "Xin hãy nhập địa chỉ giao hàng";
+        return false;
+      }
+
+      let result = null;
+      let today = new Date();
+      let date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+
+      let newOrder = {
+        timeOrder: date,
+        userName: this.userName,
+        deliveryAddress: this.deliveryAddress,
+        totalPrice: parseInt(this.totalOrder()),
+        note: this.note,
+        status: 0,
+      };
+
+      axios
+        .post(API_URL + "order/create", JSON.stringify(newOrder), {
+          headers: {
+            "content-type": "application/json",
+          },
+        })
+        .then((response) => {
+          for (let i = 0; i < this.itemsCart.length; i++) {
+            let item = {
+              bid: this.itemsCart[i]["bid"],
+              oid: response.data,
+              amount: this.itemsCart[i]["price"],
+            };
+
+            axios
+              .post(API_URL + "order/orderdetail", JSON.stringify(item), {
+                headers: {
+                  "content-type": "application/json",
+                },
+              })
+              .then((response) => {
+                result = response.data;
+              });
+          }
+        });
+        this.clearCart();
+
+      return result;
     },
     formatPrice(value) {
       return value.toLocaleString("it-IT", {

@@ -9,7 +9,7 @@
                 class="col-md-3 text-right"
                 style="margin 0; padding: 0; margin-bottom: -50px !important;"
               >
-                <a class="navbar-brand" href="Home">
+                <a class="navbar-brand" href="HomePage">
                   <img
                     src="../../assets/full-logo.png"
                     class="img-fluid"
@@ -23,7 +23,7 @@
                   <div class="col-md-10">
                     <div class="input-group rounded">
                       <input
-                        type="email"
+                        v-model="inputSearch"
                         class="form-control rounded"
                         id="input-home-search"
                         placeholder="Bạn muốn tìm kiểm...?"
@@ -48,7 +48,10 @@
                           @mouseover="displaySmallCart = true"
                           >mdi-shopping</v-icon
                         >
-                        <div id="amount-product">{{ itemsCart.length }}</div>
+                        <div id="amount-product" v-if="this.$store.state.cart != null">
+                          {{ this.$store.state.cart.length }}
+                        </div>
+                        <div id="amount-product" v-else>0</div>
                       </v-btn>
                     </a>
                     <div
@@ -59,7 +62,7 @@
                       <div class="items-in-cart">
                         <div class="shopping-cart-item">
                           <table>
-                            <tr v-for="item in itemsCart" :key="item.bid">
+                            <tr v-for="item in this.$store.state.cart" :key="item.bid">
                               <td style="width: 100px">
                                 <router-link
                                   :to="{
@@ -152,11 +155,33 @@
                   <tr>
                     <td></td>
                     <td colspan="2" class="text-right">
-                      <a href="/RegisterClient" class="a-header" v-show="isLogined==false" > Đăng kí </a>
-                      <a style="font-weight: 500; color: red;" v-show="isLogined==true" @mouseover="isShowMenuUser=true"> <fa-icon icon="user" /> Hi, {{ sessionLoginClient }}</a>
-                      <div id="menu-user-logined" v-show="isShowMenuUser" @mouseleave="isShowMenuUser=false">
-                        <a href="/UserManagement"><div class="item-menu-user">Tài khoản của tôi</div></a>
-                        <a href="/UserManagement"><div class="item-menu-user">Đơn hàng của tôi</div></a>
+                      <a
+                        href="/RegisterClient"
+                        class="a-header"
+                        v-show="isLogined == false"
+                      >
+                        Đăng kí
+                      </a>
+                      <a
+                        style="font-weight: 500; color: red"
+                        v-show="isLogined == true"
+                        @mouseover="isShowMenuUser = true"
+                      >
+                        <fa-icon icon="user" /> Hi, {{ sessionLoginClient }}</a
+                      >
+                      <div
+                        id="menu-user-logined"
+                        v-show="isShowMenuUser"
+                        @mouseleave="isShowMenuUser = false"
+                      >
+                        <a href="/UserManagement"
+                          ><div class="item-menu-user">
+                            Tài khoản của tôi
+                          </div></a
+                        >
+                        <a href="/UserManagement"
+                          ><div class="item-menu-user">Đơn hàng của tôi</div></a
+                        >
                         <!-- <div class="item-menu-user">Tài khoản của tôi</div> -->
                       </div>
                     </td>
@@ -244,9 +269,7 @@
                     href="#"
                     v-for="(cat, index) in categories"
                     :key="index"
-                  >
-                    {{ cat.categoryName }}</a
-                  >
+                  ><router-link :to="{ path: 'Shop', query: { cid: cat.cid } }"> {{ cat.categoryName }}</router-link> </a> 
                 </div>
               </li>
               <li class="nav-item">
@@ -276,19 +299,16 @@ export default {
     return {
       display: false,
       displaySmallCart: false,
-      amountProduct: 2,
-      amountItem: 1,
       categories: [],
       sessionLoginClient: "",
       isLogined: false,
-      itemsCart: JSON.parse(window.localStorage.getItem("cart")),
       isShowMenuUser: false,
+      inputSearch: ''
     };
   },
   methods: {
     removeItem(bid) {
       this.$store.commit("removeItem", bid);
-      this.itemsCart = JSON.parse(window.localStorage.getItem("cart"));
     },
     toggleDropdown() {
       this.display = !this.display;
@@ -11346,33 +11366,33 @@ h5,
 .img-product {
   border-radius: 4px !important;
 }
-#menu-user-logined{
-  margin-top: 5px ;
-  width: auto; 
-  height: auto; 
+#menu-user-logined {
+  margin-top: 5px;
+  width: auto;
+  height: auto;
   background-color: rgb(223, 211, 211);
   position: absolute;
   z-index: 10;
-  -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.75);
 }
 
-.item-menu-user{
+.item-menu-user {
   height: auto;
   padding: 7px 15px 7px 15px;
   cursor: pointer;
   font-size: 0.8rem;
   text-align: left;
-  background: linear-gradient(to left, rgb(255, 255, 255) 50%, #eb4d4b 50%) right;
+  background: linear-gradient(to left, rgb(255, 255, 255) 50%, #eb4d4b 50%)
+    right;
   background-size: 200%;
-  transition: .2s ease-out;
+  transition: 0.2s ease-out;
   color: black;
 }
 
-.item-menu-user:hover{
+.item-menu-user:hover {
   color: white;
   background-position: left;
 }
-
 </style>
