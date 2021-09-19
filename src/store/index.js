@@ -54,9 +54,9 @@ export default new Vuex.Store({
             window.localStorage.setItem('cart', JSON.stringify(arrayItemCart));
             state.cart = arrayItemCart;
         },
-        clearCart() {
+        clearCart(state) {
             window.localStorage.removeItem('cart');
-            state.cart = arrayItemCart;
+            state.cart = [];
         },
         changeQuantity(state, { bid, quantity }) {
             let arrayItemCart = JSON.parse(window.localStorage.getItem('cart'));
