@@ -2,7 +2,7 @@
   <div class="user-management">
     <HeaderHome />
     <div class="container body-content">
-      <div class="row" style="margin: auto;">
+      <div class="row" style="margin: auto">
         <div class="col-md-3">
           <div class="text-center">
             <img
@@ -80,7 +80,6 @@
                 type="password"
                 class="form-control"
                 name="password"
-                
                 placeholder="Password"
               />
             </div>
@@ -129,8 +128,24 @@
           </form>
         </div>
         <div class="col-md-9" id="list-order-of-user" v-if="showOrderDetail">
-            <h3>Đơn hàng của tôi</h3>
-            <br /><br />
+          <h3>Đơn hàng của tôi</h3>
+          <br /><br />
+          <table>
+            <tr>
+              <th>Mã đơn</th>
+              <th>Thời gian đặt hàng</th>
+              <th>Địa chỉ GH</th>
+              <th>Thành tiền</th>
+              <th>Trạng thái ĐH</th>
+            </tr>
+            <tr v-for="(item, index) in listOrder" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ item.timeOrder }}</td>
+              <td>{{ item.deliveryAddress }}</td>
+              <td>{{ formatPrice(item.totalPrice) }}</td>
+              <td>{{ formatStatus(item.status) }}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </div>
@@ -170,11 +185,13 @@ export default {
       validationComfirmPassword: "",
       showAccountDetail: true,
       showOrderDetail: false,
+      listOrder: [],
     };
   },
   mounted() {
     this.username = localStorage.getItem("sessionLoginClient");
     this.findUserAccount(this.username);
+    this.findAllOrderOfUser(this.username);
   },
   methods: {
     findUserAccount: function (username) {
@@ -214,6 +231,38 @@ export default {
         })
         .catch((error) => console.log(error));
     },
+    findAllOrderOfUser: function (username) {
+      this.errorValidation = [];
+      this.isCreateNew = true;
+      this.isUpdate = false;
+      this.isDelete = false;
+      axios
+        .get(API_URL + "order/getOrderByUserName?username=" + username)
+        .then((response) => {
+          //this.admin = response.data;
+          this.listOrder = response.data;
+          //console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    formatPrice(value) {
+      return value.toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      });
+    },
+    formatStatus(x) {
+      switch (x) {
+        case -1:
+          return "Đã hủy";
+        case 0:
+          return "Chờ xử lí";
+        case 1:
+          return "Đã xác nhận";
+      }
+    },
   },
 };
 </script>
@@ -243,7 +292,13 @@ export default {
   margin: 0 5vw 0 5vw;
 }
 
-#list-order-of-user{
-   padding: 0 5vw 0 5vw;
+#list-order-of-user {
+  padding: 0 5vw 0 5vw;
+}
+table {
+  width: 100%;
+}
+tr td{
+  padding: 5px;
 }
 </style>

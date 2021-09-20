@@ -279,17 +279,17 @@ export default {
 /* Embed Map css */
 .mapouter {
   margin-top: 40px;
-  width: 600px;
+  width: 350px;
   height: 240px;
 }
 .gmap_canvas {
   overflow: hidden;
   background: none !important;
-  width: 600px;
+  width: 350px;
   height: 240px;
 }
 .gmap_iframe {
-  width: 600px !important;
+  width: 350px !important;
   height: 240px !important;
 }
 
