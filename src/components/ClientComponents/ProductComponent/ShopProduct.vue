@@ -136,7 +136,7 @@ export default {
       axios.get(API_URL + "book/getAllBook").then((response) => {
         this.productsSearch = response.data;
         this.getProductWithPrice();
-        this.products = this.productsSearch.filter(product => product.titleBook.toLowerCase().includes(search));
+        this.products = this.productsSearch.filter(product => product.titleBook.toLowerCase().includes(search.toLowerCase()));
       });
     }
   },
