@@ -56,7 +56,7 @@
                           >mdi-shopping</v-icon
                         >
                         <div id="amount-product" v-if="this.$store.state.cart != null">
-                          {{ this.$store.state.cart.length }}
+                          {{ sessionLoginClient==null ? '0' : this.$store.state.cart.length }}
                         </div>
                         <div id="amount-product" v-else>0</div>
                       </v-btn>
@@ -66,11 +66,11 @@
                       v-show="displaySmallCart"
                       @mouseleave="displaySmallCart = false"
                     >
-                    <div v-if="this.$store.state.cart.length==0">Giỏ hàng của bạn đang trống!
+                    <div v-if="this.$store.state.cart.length==0 && sessionLoginClient==null">Giỏ hàng của bạn đang trống!
                       <br>
                       <v-icon style="color: #eb4d4b;font-size: 4rem">mdi-shopping</v-icon>
                     </div>
-                      <div class="items-in-cart" v-if="this.$store.state.cart.length != 0">
+                      <div class="items-in-cart" v-if="this.$store.state.cart.length!= 0 && sessionLoginClient!=null">
                         <div class="shopping-cart-item">
                           <table >
                             <tr v-for="item in this.$store.state.cart" :key="item.bid">

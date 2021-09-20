@@ -958,6 +958,7 @@ export default {
         )
         .then((response) => {
           alert(response.data.msg);
+                    this.getAllCategory();
           this.newCat = "";
         })
         .catch((error) => console.log(error));
