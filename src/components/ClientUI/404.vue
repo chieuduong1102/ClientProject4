@@ -20,34 +20,6 @@
                   available.
                 </h3>
               </div>
-              <div class="error-form">
-                <p>
-                  To find a product, please type its name in the field below.
-                </p>
-                <form
-                  action="#"
-                  method="post"
-                  id="errorForm"
-                  class="error-ser-form"
-                >
-                  <div class="error-form-group form-group">
-                    <span>Search our product catalog :</span>
-                    <input
-                      type="text"
-                      class="form-control input-feild"
-                      id="errorform"
-                      name="errorform"
-                      value=""
-                    />
-                    <input
-                      type="submit"
-                      class="error-search"
-                      value="Search"
-                      name="errorsearch"
-                    />
-                  </div>
-                </form>
-              </div>
               <div class="error-back-home">
                 <a class="add-tag-btn" href="HomePage"
                   ><i class="fa fa-chevron-left"></i> Home Page</a

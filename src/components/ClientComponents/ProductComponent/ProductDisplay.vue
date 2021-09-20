@@ -73,7 +73,6 @@ export default {
           this.arrayScore.push(res[index].scoreRate);
         }
         this.rating = Math.round(this.arrayScore.reduce((a,b)=>a+b)/this.arrayScore.length);
-        console.log(this.rating);
       });
     },
   },

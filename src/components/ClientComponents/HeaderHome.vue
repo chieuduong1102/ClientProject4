@@ -30,6 +30,12 @@
                         aria-label="Register"
                         aria-describedby="search-addon"
                       />
+                      <router-link
+                                  :to="{
+                                    path: 'Shop',
+                                    query: { search : inputSearch },
+                                  }"
+                                >
                       <button
                         type="submit"
                         class="input-group-text border-0 btn btn-danger"
@@ -37,6 +43,7 @@
                       >
                         <fa-icon icon="search" />
                       </button>
+                      </router-link>
                     </div>
                   </div>
                   <div class="col-md-2">
