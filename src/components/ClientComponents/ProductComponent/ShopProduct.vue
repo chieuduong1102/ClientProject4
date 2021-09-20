@@ -91,6 +91,8 @@ export default {
         this.products = response.data;
         this.productsSearch = response.data;
         this.getProductWithPrice();
+            console.log(this.products, this.productsSearch);
+
       });
     },
     getProductWithPrice: function () {
@@ -130,10 +132,19 @@ export default {
           this.getProductWithPrice();
         });
     },
+    searchWithKeyWord: function (search) {
+      axios.get(API_URL + "book/getAllBook").then((response) => {
+        this.productsSearch = response.data;
+        this.getProductWithPrice();
+        this.products = this.productsSearch.filter(product => product.titleBook.toLowerCase().includes(search));
+      });
+    }
   },
   mounted() {
     if (!isNaN(this.$route.query.cid)) {
       this.searchWithCategoryId(this.$route.query.cid);
+    }else if (this.$route.query.search){
+      this.searchWithKeyWord(this.$route.query.search);
     }else {
       this.getAllBook();
     }
