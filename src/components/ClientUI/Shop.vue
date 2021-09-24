@@ -41,7 +41,6 @@
                       ><i class="fa fa-angle-right"></i
                       >{{ category.categoryName }}</a
                     >
-                    <span>(4)</span>
                   </li>
                 </ul>
               </div>

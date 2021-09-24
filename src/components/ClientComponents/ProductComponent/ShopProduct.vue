@@ -28,6 +28,7 @@
             :click-handler="clickCallback"
             :prev-text="this.prev"
             :next-text="this.next"
+            ref="topPagination"
           >
           </paginate>
         </div>
@@ -58,7 +59,7 @@ export default {
     valuePrice: Array,
     categoryIdSearch: Number,
     perPage: Number,
-    getAll: Boolean
+    getAll: Boolean,
   },
   data() {
     return {
@@ -73,6 +74,11 @@ export default {
     getItems: function () {
       let current = this.currentPage * this.perPage;
       let start = current - this.perPage;
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
       return this.products.slice(start, current);
     },
     getPageCount: function () {
@@ -91,12 +97,14 @@ export default {
         this.products = response.data;
         this.productsSearch = response.data;
         this.getProductWithPrice();
-            console.log(this.products, this.productsSearch);
-
       });
     },
     getProductWithPrice: function () {
-      this.products = this.productsSearch.filter(product => product.price > this.valuePrice[0] && product.price < this.valuePrice[1]);
+      this.products = this.productsSearch.filter(
+        (product) =>
+          product.price > this.valuePrice[0] &&
+          product.price < this.valuePrice[1]
+      );
     },
     sortByName: function (methodSort) {
       if (methodSort) {
@@ -118,9 +126,9 @@ export default {
     },
     sortByPosition: function (methodSort) {
       if (methodSort) {
-        return this.products.sort((a, b) => (a.bid > b.price ? 1 : -1));
+        return this.products.sort((a, b) => (a.bid > b.bid ? 1 : -1));
       } else {
-        return this.products.sort((a, b) => (a.bid > b.price ? -1 : 1));
+        return this.products.sort((a, b) => (a.bid > b.bid ? -1 : 1));
       }
     },
     searchWithCategoryId: function (cid) {
@@ -136,16 +144,18 @@ export default {
       axios.get(API_URL + "book/getAllBook").then((response) => {
         this.productsSearch = response.data;
         this.getProductWithPrice();
-        this.products = this.productsSearch.filter(product => product.titleBook.toLowerCase().includes(search.toLowerCase()));
+        this.products = this.productsSearch.filter((product) =>
+          product.titleBook.toLowerCase().includes(search.toLowerCase())
+        );
       });
-    }
+    },
   },
   mounted() {
     if (!isNaN(this.$route.query.cid)) {
       this.searchWithCategoryId(this.$route.query.cid);
-    }else if (this.$route.query.search){
+    } else if (this.$route.query.search) {
       this.searchWithKeyWord(this.$route.query.search);
-    }else {
+    } else {
       this.getAllBook();
     }
   },
@@ -179,14 +189,14 @@ export default {
       this.currentPage = 1;
     },
     getAll: function () {
-      if(this.getAll){
+      if (this.getAll) {
         this.getAllBook();
       }
       this.currentPage = 1;
     },
     perPage: function () {
       this.currentPage = 1;
-    }
+    },
   },
 };
 </script>
